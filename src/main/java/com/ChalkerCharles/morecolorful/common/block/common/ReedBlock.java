@@ -96,9 +96,11 @@ public class ReedBlock extends BushBlock implements BonemealableBlock, SimpleWat
     private static boolean isHydrated(BlockState pState, LevelReader pLevel, BlockPos pPos) {
         BlockPos blockpos = pPos.below();
         for (Direction direction : Direction.Plane.HORIZONTAL) {
-            BlockState blockstate = pLevel.getBlockState(blockpos.relative(direction));
-            FluidState fluidstate = pLevel.getFluidState(blockpos.relative(direction));
-            if (pState.canBeHydrated(pLevel, pPos, fluidstate, blockpos.relative(direction)) || blockstate.is(Blocks.FROSTED_ICE)) {
+            BlockPos relativePos = blockpos.relative(direction);
+            FluidState fluidstate = pLevel.getFluidState(relativePos);
+            BlockState blockstate = pLevel.getBlockState(relativePos);
+
+            if (fluidstate.is(Fluids.WATER) || blockstate.is(Blocks.FROSTED_ICE)) {
                 return true;
             }
         }

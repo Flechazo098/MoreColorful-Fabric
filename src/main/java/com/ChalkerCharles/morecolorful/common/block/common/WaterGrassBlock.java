@@ -125,13 +125,13 @@ public class WaterGrassBlock extends DoublePlantBlock implements SimpleWaterlogg
     public void performBonemeal(ServerLevel pLevel, RandomSource pRandom, BlockPos pPos, BlockState pState) {
         BlockPos pos = getBottomPos(pPos, pState);
         if (pState.is(ModBlocks.SHORT_WATER_GRASS)) {
-            DoublePlantBlock.placeAt(pLevel, ModBlocks.TALL_WATER_GRASS.get().defaultBlockState(), pos, 2);
+            DoublePlantBlock.placeAt(pLevel, ModBlocks.TALL_WATER_GRASS.defaultBlockState(), pos, 2);
         } else {
             Optional<BlockPos> pos1 = BlockPos.findClosestMatch(pos, 1, 0, p -> {
                 if (p.equals(pos)) return false;
                 return canPlace(pLevel, p);
             });
-            pos1.ifPresent(pos2 -> DoublePlantBlock.placeAt(pLevel, ModBlocks.SHORT_WATER_GRASS.get().defaultBlockState(), pos2, 3));
+            pos1.ifPresent(pos2 -> DoublePlantBlock.placeAt(pLevel, ModBlocks.SHORT_WATER_GRASS.defaultBlockState(), pos2, 3));
         }
     }
 }

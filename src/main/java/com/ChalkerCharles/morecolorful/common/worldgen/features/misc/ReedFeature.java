@@ -16,7 +16,7 @@ import static com.ChalkerCharles.morecolorful.common.block.common.ReedBlock.PART
 import static com.ChalkerCharles.morecolorful.common.block.common.ReedBlock.TALL_REED;
 
 public class ReedFeature extends Feature<ProbabilityFeatureConfiguration> {
-    private static final BlockState REED_BOTTOM = ModBlocks.REED.get().defaultBlockState();
+    private static final BlockState REED_BOTTOM = ModBlocks.REED.defaultBlockState();
     private static final BlockState REED_TOP = REED_BOTTOM.setValue(PART, ReedPart.UPPER);
     private static final BlockState TALL_REED_BOTTOM = REED_BOTTOM.setValue(TALL_REED, true);
     private static final BlockState TALL_REED_MIDDLE = TALL_REED_BOTTOM.setValue(PART, ReedPart.MID);

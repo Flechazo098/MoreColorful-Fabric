@@ -14,7 +14,7 @@ import static com.ChalkerCharles.morecolorful.common.block.musical_instruments.H
 public class HiHatBlockEntity extends BlockEntity implements CymbalUtils {
 
     public HiHatBlockEntity(BlockPos pPos, BlockState pBlockState) {
-        super(ModBlockEntities.HIHAT.get(), pPos, pBlockState);
+        super(ModBlockEntities.HIHAT, pPos, pBlockState);
     }
 
     public static <T extends BlockEntity> void tick(Level pLevel, BlockPos pPos, BlockState pState, T pBlockEntity) {

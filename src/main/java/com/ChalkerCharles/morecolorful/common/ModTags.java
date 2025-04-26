@@ -1,6 +1,7 @@
 package com.ChalkerCharles.morecolorful.common;
 
 import com.ChalkerCharles.morecolorful.MoreColorful;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
@@ -32,7 +33,7 @@ public abstract class ModTags {
         public static final TagKey<Block> LAKES_CANNOT_REPLACE = create("lakes_cannot_replace");
 
         private static TagKey<Block> create(String path) {
-            return BlockTags.create(ResourceLocation.fromNamespaceAndPath(MoreColorful.MODID, path));
+            return TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(MoreColorful.MODID, path));
         }
     }
 
@@ -49,8 +50,8 @@ public abstract class ModTags {
         public static final TagKey<Item> DAWN_REDWOOD_LOGS = create("dawn_redwood_logs");
         public static final TagKey<Item> JACARANDA_LOGS = create("jacaranda_logs");
         public static final TagKey<Item> WILLOW_LOGS = create("willow_logs");
-        private static TagKey<Item> create(String path) {
-            return ItemTags.create(ResourceLocation.fromNamespaceAndPath(MoreColorful.MODID, path));
+        private static TagKey<Item> create(String string) {
+            return TagKey.create(Registries.ITEM, ResourceLocation.withDefaultNamespace(string));
         }
     }
 }

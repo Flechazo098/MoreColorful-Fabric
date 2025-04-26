@@ -1,10 +1,10 @@
 package com.ChalkerCharles.morecolorful.common.block.properties;
 
 import com.ChalkerCharles.morecolorful.common.ModSounds;
-import net.neoforged.neoforge.common.util.DeferredSoundType;
+import net.minecraft.world.level.block.SoundType;
 
 public class ModSoundTypes {
-    public static final DeferredSoundType RARE_WOOD = new DeferredSoundType(
+    public static final SoundType RARE_WOOD = new SoundType(
             1.0F,
             1.0F,
             ModSounds.RARE_WOOD_BREAK,
@@ -13,7 +13,7 @@ public class ModSoundTypes {
             ModSounds.RARE_WOOD_HIT,
             ModSounds.RARE_WOOD_FALL
     );
-    public static final DeferredSoundType RARE_WOOD_HANGING_SIGN = new DeferredSoundType(
+    public static final SoundType RARE_WOOD_HANGING_SIGN = new SoundType(
             1.0F,
             1.0F,
             ModSounds.RARE_WOOD_HANGING_SIGN_BREAK,
@@ -22,7 +22,7 @@ public class ModSoundTypes {
             ModSounds.RARE_WOOD_HANGING_SIGN_HIT,
             ModSounds.RARE_WOOD_HANGING_SIGN_FALL
     );
-    public static final DeferredSoundType LEAF_LITTER = new DeferredSoundType(
+    public static final SoundType LEAF_LITTER = new SoundType(
             1.0F,
             1.0F,
             ModSounds.LEAF_LITTER_BREAK,

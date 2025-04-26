@@ -35,7 +35,7 @@ public class ModWoodTypes {
                 type,
                 ModSoundTypes.RARE_WOOD,
                 ModSoundTypes.RARE_WOOD_HANGING_SIGN,
-                ModSounds.RARE_WOOD_FENCE_GATE_CLOSE.get(),
-                ModSounds.RARE_WOOD_FENCE_GATE_OPEN.get()));
+                ModSounds.RARE_WOOD_FENCE_GATE_CLOSE,
+                ModSounds.RARE_WOOD_FENCE_GATE_OPEN));
     }
 }

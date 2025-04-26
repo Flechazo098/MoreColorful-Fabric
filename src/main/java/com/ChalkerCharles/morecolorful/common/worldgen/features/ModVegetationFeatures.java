@@ -82,8 +82,8 @@ public class ModVegetationFeatures {
         HolderGetter<PlacedFeature> placedFeature = context.lookup(Registries.PLACED_FEATURE);
 
         SimpleWeightedRandomList.Builder<BlockState> begonias = SimpleWeightedRandomList.builder();
-        addPetals(begonias, ModBlocks.BEGONIAS.get(), 3);
-        begonias.add(ModBlocks.RED_CARNATION.get().defaultBlockState(), 2);
+        addPetals(begonias, ModBlocks.BEGONIAS, 3);
+        begonias.add(ModBlocks.RED_CARNATION.defaultBlockState(), 2);
         register(context, FLOWER_CRABAPPLE,
                 Feature.FLOWER,
                 new RandomPatchConfiguration(
@@ -91,8 +91,8 @@ public class ModVegetationFeatures {
                 )
         );
         SimpleWeightedRandomList.Builder<BlockState> whitePetals = SimpleWeightedRandomList.builder();
-        addPetals(whitePetals, ModBlocks.WHITE_PETALS.get(), 3);
-        whitePetals.add(ModBlocks.WHITE_CARNATION.get().defaultBlockState(), 2);
+        addPetals(whitePetals, ModBlocks.WHITE_PETALS, 3);
+        whitePetals.add(ModBlocks.WHITE_CARNATION.defaultBlockState(), 2);
         register(context, FLOWER_WHITE_CHERRY,
                 Feature.FLOWER,
                 new RandomPatchConfiguration(
@@ -105,8 +105,8 @@ public class ModVegetationFeatures {
                         32, 6, 2, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(
                                 new WeightedStateProvider(
                                         SimpleWeightedRandomList.<BlockState>builder()
-                                                .add(ModBlocks.PINK_CARNATION.get().defaultBlockState())
-                                                .add(ModBlocks.PINK_DAISY.get().defaultBlockState())
+                                                .add(ModBlocks.PINK_CARNATION.defaultBlockState())
+                                                .add(ModBlocks.PINK_DAISY.defaultBlockState())
                                 )
                         ))
                 )
@@ -147,12 +147,12 @@ public class ModVegetationFeatures {
                                                 List.of(
                                                         Blocks.DANDELION.defaultBlockState(),
                                                         Blocks.OXEYE_DAISY.defaultBlockState(),
-                                                        ModBlocks.RED_SPIDER_LILY.get().defaultBlockState(),
-                                                        ModBlocks.YELLOW_CHRYSANTHEMUM.get().defaultBlockState(),
+                                                        ModBlocks.RED_SPIDER_LILY.defaultBlockState(),
+                                                        ModBlocks.YELLOW_CHRYSANTHEMUM.defaultBlockState(),
                                                         Blocks.DANDELION.defaultBlockState(),
                                                         Blocks.OXEYE_DAISY.defaultBlockState(),
-                                                        ModBlocks.RED_SPIDER_LILY.get().defaultBlockState(),
-                                                        ModBlocks.YELLOW_CHRYSANTHEMUM.get().defaultBlockState()
+                                                        ModBlocks.RED_SPIDER_LILY.defaultBlockState(),
+                                                        ModBlocks.YELLOW_CHRYSANTHEMUM.defaultBlockState()
                                                 )
                                         )
                                 )
@@ -160,8 +160,8 @@ public class ModVegetationFeatures {
                 )
         );
         SimpleWeightedRandomList.Builder<BlockState> autumnBirchLeafLitters = SimpleWeightedRandomList.builder();
-        addLeafLitters(autumnBirchLeafLitters, ModBlocks.ORANGE_BIRCH_LEAF_LITTER.get());
-        addLeafLitters(autumnBirchLeafLitters, ModBlocks.YELLOW_BIRCH_LEAF_LITTER.get());
+        addLeafLitters(autumnBirchLeafLitters, ModBlocks.ORANGE_BIRCH_LEAF_LITTER);
+        addLeafLitters(autumnBirchLeafLitters, ModBlocks.YELLOW_BIRCH_LEAF_LITTER);
         register(context, AUTUMN_BIRCH_LEAF_LITTER,
                 Feature.RANDOM_PATCH,
                 new RandomPatchConfiguration(
@@ -204,12 +204,12 @@ public class ModVegetationFeatures {
                                                 List.of(
                                                         Blocks.DANDELION.defaultBlockState(),
                                                         Blocks.OXEYE_DAISY.defaultBlockState(),
-                                                        ModBlocks.OPEN_DAYBLOOM.get().defaultBlockState(),
-                                                        ModBlocks.YELLOW_CHRYSANTHEMUM.get().defaultBlockState(),
+                                                        ModBlocks.OPEN_DAYBLOOM.defaultBlockState(),
+                                                        ModBlocks.YELLOW_CHRYSANTHEMUM.defaultBlockState(),
                                                         Blocks.DANDELION.defaultBlockState(),
                                                         Blocks.OXEYE_DAISY.defaultBlockState(),
-                                                        ModBlocks.OPEN_DAYBLOOM.get().defaultBlockState(),
-                                                        ModBlocks.YELLOW_CHRYSANTHEMUM.get().defaultBlockState()
+                                                        ModBlocks.OPEN_DAYBLOOM.defaultBlockState(),
+                                                        ModBlocks.YELLOW_CHRYSANTHEMUM.defaultBlockState()
                                                 )
                                         )
                                 )
@@ -217,7 +217,7 @@ public class ModVegetationFeatures {
                 )
         );
         SimpleWeightedRandomList.Builder<BlockState> ginkgoLeafLitters = SimpleWeightedRandomList.builder();
-        addLeafLitters(ginkgoLeafLitters, ModBlocks.GINKGO_LEAF_LITTER.get());
+        addLeafLitters(ginkgoLeafLitters, ModBlocks.GINKGO_LEAF_LITTER);
         register(context, GINKGO_LEAF_LITTER,
                 Feature.RANDOM_PATCH,
                 new RandomPatchConfiguration(
@@ -252,12 +252,12 @@ public class ModVegetationFeatures {
                                                 List.of(
                                                         Blocks.DANDELION.defaultBlockState(),
                                                         Blocks.OXEYE_DAISY.defaultBlockState(),
-                                                        ModBlocks.GREEN_CHRYSANTHEMUM.get().defaultBlockState(),
-                                                        ModBlocks.RED_SPIDER_LILY.get().defaultBlockState(),
+                                                        ModBlocks.GREEN_CHRYSANTHEMUM.defaultBlockState(),
+                                                        ModBlocks.RED_SPIDER_LILY.defaultBlockState(),
                                                         Blocks.DANDELION.defaultBlockState(),
                                                         Blocks.OXEYE_DAISY.defaultBlockState(),
-                                                        ModBlocks.GREEN_CHRYSANTHEMUM.get().defaultBlockState(),
-                                                        ModBlocks.RED_SPIDER_LILY.get().defaultBlockState()
+                                                        ModBlocks.GREEN_CHRYSANTHEMUM.defaultBlockState(),
+                                                        ModBlocks.RED_SPIDER_LILY.defaultBlockState()
                                                 )
                                         )
                                 )
@@ -265,7 +265,7 @@ public class ModVegetationFeatures {
                 )
         );
         SimpleWeightedRandomList.Builder<BlockState> mapleLeafLitters = SimpleWeightedRandomList.builder();
-        addLeafLitters(mapleLeafLitters, ModBlocks.MAPLE_LEAF_LITTER.get());
+        addLeafLitters(mapleLeafLitters, ModBlocks.MAPLE_LEAF_LITTER);
         register(context, MAPLE_LEAF_LITTER,
                 Feature.RANDOM_PATCH,
                 new RandomPatchConfiguration(
@@ -332,16 +332,16 @@ public class ModVegetationFeatures {
                                                 List.of(
                                                         Blocks.DANDELION.defaultBlockState(),
                                                         Blocks.OXEYE_DAISY.defaultBlockState(),
-                                                        ModBlocks.YELLOW_CHRYSANTHEMUM.get().defaultBlockState(),
-                                                        ModBlocks.GREEN_CHRYSANTHEMUM.get().defaultBlockState(),
-                                                        ModBlocks.RED_SPIDER_LILY.get().defaultBlockState(),
-                                                        ModBlocks.OPEN_DAYBLOOM.get().defaultBlockState(),
+                                                        ModBlocks.YELLOW_CHRYSANTHEMUM.defaultBlockState(),
+                                                        ModBlocks.GREEN_CHRYSANTHEMUM.defaultBlockState(),
+                                                        ModBlocks.RED_SPIDER_LILY.defaultBlockState(),
+                                                        ModBlocks.OPEN_DAYBLOOM.defaultBlockState(),
                                                         Blocks.DANDELION.defaultBlockState(),
                                                         Blocks.OXEYE_DAISY.defaultBlockState(),
-                                                        ModBlocks.YELLOW_CHRYSANTHEMUM.get().defaultBlockState(),
-                                                        ModBlocks.GREEN_CHRYSANTHEMUM.get().defaultBlockState(),
-                                                        ModBlocks.RED_SPIDER_LILY.get().defaultBlockState(),
-                                                        ModBlocks.OPEN_DAYBLOOM.get().defaultBlockState()
+                                                        ModBlocks.YELLOW_CHRYSANTHEMUM.defaultBlockState(),
+                                                        ModBlocks.GREEN_CHRYSANTHEMUM.defaultBlockState(),
+                                                        ModBlocks.RED_SPIDER_LILY.defaultBlockState(),
+                                                        ModBlocks.OPEN_DAYBLOOM.defaultBlockState()
                                                 )
                                         )
                                 )
@@ -349,9 +349,9 @@ public class ModVegetationFeatures {
                 )
         );
         SimpleWeightedRandomList.Builder<BlockState> frosty = SimpleWeightedRandomList.builder();
-        addPetals(frosty, ModBlocks.FROSTY_PETALS.get(), 2);
-        frosty.add(ModBlocks.EDELWEISS.get().defaultBlockState());
-        frosty.add(ModBlocks.CROCUS.get().defaultBlockState());
+        addPetals(frosty, ModBlocks.FROSTY_PETALS, 2);
+        frosty.add(ModBlocks.EDELWEISS.defaultBlockState());
+        frosty.add(ModBlocks.CROCUS.defaultBlockState());
         register(context, FLOWER_FROST,
                 Feature.FLOWER,
                 new RandomPatchConfiguration(
@@ -360,14 +360,14 @@ public class ModVegetationFeatures {
         );
         register(context, PATCH_CROCUS,
                 Feature.FLOWER,
-                grassPatch(BlockStateProvider.simple(ModBlocks.CROCUS.get()), 64)
+                grassPatch(BlockStateProvider.simple(ModBlocks.CROCUS), 64)
         );
         register(context, PATCH_STRAWBERRY_BUSH,
                 Feature.RANDOM_PATCH,
                 FeatureUtils.simplePatchConfiguration(
                         Feature.SIMPLE_BLOCK,
                         new SimpleBlockConfiguration(
-                                BlockStateProvider.simple(ModBlocks.STRAWBERRY_BUSH.get().defaultBlockState().setValue(BerryBushBlock.AGE, 4))
+                                BlockStateProvider.simple(ModBlocks.STRAWBERRY_BUSH.defaultBlockState().setValue(BerryBushBlock.AGE, 4))
                         ),
                         List.of(Blocks.GRASS_BLOCK)
                 )
@@ -377,7 +377,7 @@ public class ModVegetationFeatures {
                 FeatureUtils.simplePatchConfiguration(
                         Feature.SIMPLE_BLOCK,
                         new SimpleBlockConfiguration(
-                                BlockStateProvider.simple(ModBlocks.BLUEBERRY_BUSH.get().defaultBlockState().setValue(BerryBushBlock.AGE, 4))
+                                BlockStateProvider.simple(ModBlocks.BLUEBERRY_BUSH.defaultBlockState().setValue(BerryBushBlock.AGE, 4))
                         ),
                         List.of(Blocks.GRASS_BLOCK)
                 )
@@ -385,11 +385,11 @@ public class ModVegetationFeatures {
         register(context, FLOWER_DAWN_REDWOOD,
                 Feature.FLOWER,
                 new RandomPatchConfiguration(
-                        64, 6, 2, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(ModBlocks.IRIS.get())))
+                        64, 6, 2, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(ModBlocks.IRIS)))
                 )
         );
         SimpleWeightedRandomList.Builder<BlockState> dawnRedwoodLeafLitters = SimpleWeightedRandomList.builder();
-        addLeafLitters(dawnRedwoodLeafLitters, ModBlocks.DAWN_REDWOOD_LEAF_LITTER.get());
+        addLeafLitters(dawnRedwoodLeafLitters, ModBlocks.DAWN_REDWOOD_LEAF_LITTER);
         register(context, DAWN_REDWOOD_LEAF_LITTER,
                 Feature.RANDOM_PATCH,
                 new RandomPatchConfiguration(
@@ -413,8 +413,8 @@ public class ModVegetationFeatures {
                 )
         );
         SimpleWeightedRandomList.Builder<BlockState> lavenders = SimpleWeightedRandomList.builder();
-        addPetals(lavenders, ModBlocks.VIOLETS.get());
-        lavenders.add(ModBlocks.LAVENDER.get().defaultBlockState(), 128);
+        addPetals(lavenders, ModBlocks.VIOLETS);
+        lavenders.add(ModBlocks.LAVENDER.defaultBlockState(), 128);
         register(context, FLOWER_LAVENDER,
                 Feature.FLOWER,
                 new RandomPatchConfiguration(
@@ -422,8 +422,8 @@ public class ModVegetationFeatures {
                 )
         );
         SimpleWeightedRandomList.Builder<BlockState> violets = SimpleWeightedRandomList.builder();
-        addPetals(violets, ModBlocks.VIOLETS.get(), 2);
-        violets.add(ModBlocks.LAVENDER.get().defaultBlockState());
+        addPetals(violets, ModBlocks.VIOLETS, 2);
+        violets.add(ModBlocks.LAVENDER.defaultBlockState());
         register(context, FLOWER_JACARANDA,
                 Feature.FLOWER,
                 new RandomPatchConfiguration(
@@ -437,8 +437,8 @@ public class ModVegetationFeatures {
                             .add(Blocks.DANDELION.defaultBlockState(), 2)
                             .add(Blocks.POPPY.defaultBlockState(), 2)
                             .add(Blocks.BLUE_ORCHID.defaultBlockState())
-                            .add(ModBlocks.IRIS.get().defaultBlockState())
-                            .add(ModBlocks.DAFFODIL.get().defaultBlockState(), 6)
+                            .add(ModBlocks.IRIS.defaultBlockState())
+                            .add(ModBlocks.DAFFODIL.defaultBlockState(), 6)
                 ), 64)
         );
         register(context, PATCH_WATER_GRASS,
@@ -446,21 +446,21 @@ public class ModVegetationFeatures {
                 waterPatchConfiguration(
                     new WeightedStateProvider(
                             SimpleWeightedRandomList.<BlockState>builder()
-                                    .add(ModBlocks.SHORT_WATER_GRASS.get().defaultBlockState(), 2)
-                                    .add(ModBlocks.TALL_WATER_GRASS.get().defaultBlockState())
+                                    .add(ModBlocks.SHORT_WATER_GRASS.defaultBlockState(), 2)
+                                    .add(ModBlocks.TALL_WATER_GRASS.defaultBlockState())
                     )
                 )
         );
         register(context, PATCH_GERBERA_DAISY,
                 Feature.FLOWER,
-                grassPatch(BlockStateProvider.simple(ModBlocks.GERBERA_DAISY.get()), 64)
+                grassPatch(BlockStateProvider.simple(ModBlocks.GERBERA_DAISY), 64)
         );
         register(context, PATCH_CATTAIL,
                 Feature.RANDOM_PATCH,
                 FeatureUtils.simpleRandomPatchConfiguration(
                         64, PlacementUtils.filtered(
                                 Feature.SIMPLE_BLOCK,
-                                new SimpleBlockConfiguration(BlockStateProvider.simple(ModBlocks.CATTAIL.get())),
+                                new SimpleBlockConfiguration(BlockStateProvider.simple(ModBlocks.CATTAIL)),
                                 BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE
                         )
                 )
@@ -473,19 +473,19 @@ public class ModVegetationFeatures {
                 Feature.RANDOM_PATCH,
                 grassPatch(new WeightedStateProvider(
                         SimpleWeightedRandomList.<BlockState>builder()
-                                .add(ModBlocks.OPEN_WATER_LILY.get().defaultBlockState(), 17)
-                                .add(ModBlocks.OPEN_WHITE_WATER_LILY.get().defaultBlockState(),14)
-                                .add(ModBlocks.OPEN_BLUE_WATER_LILY.get().defaultBlockState())
+                                .add(ModBlocks.OPEN_WATER_LILY.defaultBlockState(), 17)
+                                .add(ModBlocks.OPEN_WHITE_WATER_LILY.defaultBlockState(),14)
+                                .add(ModBlocks.OPEN_BLUE_WATER_LILY.defaultBlockState())
                 ), 8)
         );
         SimpleWeightedRandomList.Builder<BlockState> duckweeds = SimpleWeightedRandomList.builder();
-        addLeafLitters(duckweeds, ModBlocks.DUCKWEEDS.get());
+        addLeafLitters(duckweeds, ModBlocks.DUCKWEEDS);
         register(context, PATCH_DUCKWEEDS,
                 Feature.RANDOM_PATCH,
                 grassPatch(new WeightedStateProvider(duckweeds), 32)
         );
         SimpleWeightedRandomList.Builder<BlockState> buttercups = SimpleWeightedRandomList.builder();
-        addPetals(buttercups, ModBlocks.BUTTERCUPS.get());
+        addPetals(buttercups, ModBlocks.BUTTERCUPS);
         register(context, PATCH_BUTTERCUPS,
                 Feature.FLOWER,
                 new RandomPatchConfiguration(
@@ -493,7 +493,7 @@ public class ModVegetationFeatures {
                 )
         );
         SimpleWeightedRandomList.Builder<BlockState> forget_me_nots = SimpleWeightedRandomList.builder();
-        addPetals(forget_me_nots, ModBlocks.FORGET_ME_NOTS.get());
+        addPetals(forget_me_nots, ModBlocks.FORGET_ME_NOTS);
         register(context, PATCH_FORGET_ME_NOTS,
                 Feature.FLOWER,
                 new RandomPatchConfiguration(
@@ -501,7 +501,7 @@ public class ModVegetationFeatures {
                 )
         );
         SimpleWeightedRandomList.Builder<BlockState> speedwells = SimpleWeightedRandomList.builder();
-        addPetals(speedwells, ModBlocks.SPEEDWELLS.get());
+        addPetals(speedwells, ModBlocks.SPEEDWELLS);
         register(context, PATCH_SPEEDWELLS,
                 Feature.FLOWER,
                 new RandomPatchConfiguration(
@@ -529,9 +529,9 @@ public class ModVegetationFeatures {
                 )
         );
         SimpleWeightedRandomList.Builder<BlockState> azure = SimpleWeightedRandomList.builder();
-        addPetalsWithWeight(azure, ModBlocks.BABY_BLUE_EYES.get(), 8);
-        addPetalsWithWeight(azure, ModBlocks.FORGET_ME_NOTS.get());
-        addPetalsWithWeight(azure, ModBlocks.SPEEDWELLS.get());
+        addPetalsWithWeight(azure, ModBlocks.BABY_BLUE_EYES, 8);
+        addPetalsWithWeight(azure, ModBlocks.FORGET_ME_NOTS);
+        addPetalsWithWeight(azure, ModBlocks.SPEEDWELLS);
         azure.add(Blocks.CORNFLOWER.defaultBlockState(), 4);
         register(context, FLOWER_AZURE,
                 Feature.FLOWER,
@@ -568,7 +568,7 @@ public class ModVegetationFeatures {
                 )
         );
         SimpleWeightedRandomList.Builder<BlockState> woodSorrels = SimpleWeightedRandomList.builder();
-        addPetals(woodSorrels, ModBlocks.WOOD_SORRELS.get());
+        addPetals(woodSorrels, ModBlocks.WOOD_SORRELS);
         register(context, PATCH_WOOD_SORRELS,
                 Feature.FLOWER,
                 new RandomPatchConfiguration(
@@ -597,8 +597,8 @@ public class ModVegetationFeatures {
                         128, 6, 2, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(
                                 new WeightedStateProvider(
                                         SimpleWeightedRandomList.<BlockState>builder()
-                                                .add(ModBlocks.RAPESEED_FLOWER.get().defaultBlockState(), 12)
-                                                .add(ModBlocks.TALL_RAPESEED_FLOWER.get().defaultBlockState())
+                                                .add(ModBlocks.RAPESEED_FLOWER.defaultBlockState(), 12)
+                                                .add(ModBlocks.TALL_RAPESEED_FLOWER.defaultBlockState())
                                                 .add(Blocks.DANDELION.defaultBlockState())
                                 )
                         ))

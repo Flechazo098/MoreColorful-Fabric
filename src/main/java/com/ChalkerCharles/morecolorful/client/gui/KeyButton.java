@@ -4,6 +4,9 @@ import com.ChalkerCharles.morecolorful.MoreColorful;
 import com.ChalkerCharles.morecolorful.common.item.musical_instruments.InstrumentsType;
 import com.ChalkerCharles.morecolorful.network.packets.InstrumentPressingPacket;
 import com.ChalkerCharles.morecolorful.network.packets.NotePlayingPacket;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
@@ -14,12 +17,9 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
-import net.neoforged.neoforge.network.PacketDistributor;
 import org.jetbrains.annotations.NotNull;
 
-@OnlyIn(Dist.CLIENT)
+@Environment(EnvType.CLIENT)
 public class KeyButton extends Button {
     private static final ResourceLocation WHITE_KEY_CF = ResourceLocation.fromNamespaceAndPath(MoreColorful.MODID, "key/white_key_cf");
     private static final ResourceLocation WHITE_KEY_CF_PRESSED = ResourceLocation.fromNamespaceAndPath(MoreColorful.MODID, "key/white_key_cf_pressed");
@@ -74,10 +74,10 @@ public class KeyButton extends Button {
         Level pLevel = pPlayer.level();
         if (pType.getType() != InstrumentsType.Type.ITEM) { // From Instrument Blocks
             pLevel.playSound(pPlayer, pPos.getX() + 0.5, pPos.getY() + 0.5, pPos.getZ() + 0.5, pType.getSoundEvent().value(), SoundSource.RECORDS, 3.0F, (float) Math.pow(2,((double) pitchId / 12)));
-            PacketDistributor.sendToServer(new NotePlayingPacket(pType, pPos, keyId, true));
+            ClientPlayNetworking.send(new NotePlayingPacket(pType, pPos, keyId, true));
         } else { // From Instrument Items
             pLevel.playSound(pPlayer, pPlayer, pType.getSoundEvent().value(), SoundSource.RECORDS, 3.0F, (float) Math.pow(2, ((double) pitchId / 12)));
-            PacketDistributor.sendToServer(new NotePlayingPacket(pType, pPlayer.blockPosition(), keyId, false));
+            ClientPlayNetworking.send(new NotePlayingPacket(pType, pPlayer.blockPosition(), keyId, false));
         }
     }
     public void press(boolean byClick) {
@@ -87,7 +87,7 @@ public class KeyButton extends Button {
             this.isPressed = true;
             this.active = false;
             pScreen.isPressing = true;
-            PacketDistributor.sendToServer(new InstrumentPressingPacket(pScreen.pPlayer.getId(), true));
+            ClientPlayNetworking.send(new InstrumentPressingPacket(pScreen.pPlayer.getId(), true));
         }
     }
     public void press() {

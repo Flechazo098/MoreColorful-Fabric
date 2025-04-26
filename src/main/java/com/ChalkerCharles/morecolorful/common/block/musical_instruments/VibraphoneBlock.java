@@ -127,7 +127,7 @@ public class VibraphoneBlock extends PercussionInstrumentBlock {
     }
     @Override
     public BlockState playerWillDestroy(Level pLevel, BlockPos pPos, BlockState pState, Player pPlayer) {
-        if (!pLevel.isClientSide && (pPlayer.isCreative() || !pPlayer.hasCorrectToolForDrops(pState, pLevel, pPos))) {
+        if (!pLevel.isClientSide && (pPlayer.isCreative() || !pPlayer.hasCorrectToolForDrops(pState))) {
             HorizontalDoubleBlockHalf half = pState.getValue(HALF);
             if (half == HorizontalDoubleBlockHalf.LEFT) {
                 BlockPos blockpos = pPos.relative(getNeighbourDirection(half, pState.getValue(FACING)));

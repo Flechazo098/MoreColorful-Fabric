@@ -46,13 +46,13 @@ public abstract class ChunkHolderMixin extends GenerationChunkHolder implements 
 
     @ModifyExpressionValue(method = "broadcastChanges", at = @At(value = "FIELD", target = "Lnet/minecraft/server/level/ChunkHolder;hasChangedSections:Z", opcode = Opcodes.GETFIELD))
     private boolean broadcastChanges$modifyCondition(boolean original) {
-        if (Config.THERMAL_SYSTEM.isFalse()) return original;
+        if (!Config.isThermalSystemEnabled()) return original;
         return original || !this.moreColorful$changedThermalSectionFilter.isEmpty();
     }
 
     @Inject(method = "broadcastChanges", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/chunk/LevelChunk;getLevel()Lnet/minecraft/world/level/Level;", shift = At.Shift.AFTER))
     private void broadcastChanges(LevelChunk pChunk, CallbackInfo ci) {
-        if (Config.THERMAL_SYSTEM.isFalse()) return;
+        if (!Config.isThermalSystemEnabled()) return;
         if (!this.moreColorful$changedThermalSectionFilter.isEmpty()) {
             List<ServerPlayer> list = this.playerProvider.getPlayers(this.pos, true);
             if (!list.isEmpty()) {
@@ -75,7 +75,7 @@ public abstract class ChunkHolderMixin extends GenerationChunkHolder implements 
     @Unique
     @Override
     public void moreColorful$sectionThermalChanged(int pSectionY) {
-        if (Config.THERMAL_SYSTEM.isFalse()) return;
+        if (!Config.isThermalSystemEnabled()) return;
         ChunkAccess chunkaccess = this.getChunkIfPresent(ModChunkStatus.INITIALIZE_THERMAL.get());
         if (chunkaccess != null) {
             chunkaccess.setUnsaved(true);

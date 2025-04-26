@@ -31,7 +31,7 @@ public abstract class LevelChunkMixin {
     @Inject(method = "<init>(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/level/chunk/ProtoChunk;Lnet/minecraft/world/level/chunk/LevelChunk$PostLoadProcessor;)V",
             at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/chunk/LevelChunk;setLightCorrect(Z)V", shift = At.Shift.AFTER))
     private void constructor(ServerLevel pLevel, ProtoChunk pChunk, LevelChunk.PostLoadProcessor pPostLoad, CallbackInfo ci) {
-        if (Config.THERMAL_SYSTEM.isTrue()) {
+        if (Config.isThermalSystemEnabled()) {
             ChunkData.setThermalCorrect(pChunk, ChunkData.isThermalCorrect(pChunk));
         }
     }
@@ -39,7 +39,7 @@ public abstract class LevelChunkMixin {
     @Nullable
     @Inject(method = "setBlockState", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/lighting/LevelLightEngine;updateSectionStatus(Lnet/minecraft/core/BlockPos;Z)V", shift = At.Shift.AFTER))
     private void setBlockState$1(BlockPos pPos, BlockState pState, boolean pIsMoving, CallbackInfoReturnable<BlockState> cir, @Local(ordinal = 2) boolean flag1) {
-        if (Config.THERMAL_SYSTEM.isTrue()) {
+        if (Config.isThermalSystemEnabled()) {
             ((IChunkSourceExtension) this.level.getChunkSource()).moreColorful$getThermalEngine().updateSectionStatus(pPos, flag1);
         }
     }
@@ -47,7 +47,7 @@ public abstract class LevelChunkMixin {
     @Nullable
     @Inject(method = "setBlockState", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;hasBlockEntity()Z", ordinal = 0, shift = At.Shift.BEFORE))
     private void setBlockState$2(BlockPos pPos, BlockState pState, boolean pIsMoving, CallbackInfoReturnable<BlockState> cir, @Local(ordinal = 1) BlockState blockstate) {
-        if (Config.THERMAL_SYSTEM.isFalse()) return;
+        if (!Config.isThermalSystemEnabled()) return;
         if (BlockThermalEngine.hasDifferentThermalProperties(blockstate, pState)) {
             ProfilerFiller profilerfiller = this.level.getProfiler();
             profilerfiller.push("queueCheckThermal");

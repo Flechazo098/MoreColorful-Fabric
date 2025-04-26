@@ -54,7 +54,7 @@ public class DaybloomBlock extends FlowerBlock {
         }
 
         public Block block() {
-            return this.open ? ModBlocks.OPEN_DAYBLOOM.get() : ModBlocks.CLOSED_DAYBLOOM.get();
+            return this.open ? ModBlocks.OPEN_DAYBLOOM : ModBlocks.CLOSED_DAYBLOOM;
         }
         public BlockState state() {
             return this.block().defaultBlockState();

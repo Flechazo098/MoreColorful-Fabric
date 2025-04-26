@@ -16,7 +16,7 @@ public class RideCymbalBlockEntity extends BlockEntity implements CymbalUtils {
     public boolean shaking;
 
     public RideCymbalBlockEntity(BlockPos pPos, BlockState pBlockState) {
-        super(ModBlockEntities.RIDE_CYMBAL.get(), pPos, pBlockState);
+        super(ModBlockEntities.RIDE_CYMBAL, pPos, pBlockState);
     }
 
     public static <T extends BlockEntity> void tick(Level pLevel, BlockPos pPos, BlockState ignored, T pBlockEntity) {

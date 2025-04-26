@@ -7,6 +7,7 @@ import com.ChalkerCharles.morecolorful.mixin.accessor.IChunkStatusMixin;
 import com.ChalkerCharles.morecolorful.util.mixin.IProtoChunkExtension;
 import com.ChalkerCharles.morecolorful.util.mixin.IWorldGenContextExtension;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.GenerationChunkHolder;
 import net.minecraft.util.StaticCache2D;
 import net.minecraft.world.level.chunk.ChunkAccess;
@@ -14,48 +15,44 @@ import net.minecraft.world.level.chunk.status.ChunkStatus;
 import net.minecraft.world.level.chunk.status.ChunkStep;
 import net.minecraft.world.level.chunk.status.ChunkType;
 import net.minecraft.world.level.chunk.status.WorldGenContext;
-import net.neoforged.bus.api.IEventBus;
-import net.neoforged.neoforge.registries.DeferredRegister;
+import net.minecraft.core.Registry;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.concurrent.CompletableFuture;
-import java.util.function.Supplier;
 
 public class ModChunkStatus {
-    public static final DeferredRegister<ChunkStatus> CHUNK_STATUS = DeferredRegister.create(Registries.CHUNK_STATUS, MoreColorful.MODID);
+    public static final ChunkStatus INITIALIZE_THERMAL = registerChunkStatus("initialize_thermal", create(ChunkStatus.SPAWN));
+    public static final ChunkStatus THERMAL = registerChunkStatus("thermal", create(INITIALIZE_THERMAL));
 
-    public static final Supplier<ChunkStatus> INITIALIZE_THERMAL = CHUNK_STATUS.register("initialize_thermal", () -> create(ChunkStatus.SPAWN));
-
-    public static final Supplier<ChunkStatus> THERMAL = CHUNK_STATUS.register("thermal", () -> create(INITIALIZE_THERMAL.get()));
-
-    private static ChunkStatus create(@Nullable ChunkStatus pParent) {
-        return IChunkStatusMixin.create(pParent, ChunkStatus.FINAL_HEIGHTMAPS, ChunkType.PROTOCHUNK);
+    private static ChunkStatus create(@Nullable ChunkStatus parent) {
+        return IChunkStatusMixin.create(parent, ChunkStatus.FINAL_HEIGHTMAPS, ChunkType.PROTOCHUNK);
     }
 
-    private static boolean isThermalized(ChunkAccess pChunk) {
-        return pChunk.getPersistedStatus().isOrAfter(THERMAL.get()) && ChunkData.isThermalCorrect(pChunk);
+    private static ChunkStatus registerChunkStatus(String name, ChunkStatus status) {
+        return Registry.register(Registries.CHUNK_STATUS, ResourceLocation.fromNamespaceAndPath(MoreColorful.MODID, name), status);
     }
 
-    public static CompletableFuture<ChunkAccess> initializeThermal(WorldGenContext pWorldGenContext, ChunkStep ignoredStep, StaticCache2D<GenerationChunkHolder> ignoredCache, ChunkAccess pChunk) {
-        ThreadedLevelThermalEngine thermalEngine = ((IWorldGenContextExtension) (Object) pWorldGenContext).moreColorful$getThermalEngine();
-        ((IProtoChunkExtension) pChunk).moreColorful$setThermalEngine(thermalEngine);
-        boolean flag = isThermalized(pChunk);
-        return thermalEngine.initializeThermal(pChunk, flag);
+    private static boolean isThermalized(ChunkAccess chunk) {
+        return chunk.getPersistedStatus().isOrAfter(THERMAL) && ChunkData.isThermalCorrect(chunk);
     }
 
-    public static CompletableFuture<ChunkAccess> thermal(WorldGenContext pWorldGenContext, ChunkStep ignoredStep, StaticCache2D<GenerationChunkHolder> ignoredCache, ChunkAccess pChunk) {
-        boolean flag = isThermalized(pChunk);
-        return ((IWorldGenContextExtension) (Object) pWorldGenContext).moreColorful$getThermalEngine().thermalChunk(pChunk, flag);
+    public static CompletableFuture<ChunkAccess> initializeThermal(WorldGenContext worldGenContext, ChunkStep ignoredStep, StaticCache2D<GenerationChunkHolder> ignoredCache, ChunkAccess chunk) {
+        ThreadedLevelThermalEngine thermalEngine = ((IWorldGenContextExtension) (Object) worldGenContext).moreColorful$getThermalEngine();
+        ((IProtoChunkExtension) chunk).moreColorful$setThermalEngine(thermalEngine);
+        boolean flag = isThermalized(chunk);
+        return thermalEngine.initializeThermal(chunk, flag);
+    }
+
+    public static CompletableFuture<ChunkAccess> thermal(WorldGenContext worldGenContext, ChunkStep ignoredStep, StaticCache2D<GenerationChunkHolder> ignoredCache, ChunkAccess chunk) {
+        boolean flag = isThermalized(chunk);
+        return ((IWorldGenContextExtension) (Object) worldGenContext).moreColorful$getThermalEngine().thermalChunk(chunk, flag);
     }
 
     public static void modifyFullStatus() {
-        if (Config.THERMAL_SYSTEM.isTrue()) {
-            ((IChunkStatusMixin) ChunkStatus.FULL).setParent(THERMAL.get());
+        if (Config.isThermalSystemEnabled()) {
+            ((IChunkStatusMixin) ChunkStatus.FULL).setParent(THERMAL);
             ((IChunkStatusMixin) ChunkStatus.FULL).setIndex(ChunkStatus.FULL.getIndex() + 2);
         }
     }
 
-    public static void register(IEventBus eventBus) {
-        CHUNK_STATUS.register(eventBus);
-    }
 }

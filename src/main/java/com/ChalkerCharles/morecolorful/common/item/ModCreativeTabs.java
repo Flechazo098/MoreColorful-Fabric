@@ -1,73 +1,76 @@
 package com.ChalkerCharles.morecolorful.common.item;
 
 import com.ChalkerCharles.morecolorful.MoreColorful;
-import net.minecraft.core.registries.Registries;
+import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
+import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
-import net.neoforged.bus.api.IEventBus;
-import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
-import net.neoforged.neoforge.registries.DeferredRegister;
 
 public class ModCreativeTabs {
-    public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MoreColorful.MODID);
+    public static final ResourceKey<CreativeModeTab> MUSICAL_INSTRUMENTS_TAB_KEY = ResourceKey.create(
+            BuiltInRegistries.CREATIVE_MODE_TAB.key(),
+            ResourceLocation.fromNamespaceAndPath(MoreColorful.MODID, "musical_instruments_tab")
+    );
 
-    @SuppressWarnings("unused")
-    public static final ResourceKey<CreativeModeTab> MUSICAL_INSTRUMENTS_TAB = CREATIVE_MODE_TABS.register("musical_instruments_tab",() -> CreativeModeTab.builder()
-            .withTabsBefore(CreativeModeTabs.SPAWN_EGGS)
+    public static final CreativeModeTab MUSICAL_INSTRUMENTS_TAB = FabricItemGroup.builder()
             .title(Component.translatable("creativetab.morecolorful.musical_instruments_tab"))
-            .icon(()-> ModItems.VIOLIN.get().getDefaultInstance())
-            .displayItems((pParameters, pOutput) -> {
-                pOutput.accept(ModItems.GRAND_PIANO.get());
-                pOutput.accept(ModItems.UPRIGHT_PIANO.get());
-                pOutput.accept(ModItems.HARP.get());
-                pOutput.accept(ModItems.GUZHENG.get());
-                pOutput.accept(ModItems.VIOLIN.get());
-                pOutput.accept(ModItems.CELLO.get());
-                pOutput.accept(ModItems.ERHU.get());
-                pOutput.accept(ModItems.FIDDLE_BOW.get());
-                pOutput.accept(ModItems.BASS.get());
-                pOutput.accept(ModItems.GUITAR.get());
-                pOutput.accept(ModItems.ELECTRIC_GUITAR.get());
-                pOutput.accept(ModItems.BANJO.get());
-                pOutput.accept(ModItems.PIPA.get());
-                pOutput.accept(ModItems.FLUTE.get());
-                pOutput.accept(ModItems.DIDGERIDOO.get());
-                pOutput.accept(ModItems.TRUMPET.get());
-                pOutput.accept(ModItems.SAXOPHONE.get());
-                pOutput.accept(ModItems.OCARINA.get());
-                pOutput.accept(ModItems.HARMONICA.get());
-                pOutput.accept(ModItems.COW_BELL.get());
-                pOutput.accept(ModItems.BASS_DRUM.get());
-                pOutput.accept(ModItems.SNARE_DRUM.get());
-                pOutput.accept(ModItems.TOMTOM_DRUM.get());
-                pOutput.accept(ModItems.HIHAT.get());
-                pOutput.accept(ModItems.RIDE_CYMBAL.get());
-                pOutput.accept(ModItems.CRASH_CYMBAL.get());
-                pOutput.accept(ModItems.DRUM_SET.get());
-                pOutput.accept(ModItems.CHIMES.get());
-                pOutput.accept(ModItems.GLOCKENSPIEL.get());
-                pOutput.accept(ModItems.XYLOPHONE.get());
-                pOutput.accept(ModItems.VIBRAPHONE.get());
-                pOutput.accept(ModItems.DRUMSTICK.get());
-                pOutput.accept(ModItems.SYNTHESIZER_KEYBOARD_BIT.get());
-                pOutput.accept(ModItems.SYNTHESIZER_KEYBOARD_PLING.get());
-                pOutput.accept(ModItems.SYNTHESIZER_KEYBOARD_SCULK.get());
-                pOutput.accept(ModItems.SYNTHESIZER_KEYBOARD_AMETHYST.get());
-                pOutput.accept(ModItems.SYNTHESIZER_KEYBOARD_SAW.get());
-                pOutput.accept(ModItems.SYNTHESIZER_KEYBOARD_PLUCK.get());
-                pOutput.accept(ModItems.SYNTHESIZER_KEYBOARD_SYNTH_BASS.get());
+            .icon(() -> new ItemStack(ModItems.VIOLIN))
+            .displayItems((params, output) -> {
+                output.accept(ModItems.GRAND_PIANO);
+                output.accept(ModItems.UPRIGHT_PIANO);
+                output.accept(ModItems.HARP);
+                output.accept(ModItems.GUZHENG);
+                output.accept(ModItems.VIOLIN);
+                output.accept(ModItems.CELLO);
+                output.accept(ModItems.ERHU);
+                output.accept(ModItems.FIDDLE_BOW);
+                output.accept(ModItems.BASS);
+                output.accept(ModItems.GUITAR);
+                output.accept(ModItems.ELECTRIC_GUITAR);
+                output.accept(ModItems.BANJO);
+                output.accept(ModItems.PIPA);
+                output.accept(ModItems.FLUTE);
+                output.accept(ModItems.DIDGERIDOO);
+                output.accept(ModItems.TRUMPET);
+                output.accept(ModItems.SAXOPHONE);
+                output.accept(ModItems.OCARINA);
+                output.accept(ModItems.HARMONICA);
+                output.accept(ModItems.COW_BELL);
+                output.accept(ModItems.BASS_DRUM);
+                output.accept(ModItems.SNARE_DRUM);
+                output.accept(ModItems.TOMTOM_DRUM);
+                output.accept(ModItems.HIHAT);
+                output.accept(ModItems.RIDE_CYMBAL);
+                output.accept(ModItems.CRASH_CYMBAL);
+                output.accept(ModItems.DRUM_SET);
+                output.accept(ModItems.CHIMES);
+                output.accept(ModItems.GLOCKENSPIEL);
+                output.accept(ModItems.XYLOPHONE);
+                output.accept(ModItems.VIBRAPHONE);
+                output.accept(ModItems.DRUMSTICK);
+                output.accept(ModItems.SYNTHESIZER_KEYBOARD_BIT);
+                output.accept(ModItems.SYNTHESIZER_KEYBOARD_PLING);
+                output.accept(ModItems.SYNTHESIZER_KEYBOARD_SCULK);
+                output.accept(ModItems.SYNTHESIZER_KEYBOARD_AMETHYST);
+                output.accept(ModItems.SYNTHESIZER_KEYBOARD_SAW);
+                output.accept(ModItems.SYNTHESIZER_KEYBOARD_PLUCK);
+                output.accept(ModItems.SYNTHESIZER_KEYBOARD_SYNTH_BASS);
             })
-            .build()).getKey();
+            .build();
 
-    public static void insertInVanillaTabs(BuildCreativeModeTabContentsEvent event) {
-        ResourceKey<CreativeModeTab> tab = event.getTabKey();
-        if (tab == CreativeModeTabs.BUILDING_BLOCKS) {
-            insertAfterBySequence(event, Items.CHERRY_BUTTON,
+    public static void initialize() {
+        Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, MUSICAL_INSTRUMENTS_TAB_KEY, MUSICAL_INSTRUMENTS_TAB);
+
+        ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.BUILDING_BLOCKS).register(entries -> {
+             entries.addAfter(Items.CHERRY_BUTTON,
                     ModItems.CRABAPPLE_LOG,
                     ModItems.CRABAPPLE_WOOD,
                     ModItems.STRIPPED_CRABAPPLE_LOG,
@@ -173,8 +176,12 @@ public class ModCreativeTabs {
                     ModItems.WILLOW_PRESSURE_PLATE,
                     ModItems.WILLOW_BUTTON
             );
-        } else if (tab == CreativeModeTabs.NATURAL_BLOCKS) {
-            insertAfterBySequence(event, Items.CHERRY_LOG,
+        });
+
+        ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.NATURAL_BLOCKS).register(entries -> {
+             entries.addAfter(Items.CHERRY_LOG,
+                    ModItems.CRABAPPLE_LOG,
+                    ModItems.GINKGO_LOG,
                     ModItems.CRABAPPLE_LOG,
                     ModItems.GINKGO_LOG,
                     ModItems.MAPLE_LOG,
@@ -184,7 +191,7 @@ public class ModCreativeTabs {
                     ModItems.JACARANDA_LOG,
                     ModItems.WILLOW_LOG
             );
-            insertAfterBySequence(event, Items.CHERRY_LEAVES,
+             entries.addAfter(Items.CHERRY_LEAVES,
                     ModItems.CRABAPPLE_LEAVES,
                     ModItems.WHITE_CHERRY_LEAVES,
                     ModItems.ORANGE_BIRCH_LEAVES,
@@ -197,7 +204,7 @@ public class ModCreativeTabs {
                     ModItems.WILLOW_LEAVES,
                     ModItems.WILLOW_BRANCHES
             );
-            insertAfterBySequence(event, Items.CHERRY_SAPLING,
+             entries.addAfter(Items.CHERRY_SAPLING,
                     ModItems.CRABAPPLE_SAPLING,
                     ModItems.WHITE_CHERRY_SAPLING,
                     ModItems.ORANGE_BIRCH_SAPLING,
@@ -209,16 +216,16 @@ public class ModCreativeTabs {
                     ModItems.JACARANDA_SAPLING,
                     ModItems.WILLOW_SAPLING
             );
-            insertAfterBySequence(event, Items.SUGAR_CANE,
+             entries.addAfter(Items.SUGAR_CANE,
                     ModItems.REED
             );
-            insertAfterBySequence(event, Items.FERN,
+             entries.addAfter(Items.FERN,
                     ModItems.SHORT_WATER_GRASS
             );
-            insertAfterBySequence(event, Items.LARGE_FERN,
+             entries.addAfter(Items.LARGE_FERN,
                     ModItems.TALL_WATER_GRASS
             );
-            insertAfterBySequence(event, Items.WITHER_ROSE,
+             entries.addAfter(Items.WITHER_ROSE,
                     ModItems.PINK_DAISY,
                     ModItems.RED_CARNATION,
                     ModItems.PINK_CARNATION,
@@ -236,7 +243,7 @@ public class ModCreativeTabs {
                     ModItems.GERBERA_DAISY,
                     ModItems.RAPESEED_FLOWER
             );
-            insertAfterBySequence(event, Items.PINK_PETALS,
+             entries.addAfter(Items.PINK_PETALS,
                     ModItems.BEGONIAS,
                     ModItems.WHITE_PETALS,
                     ModItems.FROSTY_PETALS,
@@ -252,15 +259,15 @@ public class ModCreativeTabs {
                     ModItems.MAPLE_LEAF_LITTER,
                     ModItems.DAWN_REDWOOD_LEAF_LITTER
             );
-            insertAfterBySequence(event, Items.PITCHER_PLANT,
+             entries.addAfter(Items.PITCHER_PLANT,
                     ModItems.CATTAIL,
                     ModItems.TALL_RAPESEED_FLOWER
             );
-            insertAfterBySequence(event, Items.SWEET_BERRIES,
+             entries.addAfter(Items.SWEET_BERRIES,
                     ModItems.STRAWBERRY,
                     ModItems.BLUEBERRIES
             );
-            insertAfterBySequence(event, Items.LILY_PAD,
+             entries.addAfter(Items.LILY_PAD,
                     ModItems.OPEN_WATER_LILY,
                     ModItems.CLOSED_WATER_LILY,
                     ModItems.OPEN_WHITE_WATER_LILY,
@@ -269,8 +276,9 @@ public class ModCreativeTabs {
                     ModItems.CLOSED_BLUE_WATER_LILY,
                     ModItems.DUCKWEEDS
             );
-        } else if (tab == CreativeModeTabs.FUNCTIONAL_BLOCKS) {
-            insertAfterBySequence(event, Items.CHERRY_HANGING_SIGN,
+        });
+        ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.FUNCTIONAL_BLOCKS).register(entries -> {
+             entries.addAfter(Items.CHERRY_HANGING_SIGN,
                     ModItems.CRABAPPLE_SIGN,
                     ModItems.CRABAPPLE_HANGING_SIGN,
                     ModItems.EBONY_SIGN,
@@ -288,8 +296,9 @@ public class ModCreativeTabs {
                     ModItems.WILLOW_SIGN,
                     ModItems.WILLOW_HANGING_SIGN
             );
-        } else if (tab == CreativeModeTabs.TOOLS_AND_UTILITIES) {
-            insertAfterBySequence(event, Items.CHERRY_CHEST_BOAT,
+        });
+        ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.FUNCTIONAL_BLOCKS).register(entries -> {
+             entries.addAfter(Items.CHERRY_CHEST_BOAT,
                     ModItems.CRABAPPLE_BOAT,
                     ModItems.CRABAPPLE_CHEST_BOAT,
                     ModItems.EBONY_BOAT,
@@ -307,21 +316,11 @@ public class ModCreativeTabs {
                     ModItems.WILLOW_BOAT,
                     ModItems.WILLOW_CHEST_BOAT
             );
-        } else if (tab == CreativeModeTabs.FOOD_AND_DRINKS) {
-            insertAfterBySequence(event, Items.SWEET_BERRIES,
-                    ModItems.STRAWBERRY,
-                    ModItems.BLUEBERRIES
-            );
-        }
-    }
-
-    private static void insertAfterBySequence(BuildCreativeModeTabContentsEvent event, ItemLike... entries) {
-        for (int i = 1; i < entries.length; i ++) {
-            event.insertAfter(new ItemStack(entries[i - 1]), new ItemStack(entries[i]), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-        }
-    }
-
-    public static void register(IEventBus eventBus){
-        CREATIVE_MODE_TABS.register(eventBus);
+        });
+        ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.FOOD_AND_DRINKS).register(entries -> {
+            entries.addAfter(Items.SWEET_BERRIES,
+                   ModItems.STRAWBERRY,
+                   ModItems.BLUEBERRIES);
+        });
     }
 }

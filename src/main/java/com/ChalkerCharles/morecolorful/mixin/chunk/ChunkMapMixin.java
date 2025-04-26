@@ -59,7 +59,7 @@ public abstract class ChunkMapMixin implements IChunkMapExtension {
 
     @ModifyArg(method = "<init>", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/level/ChunkTaskPriorityQueueSorter;<init>(Ljava/util/List;Ljava/util/concurrent/Executor;I)V"))
     private List<ProcessorHandle<?>> addProcessorMailbox(List<ProcessorHandle<?>> pQueues, @Share("mailbox") LocalRef<ProcessorMailbox<Runnable>> mailbox, @Local(argsOnly = true) Executor pDispatcher) {
-        if (Config.THERMAL_SYSTEM.isFalse()) return pQueues;
+        if (!Config.isThermalSystemEnabled()) return pQueues;
         ProcessorMailbox<Runnable> processormailbox = ProcessorMailbox.create(pDispatcher, "temperature");
         mailbox.set(processormailbox);
         List<ProcessorHandle<?>> list = new ArrayList<>(List.copyOf(pQueues));
@@ -85,7 +85,7 @@ public abstract class ChunkMapMixin implements IChunkMapExtension {
             boolean pSync,
             CallbackInfo ci,
             @Share("mailbox") LocalRef<ProcessorMailbox<Runnable>> mailbox) {
-        if (Config.THERMAL_SYSTEM.isFalse()) return;
+        if (!Config.isThermalSystemEnabled()) return;
         this.moreColorful$thermalEngine = new ThreadedLevelThermalEngine(
                 (ChunkSource) pLightChunk, (ChunkMap)(Object) this, mailbox.get(), this.queueSorter.getProcessor(mailbox.get(), false)
         );
@@ -96,7 +96,7 @@ public abstract class ChunkMapMixin implements IChunkMapExtension {
             at = @At(value = "NEW", args = "class=net/minecraft/server/level/ChunkHolder"))
     private ChunkHolder updateChunkScheduling(ChunkPos pPos, int pTicketLevel, LevelHeightAccessor pLevelHeightAccessor, LevelLightEngine pLightEngine, ChunkHolder.LevelChangeListener pOnLevelChange, ChunkHolder.PlayerProvider pPlayerProvider, Operation<ChunkHolder> original) {
         ChunkHolder holder = original.call(pPos, pTicketLevel, pLevelHeightAccessor, pLightEngine, pOnLevelChange, pPlayerProvider);
-        if (Config.THERMAL_SYSTEM.isTrue()) {
+        if (Config.isThermalSystemEnabled()) {
             ((IChunkHolderExtension) holder).moreColorful$setThermalEngine(this.moreColorful$thermalEngine);
         }
         return holder;
@@ -104,7 +104,7 @@ public abstract class ChunkMapMixin implements IChunkMapExtension {
 
     @Inject(method = "hasWork()Z", at = @At("HEAD"), cancellable = true)
     private void hasWork(CallbackInfoReturnable<Boolean> cir) {
-        if (Config.THERMAL_SYSTEM.isFalse()) return;
+        if (!Config.isThermalSystemEnabled()) return;
         if (this.moreColorful$thermalEngine.hasThermalWork()) {
             cir.setReturnValue(true);
         }
@@ -112,7 +112,7 @@ public abstract class ChunkMapMixin implements IChunkMapExtension {
 
     @Inject(method = "lambda$scheduleUnload$12", at = @At(value = "INVOKE", target = "net/minecraft/server/level/ThreadedLevelLightEngine.tryScheduleUpdate()V", shift = At.Shift.AFTER))
     private void scheduleUnload(ChunkHolder pChunkHolder, long pChunkPos, CallbackInfo ci, @Local ChunkAccess chunkaccess) {
-        if (Config.THERMAL_SYSTEM.isFalse()) return;
+        if (!Config.isThermalSystemEnabled()) return;
         this.moreColorful$thermalEngine.updateChunkStatus(chunkaccess.getPos());
         this.moreColorful$thermalEngine.tryScheduleUpdate();
     }

@@ -74,7 +74,7 @@ public class RideCymbalBlock extends PercussionInstrumentBlock implements Entity
     @Override
     public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
         DoubleBlockHalf doubleBlockHalf = state.getValue(HALF);
-        if (!level.isClientSide && (player.isCreative() || !player.hasCorrectToolForDrops(state, level, pos))) {
+        if (!level.isClientSide && (player.isCreative() || !player.hasCorrectToolForDrops(state))) {
             if (doubleBlockHalf == DoubleBlockHalf.UPPER) {
                 BlockPos blockpos = pos.below();
                 BlockState blockstate = level.getBlockState(blockpos);
@@ -113,6 +113,6 @@ public class RideCymbalBlock extends PercussionInstrumentBlock implements Entity
     @Override
     @Nullable
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType) {
-        return pBlockEntityType == ModBlockEntities.RIDE_CYMBAL.get() ? RideCymbalBlockEntity::tick : null;
+        return pBlockEntityType == ModBlockEntities.RIDE_CYMBAL ? RideCymbalBlockEntity::tick : null;
     }
 }

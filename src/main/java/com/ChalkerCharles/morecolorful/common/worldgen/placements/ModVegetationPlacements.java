@@ -81,7 +81,7 @@ public class ModVegetationPlacements {
         register(context, TREES_CRABAPPLE,
                 features.getOrThrow(ModTreeFeatures.CRABAPPLE_005),
                 treePlacement(PlacementUtils.countExtra(10, 0.1F, 1),
-                        ModBlocks.CRABAPPLE_SAPLING.get()
+                        ModBlocks.CRABAPPLE_SAPLING
                 )
         );
         register(context, FLOWER_CRABAPPLE,
@@ -94,7 +94,7 @@ public class ModVegetationPlacements {
         register(context, TREES_WHITE_CHERRY,
                 features.getOrThrow(ModTreeFeatures.WHITE_CHERRY_005),
                 treePlacement(PlacementUtils.countExtra(10, 0.1F, 1),
-                        ModBlocks.WHITE_CHERRY_SAPLING.get()
+                        ModBlocks.WHITE_CHERRY_SAPLING
                 )
         );
         register(context, FLOWER_WHITE_CHERRY,
@@ -114,7 +114,7 @@ public class ModVegetationPlacements {
         register(context, TREES_AUTUMN_BIRCH,
                 features.getOrThrow(ModVegetationFeatures.TREES_AUTUMN_BIRCH),
                 treePlacement(PlacementUtils.countExtra(10, 0.1F, 1),
-                        ModBlocks.ORANGE_BIRCH_SAPLING.get()
+                        ModBlocks.ORANGE_BIRCH_SAPLING
                 )
         );
         register(context, FLOWER_AUTUMN_BIRCH,
@@ -135,7 +135,7 @@ public class ModVegetationPlacements {
         register(context, TREES_GINKGO,
                 features.getOrThrow(ModVegetationFeatures.TREES_GINKGO),
                 treePlacement(PlacementUtils.countExtra(6, 0.1F, 1),
-                        ModBlocks.GINKGO_SAPLING.get()
+                        ModBlocks.GINKGO_SAPLING
                 )
         );
         register(context, FLOWER_GINKGO,
@@ -156,7 +156,7 @@ public class ModVegetationPlacements {
         register(context, TREES_MAPLE,
                 features.getOrThrow(ModVegetationFeatures.TREES_MAPLE),
                 treePlacement(PlacementUtils.countExtra(10, 0.1F, 1),
-                        ModBlocks.MAPLE_SAPLING.get()
+                        ModBlocks.MAPLE_SAPLING
                 )
         );
         register(context, FLOWER_MAPLE,
@@ -189,7 +189,7 @@ public class ModVegetationPlacements {
         register(context, TREES_FROST,
                 features.getOrThrow(ModTreeFeatures.FROST),
                 treePlacement(PlacementUtils.countExtra(10, 0.1F, 1),
-                        ModBlocks.FROST_SAPLING.get()
+                        ModBlocks.FROST_SAPLING
                 )
         );
         register(context, FLOWER_FROST,
@@ -227,7 +227,7 @@ public class ModVegetationPlacements {
                 SurfaceWaterDepthFilter.forMaxDepth(2),
                 PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
                 BiomeFilter.biome(),
-                BlockPredicateFilter.forPredicate(BlockPredicate.wouldSurvive(ModBlocks.DAWN_REDWOOD_SAPLING.get().defaultBlockState(), BlockPos.ZERO))
+                BlockPredicateFilter.forPredicate(BlockPredicate.wouldSurvive(ModBlocks.DAWN_REDWOOD_SAPLING.defaultBlockState(), BlockPos.ZERO))
         );
         register(context, FLOWER_DAWN_REDWOOD,
                 features.getOrThrow(ModVegetationFeatures.FLOWER_DAWN_REDWOOD),
@@ -259,7 +259,7 @@ public class ModVegetationPlacements {
         register(context, TREES_JACARANDA,
                 features.getOrThrow(ModTreeFeatures.JACARANDA_005),
                 treePlacement(PlacementUtils.countExtra(10, 0.1F, 1),
-                        ModBlocks.JACARANDA_SAPLING.get()
+                        ModBlocks.JACARANDA_SAPLING
                 )
         );
         register(context, FLOWER_JACARANDA,
@@ -395,7 +395,7 @@ public class ModVegetationPlacements {
                 SurfaceWaterDepthFilter.forMaxDepth(2),
                 PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
                 BiomeFilter.biome(),
-                BlockPredicateFilter.forPredicate(BlockPredicate.wouldSurvive(ModBlocks.WILLOW_SAPLING.get().defaultBlockState(), BlockPos.ZERO))
+                BlockPredicateFilter.forPredicate(BlockPredicate.wouldSurvive(ModBlocks.WILLOW_SAPLING.defaultBlockState(), BlockPos.ZERO))
         );
         register(context, TREES_WILLOW_BAYOU,
                 features.getOrThrow(ModVegetationFeatures.TREES_WILLOW_BAYOU),
@@ -404,7 +404,7 @@ public class ModVegetationPlacements {
                 SurfaceWaterDepthFilter.forMaxDepth(2),
                 PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
                 BiomeFilter.biome(),
-                BlockPredicateFilter.forPredicate(BlockPredicate.wouldSurvive(ModBlocks.WILLOW_SAPLING.get().defaultBlockState(), BlockPos.ZERO))
+                BlockPredicateFilter.forPredicate(BlockPredicate.wouldSurvive(ModBlocks.WILLOW_SAPLING.defaultBlockState(), BlockPos.ZERO))
         );
         register(context, PATCH_WOOD_SORRELS,
                 features.getOrThrow(ModVegetationFeatures.PATCH_WOOD_SORRELS),

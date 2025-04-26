@@ -3,6 +3,9 @@ package com.ChalkerCharles.morecolorful.client.gui;
 import com.ChalkerCharles.morecolorful.MoreColorful;
 import com.ChalkerCharles.morecolorful.common.item.musical_instruments.InstrumentsType;
 import com.ChalkerCharles.morecolorful.network.packets.NotePlayingPacket;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
@@ -13,12 +16,9 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
-import net.neoforged.neoforge.network.PacketDistributor;
 import org.jetbrains.annotations.NotNull;
 
-@OnlyIn(Dist.CLIENT)
+@Environment(EnvType.CLIENT)
 public class DrumSetButton extends Button {
     private static final ResourceLocation BUTTON_BASS_DRUM = ResourceLocation.fromNamespaceAndPath(MoreColorful.MODID, "drum_set/button_bass_drum");
     private static final ResourceLocation BUTTON_BASS_DRUM_PRESSED = ResourceLocation.fromNamespaceAndPath(MoreColorful.MODID, "drum_set/button_bass_drum_pressed");
@@ -58,7 +58,7 @@ public class DrumSetButton extends Button {
         int pitchId = keyId - 12;
         Level pLevel = pPlayer.level();
         pLevel.playSound(pPlayer, pPos.getX() + 0.5, pPos.getY() + 0.5, pPos.getZ() + 0.5, pType.getSoundEvent().value(), SoundSource.RECORDS, 3.0F, (float) Math.pow(2,((double) pitchId / 12)));
-        PacketDistributor.sendToServer(new NotePlayingPacket(pType, pPos, keyId, true));
+        ClientPlayNetworking.send(new NotePlayingPacket(pType, pPos, keyId, true));
     }
 
     @Override

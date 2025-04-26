@@ -21,7 +21,7 @@ public class DrumSetBlockEntity extends BlockEntity implements CymbalUtils {
     public int ticksAfterStopCrash;
     public boolean shakingCrash;
     public DrumSetBlockEntity(BlockPos pPos, BlockState pBlockState) {
-        super(ModBlockEntities.DRUM_SET.get(), pPos, pBlockState);
+        super(ModBlockEntities.DRUM_SET, pPos, pBlockState);
     }
 
     public static void tick(Level pLevel, BlockPos pPos, BlockState pState, DrumSetBlockEntity pBlockEntity) {

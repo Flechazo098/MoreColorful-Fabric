@@ -2,15 +2,15 @@ package com.ChalkerCharles.morecolorful.client.gui;
 
 import com.ChalkerCharles.morecolorful.MoreColorful;
 import com.ChalkerCharles.morecolorful.common.item.musical_instruments.InstrumentsType;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.resources.ResourceLocation;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 
-@OnlyIn(Dist.CLIENT)
+@Environment(EnvType.CLIENT)
 public class OctaveButton extends Button {
     private static final ResourceLocation TREBLE_CLEF = ResourceLocation.fromNamespaceAndPath(MoreColorful.MODID, "widget/treble_clef");
     private static final ResourceLocation BASS_CLEF = ResourceLocation.fromNamespaceAndPath(MoreColorful.MODID, "widget/bass_clef");

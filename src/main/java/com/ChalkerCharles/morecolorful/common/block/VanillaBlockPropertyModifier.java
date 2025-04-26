@@ -5,10 +5,13 @@ import com.ChalkerCharles.morecolorful.common.ModTags;
 import com.ChalkerCharles.morecolorful.mixin.accessor.IBlockStateBaseMixin;
 import com.ChalkerCharles.morecolorful.util.mixin.IBlockStateBaseExtension;
 import com.google.common.collect.Maps;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.EmptyBlockGetter;
 import net.minecraft.world.level.block.AbstractFurnaceBlock;
 import net.minecraft.world.level.block.Block;
@@ -17,9 +20,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.neoforge.common.Tags;
-import net.neoforged.neoforge.event.TagsUpdatedEvent;
 
 import java.util.*;
 
@@ -28,12 +28,18 @@ import static net.minecraft.world.level.material.MapColor.*;
 
 @SuppressWarnings("deprecation")
 public final class VanillaBlockPropertyModifier {
-    @SubscribeEvent
-    public static void modifyProperties(final TagsUpdatedEvent event) {
+
+    public static void init() {
+        ServerLifecycleEvents.SERVER_STARTED.register(server -> {
+            modifyProperties();
+        });
+    }
+
+    public static void modifyProperties() {
         BuiltInRegistries.BLOCK.forEach(block -> {
             setInstruments(block);
             setMapColors(block);
-            if (Config.THERMAL_SYSTEM.isTrue()) {
+            if (Config.isThermalSystemEnabled()) {
                 setTemperatures(block);
                 setThermalResistances(block);
             }
@@ -74,9 +80,9 @@ public final class VanillaBlockPropertyModifier {
             setInstrument(block, SAW);
         } else if (block.equals(Blocks.LAPIS_BLOCK)) {
             setInstrument(block, PLUCK);
-        } else if (holder.is(Tags.Blocks.CONCRETES)) {
+        } else if (isInTag(block, createCommonTag("concretes"))) {
             setInstrument(block, SYNTH_BASS);
-        } else if (holder.is(Tags.Blocks.GLAZED_TERRACOTTAS)) {
+        } else if (isInTag(block, createCommonTag("glazed_terracottas"))) {
             setInstrument(block, PIPA);
         } else if (holder.is(ModTags.Blocks.PACKED_MUD_BLOCKS)) {
             setInstrument(block, ERHU);
@@ -314,7 +320,7 @@ public final class VanillaBlockPropertyModifier {
                 Blocks.VAULT)
                 || holder.is(BlockTags.ANVIL)
                 || holder.is(BlockTags.CAULDRONS)
-                || holder.is(Tags.Blocks.GLASS_BLOCKS)
+                || isInTag(block, createCommonTag("glass_blocks"))
                 || holder.is(BlockTags.WALLS)) {
             setThermalResistance(block, 3);
         } else if (blockMatches(block,
@@ -342,8 +348,8 @@ public final class VanillaBlockPropertyModifier {
                 || holder.is(BlockTags.WOODEN_STAIRS)
                 || holder.is(BlockTags.WOODEN_SLABS)
                 || holder.is(BlockTags.WOOL)
-                || holder.is(Tags.Blocks.BARRELS_WOODEN)
-                || holder.is(Tags.Blocks.BOOKSHELVES)) {
+                || isInTag(block, createCommonTag("barrels_wooden"))
+                || isInTag(block, createCommonTag("bookshelves"))) {
             setThermalResistance(block, 4);
         }
 
@@ -382,5 +388,13 @@ public final class VanillaBlockPropertyModifier {
 
     private static boolean blockMatches(Block block, Block... blocks) {
         return Arrays.asList(blocks).contains(block);
+    }
+
+    private static TagKey<Block> createCommonTag(String path) {
+        return TagKey.create(BuiltInRegistries.BLOCK.key(), ResourceLocation.fromNamespaceAndPath("c", path));
+    }
+
+    private static boolean isInTag(Block block, TagKey<Block> tag) {
+        return block.builtInRegistryHolder().is(tag);
     }
 }

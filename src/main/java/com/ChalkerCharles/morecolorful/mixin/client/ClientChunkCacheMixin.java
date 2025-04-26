@@ -20,7 +20,7 @@ public abstract class ClientChunkCacheMixin implements IChunkSourceExtension {
 
     @Inject(method = "<init>", at = @At("TAIL"))
     private void constructor(ClientLevel pLevel, int pViewDistance, CallbackInfo ci) {
-        if (Config.THERMAL_SYSTEM.isTrue()) {
+        if (Config.isThermalSystemEnabled()) {
             this.moreColorful$thermalEngine = new LevelThermalEngine((ClientChunkCache) (Object) this);
         }
     }

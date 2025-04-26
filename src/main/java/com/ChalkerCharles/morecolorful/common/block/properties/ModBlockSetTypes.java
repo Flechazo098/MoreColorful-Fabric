@@ -43,13 +43,13 @@ public class ModBlockSetTypes {
                 true,
                 BlockSetType.PressurePlateSensitivity.EVERYTHING,
                 ModSoundTypes.RARE_WOOD,
-                ModSounds.RARE_WOOD_DOOR_CLOSE.get(),
-                ModSounds.RARE_WOOD_DOOR_OPEN.get(),
-                ModSounds.RARE_WOOD_TRAPDOOR_CLOSE.get(),
-                ModSounds.RARE_WOOD_TRAPDOOR_OPEN.get(),
-                ModSounds.RARE_WOOD_PRESSURE_PLATE_CLICK_OFF.get(),
-                ModSounds.RARE_WOOD_PRESSURE_PLATE_CLICK_ON.get(),
-                ModSounds.RARE_WOOD_BUTTON_CLICK_OFF.get(),
-                ModSounds.RARE_WOOD_BUTTON_CLICK_ON.get()));
+                ModSounds.RARE_WOOD_DOOR_CLOSE,
+                ModSounds.RARE_WOOD_DOOR_OPEN,
+                ModSounds.RARE_WOOD_TRAPDOOR_CLOSE,
+                ModSounds.RARE_WOOD_TRAPDOOR_OPEN,
+                ModSounds.RARE_WOOD_PRESSURE_PLATE_CLICK_OFF,
+                ModSounds.RARE_WOOD_PRESSURE_PLATE_CLICK_ON,
+                ModSounds.RARE_WOOD_BUTTON_CLICK_OFF,
+                ModSounds.RARE_WOOD_BUTTON_CLICK_ON));
     }
 }

@@ -50,7 +50,7 @@ public class MoreColorful {
 
         ModItems.register(modEventBus);
         ModCreativeTabs.register(modEventBus);
-        ModBlocks.register(modEventBus);
+        ModBlocks.init();
         ModBlockEntities.register(modEventBus);
         ModSounds.register(modEventBus);
         ModStats.register(modEventBus);

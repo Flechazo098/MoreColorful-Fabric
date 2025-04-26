@@ -9,6 +9,7 @@ import com.ChalkerCharles.morecolorful.common.block.properties.ModBlockStateProp
 import com.ChalkerCharles.morecolorful.common.item.ModItems;
 import com.ChalkerCharles.morecolorful.network.packets.DrumSetPacket;
 import com.mojang.serialization.MapCodec;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.Registries;
@@ -38,7 +39,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.neoforged.neoforge.network.PacketDistributor;
 import net.neoforged.neoforge.server.ServerLifecycleHooks;
 
 import javax.annotation.Nullable;
@@ -234,16 +234,16 @@ public class DrumSetBlock extends BaseEntityBlock {
 
     @Override
     public InteractionResult useWithoutItem (BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, BlockHitResult pHitResult) {
-        if ((pPlayer.getItemInHand(InteractionHand.MAIN_HAND).getItem() != ModItems.DRUMSTICK.get() ||
-                pPlayer.getItemInHand(InteractionHand.OFF_HAND).getItem() != ModItems.DRUMSTICK.get())) {
+        if ((pPlayer.getItemInHand(InteractionHand.MAIN_HAND).getItem() != ModItems.DRUMSTICK ||
+                pPlayer.getItemInHand(InteractionHand.OFF_HAND).getItem() != ModItems.DRUMSTICK)) {
             pPlayer.displayClientMessage(Component.translatable("info.morecolorful.instruments.need_drumsticks"), true);
             return InteractionResult.FAIL;
         } else {
             if (pLevel.isClientSide) {
                 DrumSetScreen.openScreen(pPlayer, pPos);
-                PacketDistributor.sendToServer(new DrumSetPacket(false, false, false, false, pPos, pPlayer.getId()));
+                ClientPlayNetworking.send(new DrumSetPacket(false, false, false, false, pPos, pPlayer.getId()));
             }
-            pPlayer.awardStat(ModStats.INTERACT_WITH_DRUM_SET.get());
+            pPlayer.awardStat(ModStats.INTERACT_WITH_DRUM_SET);
         }
         return InteractionResult.CONSUME;
     }
@@ -298,7 +298,7 @@ public class DrumSetBlock extends BaseEntityBlock {
                 pLevel.setBlock(blockpos, Blocks.AIR.defaultBlockState(), 35);
                 pLevel.levelEvent(pPlayer, 2001, blockpos, Block.getId(blockstate));
                 if (!pPlayer.isCreative()) {
-                    popResource(pLevel, blockpos, ModItems.DRUM_SET.get().getDefaultInstance());
+                    popResource(pLevel, blockpos, ModItems.DRUM_SET.getDefaultInstance());
                 }
             }
         }
@@ -371,6 +371,6 @@ public class DrumSetBlock extends BaseEntityBlock {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType) {
-        return createTickerHelper(pBlockEntityType, ModBlockEntities.DRUM_SET.get(), DrumSetBlockEntity::tick);
+        return createTickerHelper(pBlockEntityType, ModBlockEntities.DRUM_SET, DrumSetBlockEntity::tick);
     }
 }

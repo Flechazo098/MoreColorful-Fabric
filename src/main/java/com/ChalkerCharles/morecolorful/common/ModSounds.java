@@ -2,16 +2,13 @@ package com.ChalkerCharles.morecolorful.common;
 
 import com.ChalkerCharles.morecolorful.MoreColorful;
 import net.minecraft.core.Holder;
-import net.minecraft.core.registries.Registries;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
-import net.neoforged.bus.api.IEventBus;
-import net.neoforged.neoforge.registries.DeferredRegister;
 
-import java.util.function.Supplier;
 
 public class ModSounds {
-    public static final DeferredRegister<SoundEvent> SOUND_EVENTS = DeferredRegister.create(Registries.SOUND_EVENT, MoreColorful.MODID);
     
     // Note Blocks
     public static final Holder<SoundEvent> NOTE_BLOCK_PIANO_LOW = registerForHolder("block.note_block.piano_low");
@@ -74,42 +71,46 @@ public class ModSounds {
     public static final Holder<SoundEvent> GUZHENG_PLAY = registerForHolder("block.guzheng.play");
     
     // Common Blocks
-    public static final Supplier<SoundEvent> RARE_WOOD_BREAK = register("block.rare_wood.break");
-    public static final Supplier<SoundEvent> RARE_WOOD_STEP = register("block.rare_wood.step");
-    public static final Supplier<SoundEvent> RARE_WOOD_PLACE = register("block.rare_wood.place");
-    public static final Supplier<SoundEvent> RARE_WOOD_HIT = register("block.rare_wood.hit");
-    public static final Supplier<SoundEvent> RARE_WOOD_FALL = register("block.rare_wood.fall");
-    public static final Supplier<SoundEvent> RARE_WOOD_DOOR_CLOSE = register("block.rare_wood.door.close");
-    public static final Supplier<SoundEvent> RARE_WOOD_DOOR_OPEN = register("block.rare_wood.door.open");
-    public static final Supplier<SoundEvent> RARE_WOOD_TRAPDOOR_CLOSE = register("block.rare_wood.trapdoor.close");
-    public static final Supplier<SoundEvent> RARE_WOOD_TRAPDOOR_OPEN = register("block.rare_wood.trapdoor.open");
-    public static final Supplier<SoundEvent> RARE_WOOD_PRESSURE_PLATE_CLICK_OFF = register("block.rare_wood.pressure_plate.click_off");
-    public static final Supplier<SoundEvent> RARE_WOOD_PRESSURE_PLATE_CLICK_ON = register("block.rare_wood.pressure_plate.click_on");
-    public static final Supplier<SoundEvent> RARE_WOOD_BUTTON_CLICK_OFF = register("block.rare_wood.button.click_off");
-    public static final Supplier<SoundEvent> RARE_WOOD_BUTTON_CLICK_ON = register("block.rare_wood.button.click_on");
-    public static final Supplier<SoundEvent> RARE_WOOD_HANGING_SIGN_BREAK = register("block.rare_wood.hanging_sign.break");
-    public static final Supplier<SoundEvent> RARE_WOOD_HANGING_SIGN_STEP = register("block.rare_wood.hanging_sign.step");
-    public static final Supplier<SoundEvent> RARE_WOOD_HANGING_SIGN_PLACE = register("block.rare_wood.hanging_sign.place");
-    public static final Supplier<SoundEvent> RARE_WOOD_HANGING_SIGN_HIT = register("block.rare_wood.hanging_sign.hit");
-    public static final Supplier<SoundEvent> RARE_WOOD_HANGING_SIGN_FALL = register("block.rare_wood.hanging_sign.fall");
-    public static final Supplier<SoundEvent> RARE_WOOD_FENCE_GATE_CLOSE = register("block.rare_wood.fence_gate.close");
-    public static final Supplier<SoundEvent> RARE_WOOD_FENCE_GATE_OPEN = register("block.rare_wood.fence_gate.open");
-    public static final Supplier<SoundEvent> LEAF_LITTER_BREAK = register("block.leaf_litter.break");
-    public static final Supplier<SoundEvent> LEAF_LITTER_STEP = register("block.leaf_litter.step");
-    public static final Supplier<SoundEvent> LEAF_LITTER_PLACE = register("block.leaf_litter.place");
-    public static final Supplier<SoundEvent> LEAF_LITTER_HIT = register("block.leaf_litter.hit");
-    public static final Supplier<SoundEvent> LEAF_LITTER_FALL = register("block.leaf_litter.fall");
+    public static final SoundEvent RARE_WOOD_BREAK = register("block.rare_wood.break");
+    public static final SoundEvent RARE_WOOD_STEP = register("block.rare_wood.step");
+    public static final SoundEvent RARE_WOOD_PLACE = register("block.rare_wood.place");
+    public static final SoundEvent RARE_WOOD_HIT = register("block.rare_wood.hit");
+    public static final SoundEvent RARE_WOOD_FALL = register("block.rare_wood.fall");
+    public static final SoundEvent RARE_WOOD_DOOR_CLOSE = register("block.rare_wood.door.close");
+    public static final SoundEvent RARE_WOOD_DOOR_OPEN = register("block.rare_wood.door.open");
+    public static final SoundEvent RARE_WOOD_TRAPDOOR_CLOSE = register("block.rare_wood.trapdoor.close");
+    public static final SoundEvent RARE_WOOD_TRAPDOOR_OPEN = register("block.rare_wood.trapdoor.open");
+    public static final SoundEvent RARE_WOOD_PRESSURE_PLATE_CLICK_OFF = register("block.rare_wood.pressure_plate.click_off");
+    public static final SoundEvent RARE_WOOD_PRESSURE_PLATE_CLICK_ON = register("block.rare_wood.pressure_plate.click_on");
+    public static final SoundEvent RARE_WOOD_BUTTON_CLICK_OFF = register("block.rare_wood.button.click_off");
+    public static final SoundEvent RARE_WOOD_BUTTON_CLICK_ON = register("block.rare_wood.button.click_on");
+    public static final SoundEvent RARE_WOOD_HANGING_SIGN_BREAK = register("block.rare_wood.hanging_sign.break");
+    public static final SoundEvent RARE_WOOD_HANGING_SIGN_STEP = register("block.rare_wood.hanging_sign.step");
+    public static final SoundEvent RARE_WOOD_HANGING_SIGN_PLACE = register("block.rare_wood.hanging_sign.place");
+    public static final SoundEvent RARE_WOOD_HANGING_SIGN_HIT = register("block.rare_wood.hanging_sign.hit");
+    public static final SoundEvent RARE_WOOD_HANGING_SIGN_FALL = register("block.rare_wood.hanging_sign.fall");
+    public static final SoundEvent RARE_WOOD_FENCE_GATE_CLOSE = register("block.rare_wood.fence_gate.close");
+    public static final SoundEvent RARE_WOOD_FENCE_GATE_OPEN = register("block.rare_wood.fence_gate.open");
+    public static final SoundEvent LEAF_LITTER_BREAK = register("block.leaf_litter.break");
+    public static final SoundEvent LEAF_LITTER_STEP = register("block.leaf_litter.step");
+    public static final SoundEvent LEAF_LITTER_PLACE = register("block.leaf_litter.place");
+    public static final SoundEvent LEAF_LITTER_HIT = register("block.leaf_litter.hit");
+    public static final SoundEvent LEAF_LITTER_FALL = register("block.leaf_litter.fall");
 
     // Music
     //public static final Holder<SoundEvent> MUSIC_BIOME_AUTUMN = registerForHolder("music.overworld.autumn");
 
-    private static Holder<SoundEvent> registerForHolder(String name) {
-        return SOUND_EVENTS.register(name, ()-> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(MoreColorful.MODID, name)));
+    private static SoundEvent register(String name) {
+        return Registry.register(BuiltInRegistries.SOUND_EVENT, name, SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(MoreColorful.MODID, name)));
     }
-    private static Supplier<SoundEvent> register(String name) {
-        return SOUND_EVENTS.register(name, ()-> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(MoreColorful.MODID, name)));
+
+    private static Holder.Reference<SoundEvent> registerForHolder(String string) {
+        return registerForHolder(ResourceLocation.withDefaultNamespace(string));
     }
-    public static void register(IEventBus eventBus){
-        SOUND_EVENTS.register(eventBus);
+    private static Holder.Reference<SoundEvent> registerForHolder(ResourceLocation resourceLocation) {
+        return registerForHolder(resourceLocation, resourceLocation);
+    }
+    private static Holder.Reference<SoundEvent> registerForHolder(ResourceLocation resourceLocation, ResourceLocation resourceLocation2) {
+        return Registry.registerForHolder(BuiltInRegistries.SOUND_EVENT, resourceLocation, SoundEvent.createVariableRangeEvent(resourceLocation2));
     }
 }

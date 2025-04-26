@@ -4,6 +4,9 @@ import com.ChalkerCharles.morecolorful.MoreColorful;
 import com.ChalkerCharles.morecolorful.common.block.musical_instruments.DrumSetBlock;
 import com.ChalkerCharles.morecolorful.common.item.musical_instruments.InstrumentsType;
 import com.ChalkerCharles.morecolorful.network.packets.DrumSetPacket;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
@@ -16,15 +19,12 @@ import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.player.Player;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
-import net.neoforged.neoforge.network.PacketDistributor;
 import org.jetbrains.annotations.NotNull;
 import org.lwjgl.glfw.GLFW;
 
 import java.util.Arrays;
 
-@OnlyIn(Dist.CLIENT)
+@Environment(EnvType.CLIENT)
 public class DrumSetScreen extends Screen {
     private DrumSetButton bass_drum;
     private DrumSetButton snare_1;
@@ -60,7 +60,7 @@ public class DrumSetScreen extends Screen {
         Button button = this.addRenderableWidget(Button.builder(CommonComponents.GUI_DONE, pButton -> {
             if (this.minecraft != null) this.minecraft.setScreen(null);
             isPressing = false;
-            PacketDistributor.sendToServer(new DrumSetPacket(false, false, false, false, pPos, pPlayer.getId()));
+            ClientPlayNetworking.send(new DrumSetPacket(false, false, false, false, pPos, pPlayer.getId()));
         }).pos((i - 186) / 2, 192).size(186, 20).build());
         this.addWidget(button);
         this.bass_drum = this.addRenderableWidget(new DrumSetButton((i - 170) / 2 + 75, 118, InstrumentsType.BASS_DRUM, 12));

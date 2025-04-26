@@ -62,14 +62,14 @@ public abstract class ServerChunkCacheMixin implements IChunkSourceExtension {
             ChunkStatusUpdateListener pChunkStatusListener,
             Supplier<DimensionDataStorage> pOverworldDataStorage,
             CallbackInfo ci) {
-        if (Config.THERMAL_SYSTEM.isTrue()) {
+        if (Config.isThermalSystemEnabled()) {
             this.moreColorful$thermalEngine = ((IChunkMapExtension) this.chunkMap).moreColorful$getThermalEngine();
         }
     }
 
     @Inject(method = "close", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/level/ChunkMap;close()V"))
     private void close(CallbackInfo ci) {
-        if (Config.THERMAL_SYSTEM.isTrue()) {
+        if (Config.isThermalSystemEnabled()) {
             this.moreColorful$thermalEngine.close();
         }
     }
@@ -84,7 +84,7 @@ public abstract class ServerChunkCacheMixin implements IChunkSourceExtension {
     @Nullable
     @Override
     public ChunkAccess moreColorful$getThermalChunk(int pChunkX, int pChunkZ) {
-        if (Config.THERMAL_SYSTEM.isFalse()) return null;
+        if (!Config.isThermalSystemEnabled()) return null;
         long i = ChunkPos.asLong(pChunkX, pChunkZ);
         ChunkHolder chunkholder = this.getVisibleChunkIfPresent(i);
         return chunkholder == null ? null : chunkholder.getChunkIfPresentUnchecked(ModChunkStatus.INITIALIZE_THERMAL.get().getParent());

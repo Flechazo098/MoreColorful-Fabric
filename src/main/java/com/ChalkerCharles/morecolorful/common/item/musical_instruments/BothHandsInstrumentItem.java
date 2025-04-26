@@ -2,6 +2,7 @@ package com.ChalkerCharles.morecolorful.common.item.musical_instruments;
 
 import com.ChalkerCharles.morecolorful.client.gui.PlayingScreen;
 import com.ChalkerCharles.morecolorful.network.packets.PlayingScreenPacket;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.network.chat.Component;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
@@ -10,7 +11,6 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.neoforged.neoforge.network.PacketDistributor;
 
 public class BothHandsInstrumentItem extends MusicalInstrumentItem {
 
@@ -26,7 +26,7 @@ public class BothHandsInstrumentItem extends MusicalInstrumentItem {
                 || (pHand == InteractionHand.OFF_HAND && !pPlayer.hasItemInSlot(EquipmentSlot.MAINHAND))){
             if (pLevel.isClientSide) {
                 PlayingScreen.openPlayingScreen(pPlayer, pType);
-                PacketDistributor.sendToServer(new PlayingScreenPacket(pType, PlayingScreen.DEFAULT_POS, pPlayer.getId(), true));
+                ClientPlayNetworking.send(new PlayingScreenPacket(pType, PlayingScreen.DEFAULT_POS, pPlayer.getId(), true));
             }
             pPlayer.startUsingItem(pHand);
             pPlayer.awardStat(Stats.ITEM_USED.get(this));

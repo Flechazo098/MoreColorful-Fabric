@@ -27,7 +27,7 @@ public abstract class LevelRendererMixin {
 
     @Inject(method = "compileSections", at = @At("HEAD"))
     private void compileSections(Camera pCamera, CallbackInfo ci, @Share("thermalEngine") LocalRef<LevelThermalEngine> thermalEngine) {
-        if (Config.THERMAL_SYSTEM.isFalse()) return;
+        if (!Config.isThermalSystemEnabled()) return;
         if (this.level != null) {
             thermalEngine.set(((ILevelExtension) this.level).moreColorful$getThermalEngine());
         }
@@ -35,7 +35,7 @@ public abstract class LevelRendererMixin {
 
     @ModifyExpressionValue(method = "compileSections", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/lighting/LevelLightEngine;lightOnInSection(Lnet/minecraft/core/SectionPos;)Z"))
     private boolean compileSections(boolean original, @Share("thermalEngine") LocalRef<LevelThermalEngine> thermalEngine, @Local SectionPos sectionPos) {
-        if (Config.THERMAL_SYSTEM.isFalse()) return original;
+        if (!Config.isThermalSystemEnabled()) return original;
         return original || thermalEngine.get().temperatureOnInSection(sectionPos);
     }
 }

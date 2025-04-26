@@ -59,7 +59,7 @@ public class ModCustomTrades {
         genericTrades.addAll(Arrays.asList(wanderingTraderGeneric));
     }
 
-    private static BasicItemListing sell(ItemLike item, int itemCount, int maxTrades, int xp) {
+    private static ItemListing sell(ItemLike item, int itemCount, int maxTrades, int xp) {
         return new BasicItemListing(new ItemStack(item, itemCount), new ItemStack(Items.EMERALD), maxTrades, xp, 0.05F);
     }
 

@@ -79,8 +79,8 @@ public abstract class ItemInHandRendererMixin {
                         this.moreColorful$renderDidgeridooHand(pPoseStack, pBuffer, pCombinedLight, pEquippedProgress, pSwingProgress, pStack, f);
                     }
                 }
-            } else if (pStack.getItem() == ModItems.PIPA.get()) {
-                if (pPlayer.getMainHandItem().getItem() == ModItems.PIPA.get()) {
+            } else if (pStack.getItem() == ModItems.PIPA) {
+                if (pPlayer.getMainHandItem().getItem() == ModItems.PIPA) {
                     if (!pPlayer.hasItemInSlot(EquipmentSlot.OFFHAND)) {
                         this.moreColorful$renderHand(pPoseStack, pBuffer, pCombinedLight, pEquippedProgress, pSwingProgress, pStack, !f);
                     }

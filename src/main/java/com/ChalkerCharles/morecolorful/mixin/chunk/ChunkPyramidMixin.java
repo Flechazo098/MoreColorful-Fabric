@@ -20,7 +20,7 @@ public abstract class ChunkPyramidMixin {
             )
     )
     private static ChunkPyramid.Builder addThermalGeneration(ChunkPyramid.Builder original) {
-        if (Config.THERMAL_SYSTEM.isTrue()) {
+        if (Config.isThermalSystemEnabled()) {
             original.step(ModChunkStatus.INITIALIZE_THERMAL.get(), b -> b.setTask(ModChunkStatus::initializeThermal))
                     .step(ModChunkStatus.THERMAL.get(), b -> b.addRequirement(ModChunkStatus.INITIALIZE_THERMAL.get(), 0).setTask(ModChunkStatus::thermal));
         }
@@ -36,7 +36,7 @@ public abstract class ChunkPyramidMixin {
             )
     )
     private static ChunkPyramid.Builder addThermalLoading(ChunkPyramid.Builder original) {
-        if (Config.THERMAL_SYSTEM.isTrue()) {
+        if (Config.isThermalSystemEnabled()) {
             original.step(ModChunkStatus.INITIALIZE_THERMAL.get(), b -> b.setTask(ModChunkStatus::initializeThermal))
                     .step(ModChunkStatus.THERMAL.get(), b -> b.addRequirement(ModChunkStatus.INITIALIZE_THERMAL.get(), 0).setTask(ModChunkStatus::thermal));
         }

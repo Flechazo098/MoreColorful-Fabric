@@ -1,12 +1,12 @@
 package com.ChalkerCharles.morecolorful.client.model;
 
 import com.ChalkerCharles.morecolorful.MoreColorful;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.resources.ResourceLocation;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
-@OnlyIn(Dist.CLIENT)
+@Environment(EnvType.CLIENT)
 public class ModModelLayers {
 
     public static final ModelLayerLocation RIDE_CYMBAL = register("ride_cymbal");

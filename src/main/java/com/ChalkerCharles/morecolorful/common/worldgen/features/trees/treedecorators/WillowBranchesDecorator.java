@@ -23,7 +23,7 @@ public class WillowBranchesDecorator extends TreeDecorator {
     );
     private final float probability;
     private final IntProvider length;
-    private static final BlockState BRANCHES_TIP = ModBlocks.WILLOW_BRANCHES.get().defaultBlockState();
+    private static final BlockState BRANCHES_TIP = ModBlocks.WILLOW_BRANCHES.defaultBlockState();
     private static final BlockState BRANCHES = BRANCHES_TIP.setValue(WillowBranchesBlock.TIP, false);
     @Override
     protected TreeDecoratorType<?> type() {

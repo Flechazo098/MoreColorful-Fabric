@@ -36,7 +36,7 @@ public abstract class HumanoidModelMixin<T extends LivingEntity> extends Ageable
     @Unique
     private void moreColorful$setupKeyboardAnimation(T pLivingEntity) {
         if (pLivingEntity instanceof Player) {
-            PlayingScreenPacket data = pLivingEntity.getData(ModDataAttachments.PLAYING_SCREEN_DATA);
+            PlayingScreenPacket data = pLivingEntity.getAttached(ModDataAttachments.PLAYING_SCREEN_DATA);
             InstrumentsType pType = data.pType();
             BlockPos pos = data.pos();
             Entity pPlayer = pLivingEntity.level().getEntity(data.id());
@@ -52,10 +52,10 @@ public abstract class HumanoidModelMixin<T extends LivingEntity> extends Ageable
                 this.rightArm.xRot = (float) (-1.221731F - Math.tanh(deltaY));
                 this.leftArm.xRot = (float) (-1.221731F - Math.tanh(deltaY));
                 float angle = (float) -(Math.PI / 12);
-                float f = pPlayer.getData(ModDataAttachments.PLAYING_SCREEN_TICK);
+                float f = pPlayer.getAttached(ModDataAttachments.PLAYING_SCREEN_TICK);
                 float f1 = f % 6 >= 3 ? -(f % 6) + 4.5F : (f % 6) - 1.5F;
                 float f2 = f % 12 >= 6 ? -(f % 12) + 9 : (f % 12) - 3;
-                if (pPlayer.getData(ModDataAttachments.IS_PLAYING_INSTRUMENT)) {
+                if (pPlayer.getAttached(ModDataAttachments.IS_PLAYING_INSTRUMENT)) {
                     this.rightArm.xRot = Mth.rotLerp(f1 / 8, this.rightArm.xRot, angle + this.rightArm.xRot);
                     this.rightArm.yRot = Mth.rotLerp(f2 / 4, 0.0F, angle);
                     this.rightArm.zRot = Mth.rotLerp(f2 / 4, 0.0F, angle);
@@ -69,7 +69,7 @@ public abstract class HumanoidModelMixin<T extends LivingEntity> extends Ageable
     @Unique
     private void moreColorful$setupGuzhengAnimation(T pLivingEntity) {
         if (pLivingEntity instanceof Player) {
-            PlayingScreenPacket data = pLivingEntity.getData(ModDataAttachments.PLAYING_SCREEN_DATA);
+            PlayingScreenPacket data = pLivingEntity.getAttached(ModDataAttachments.PLAYING_SCREEN_DATA);
             InstrumentsType pType = data.pType();
             BlockPos pos = data.pos();
             Entity pPlayer = pLivingEntity.level().getEntity(data.id());
@@ -79,10 +79,10 @@ public abstract class HumanoidModelMixin<T extends LivingEntity> extends Ageable
                 this.rightArm.xRot = (float) (-1.221731F - Math.tanh(deltaY));
                 this.leftArm.xRot = (float) (-1.221731F - Math.tanh(deltaY));
                 float angle = (float) -(Math.PI / 6);
-                float f = pPlayer.getData(ModDataAttachments.PLAYING_SCREEN_TICK);
+                float f = pPlayer.getAttached(ModDataAttachments.PLAYING_SCREEN_TICK);
                 float f1 = f % 12 >= 6 ? -(f % 12) + 9F : (f % 12) - 3F;
                 float f2 = f % 12 >= 6 ? -(f % 12) + 9 : (f % 12) - 3;
-                if (pPlayer.getData(ModDataAttachments.IS_PLAYING_INSTRUMENT)) {
+                if (pPlayer.getAttached(ModDataAttachments.IS_PLAYING_INSTRUMENT)) {
                     this.rightArm.xRot = Mth.rotLerp(f1 / 32, this.rightArm.xRot, angle + this.rightArm.xRot);
                     this.rightArm.yRot = Mth.rotLerp(f2 / 8, 0.0F, angle);
                     this.rightArm.zRot = Mth.rotLerp(f2 / 8, 0.0F, angle);

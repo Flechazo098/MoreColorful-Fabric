@@ -34,7 +34,7 @@ public abstract class FrostedIceBlockMixin {
 
     @Inject(method = "tick", at = @At("HEAD"), cancellable = true)
     private void tick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom, CallbackInfo ci) {
-        if (Config.THERMAL_SYSTEM.isTrue()) {
+        if (Config.isThermalSystemEnabled()) {
             if ((pRandom.nextInt(3) == 0 || this.fewerNeigboursThan(pLevel, pPos, 4))
                     && ((ILevelExtension) pLevel).moreColorful$getTemperature(pPos) > 5 - pState.getValue(AGE)
                     && this.slightlyMelt(pState, pLevel, pPos)) {

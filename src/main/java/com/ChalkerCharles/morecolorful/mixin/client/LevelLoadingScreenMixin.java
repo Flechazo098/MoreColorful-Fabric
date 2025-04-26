@@ -20,7 +20,7 @@ public abstract class LevelLoadingScreenMixin {
 
     @Inject(method = "<clinit>", at = @At("TAIL"))
     private static void addColors(CallbackInfo ci) {
-        if (Config.THERMAL_SYSTEM.isFalse()) return;
+        if (!Config.isThermalSystemEnabled()) return;
         COLORS.put(ModChunkStatus.INITIALIZE_THERMAL.get(), 13421772);
         COLORS.put(ModChunkStatus.THERMAL.get(), 16769184);
     }

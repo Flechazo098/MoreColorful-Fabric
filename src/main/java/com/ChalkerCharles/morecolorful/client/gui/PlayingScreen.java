@@ -12,6 +12,9 @@ import com.ChalkerCharles.morecolorful.network.packets.InstrumentTickingPacket;
 import com.ChalkerCharles.morecolorful.network.packets.PlayingScreenPacket;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
@@ -25,16 +28,13 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.Block;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
-import net.neoforged.neoforge.network.PacketDistributor;
 import org.jetbrains.annotations.NotNull;
 import org.lwjgl.glfw.GLFW;
 
 import java.util.List;
 import java.util.Optional;
 
-@OnlyIn(Dist.CLIENT)
+@Environment(EnvType.CLIENT)
 public class PlayingScreen extends Screen {
     private final Int2ObjectMap<KeyButton> allKeys = new Int2ObjectOpenHashMap<>();
     private final Int2ObjectMap<KeyButton> keyCodes = new Int2ObjectOpenHashMap<>();
@@ -71,7 +71,7 @@ public class PlayingScreen extends Screen {
             if (this.minecraft != null) this.minecraft.setScreen(null);
             isPressing = false;
             pPlayer.stopUsingItem();
-            PacketDistributor.sendToServer(new PlayingScreenPacket(pType, pPos, pPlayer.getId(), false));
+            ClientPlayNetworking.send(new PlayingScreenPacket(pType, pPos, pPlayer.getId(), false));
         }).pos((i - 186) / 2, 192).size(186, 20).build());
         this.addWidget(button);
         KeyButton blackKey_0 = this.addRenderableWidget(new KeyButton((i - 186) / 2 + 46, 111, -1, 0));
@@ -233,7 +233,7 @@ public class PlayingScreen extends Screen {
     private void renderOctaveButtonTooltip(GuiGraphics pGuiGraphics, int mouseX, int mouseY) {
         if (this.octaveButton != null && this.octaveButton.isHovered()) {
             Component octaveMessage = pType == InstrumentsType.PIANO_HIGH ? Component.translatable("morecolorful.gui.octave_high_message") : Component.translatable("morecolorful.gui.octave_low_message");
-            Component octaveToggle = Component.translatable("morecolorful.gui.octave_toggle", ModKeyMapping.OCTAVE_TOGGLE.get().getKey().getDisplayName());
+            Component octaveToggle = Component.translatable("morecolorful.gui.octave_toggle", ModKeyMapping.OCTAVE_TOGGLE.getDefaultKey().getDisplayName());
             List<Component> list = List.of(octaveMessage, octaveToggle);
             pGuiGraphics.renderTooltip(this.font, list, Optional.empty(), mouseX, mouseY);
         }
@@ -260,7 +260,7 @@ public class PlayingScreen extends Screen {
     public boolean shouldCloseOnEsc() {
         isPressing = false;
         pPlayer.stopUsingItem();
-        PacketDistributor.sendToServer(new PlayingScreenPacket(pType, pPos, pPlayer.getId(), false));
+        ClientPlayNetworking.send(new PlayingScreenPacket(pType, pPos, pPlayer.getId(), false));
         return true;
     }
 
@@ -332,7 +332,7 @@ public class PlayingScreen extends Screen {
     @Override
     public boolean keyPressed(int pKeyCode, int pScanCode, int pModifiers){
         super.keyPressed(pKeyCode, pScanCode, pModifiers);
-        if (pKeyCode == ModKeyMapping.OCTAVE_TOGGLE.get().getKey().getValue() && octaveButton != null) {
+        if (pKeyCode == ModKeyMapping.OCTAVE_TOGGLE.getDefaultKey().getValue() && octaveButton != null) {
             octaveButton.onPress();
         }
         for (int keycode : keyCodes.keySet()) {
@@ -371,7 +371,7 @@ public class PlayingScreen extends Screen {
     public void tick() {
         if (!isAnyPressed()){
             isPressing = false;
-            PacketDistributor.sendToServer(new InstrumentPressingPacket(pPlayer.getId(), false));
+            ClientPlayNetworking.send(new InstrumentPressingPacket(pPlayer.getId(), false));
         }
 
         if (pType.getType() == InstrumentsType.Type.KEYBOARD || pType == InstrumentsType.GUZHENG) {
@@ -380,7 +380,7 @@ public class PlayingScreen extends Screen {
 
         InteractionHand leftHand = pPlayer.getMainArm() == HumanoidArm.RIGHT ? InteractionHand.OFF_HAND : InteractionHand.MAIN_HAND;
         InteractionHand rightHand = pPlayer.getMainArm() == HumanoidArm.RIGHT ? InteractionHand.MAIN_HAND : InteractionHand.OFF_HAND;
-        InteractionHand drumstickHand = pPlayer.getItemInHand(InteractionHand.MAIN_HAND).getItem() == ModItems.DRUMSTICK.get() ? InteractionHand.MAIN_HAND : InteractionHand.OFF_HAND;
+        InteractionHand drumstickHand = pPlayer.getItemInHand(InteractionHand.MAIN_HAND).getItem() == ModItems.DRUMSTICK ? InteractionHand.MAIN_HAND : InteractionHand.OFF_HAND;
 
         if (isPressing) {
             if (pType == InstrumentsType.HARP) {
@@ -410,16 +410,16 @@ public class PlayingScreen extends Screen {
                 if ((!(pBlock instanceof MusicalInstrumentBlock block) || block.getType() != this.pType) && !exception) {
                     minecraft.setScreen(null);
                     isPressing = false;
-                    PacketDistributor.sendToServer(new PlayingScreenPacket(pType, pPos, pPlayer.getId(), false));
+                    ClientPlayNetworking.send(new PlayingScreenPacket(pType, pPos, pPlayer.getId(), false));
                 }
             } else if (!(pPlayer.getItemInHand(pPlayer.getUsedItemHand()).getItem() instanceof MusicalInstrumentItem item) || item.getType() != this.pType) {
                 minecraft.setScreen(null);
                 isPressing = false;
                 pPlayer.stopUsingItem();
-                PacketDistributor.sendToServer(new PlayingScreenPacket(pType, pPos, pPlayer.getId(), false));
+                ClientPlayNetworking.send(new PlayingScreenPacket(pType, pPos, pPlayer.getId(), false));
             }
         }
-        PacketDistributor.sendToServer(new InstrumentTickingPacket(pTick, pPlayer.getId()));
+        ClientPlayNetworking.send(new InstrumentTickingPacket(pTick, pPlayer.getId()));
     }
 
     private KeyButton getKeyById(int keyId) {

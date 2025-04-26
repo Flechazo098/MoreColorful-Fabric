@@ -33,7 +33,7 @@ public abstract class ProtoChunkMixin implements IProtoChunkExtension {
     @Nullable
     @Inject(method = "setBlockState", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/chunk/ProtoChunk;getPersistedStatus()Lnet/minecraft/world/level/chunk/status/ChunkStatus;", shift = At.Shift.BEFORE))
     public void setBlockState(BlockPos pPos, BlockState pState, boolean pIsMoving, CallbackInfoReturnable<BlockState> cir, @Local LevelChunkSection levelchunksection, @Local(ordinal = 1) boolean flag, @Local(ordinal = 1) BlockState blockstate) {
-        if (Config.THERMAL_SYSTEM.isFalse()) return;
+        if (!Config.isThermalSystemEnabled()) return;
         if (this.status.isOrAfter(ModChunkStatus.INITIALIZE_THERMAL.get())) {
             boolean flag1 = levelchunksection.hasOnlyAir();
             if (flag1 != flag) {

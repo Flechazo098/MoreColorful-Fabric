@@ -40,9 +40,9 @@ public abstract class FlowerPotBlockMixin extends Block {
     @Unique
     private BlockState moreColorful$opposite(BlockState state) {
         if (state.is(ModBlocks.POTTED_OPEN_DAYBLOOM)) {
-            return ModBlocks.POTTED_CLOSED_DAYBLOOM.get().defaultBlockState();
+            return ModBlocks.POTTED_CLOSED_DAYBLOOM.defaultBlockState();
         } else {
-            return state.is(ModBlocks.POTTED_CLOSED_DAYBLOOM) ? ModBlocks.POTTED_OPEN_DAYBLOOM.get().defaultBlockState() : state;
+            return state.is(ModBlocks.POTTED_CLOSED_DAYBLOOM) ? ModBlocks.POTTED_OPEN_DAYBLOOM.defaultBlockState() : state;
         }
     }
 }

@@ -43,45 +43,45 @@ public class ModTreeConfigurations {
             .decorators(List.of(beehive005))
             .build();
     public static final TreeConfiguration ORANGE_BIRCH = TreeFeatures.createStraightBlobTree(
-            Blocks.BIRCH_LOG, ModBlocks.ORANGE_BIRCH_LEAVES.get(), 5, 2, 1, 2).ignoreVines().build();
+            Blocks.BIRCH_LOG, ModBlocks.ORANGE_BIRCH_LEAVES, 5, 2, 1, 2).ignoreVines().build();
     public static final TreeConfiguration ORANGE_BIRCH_0002 = TreeFeatures.createStraightBlobTree(
-            Blocks.BIRCH_LOG, ModBlocks.ORANGE_BIRCH_LEAVES.get(), 5, 2, 1, 2).ignoreVines()
+            Blocks.BIRCH_LOG, ModBlocks.ORANGE_BIRCH_LEAVES, 5, 2, 1, 2).ignoreVines()
             .decorators(List.of(beehive0002)).build();
     public static final TreeConfiguration ORANGE_BIRCH_005 = TreeFeatures.createStraightBlobTree(
-                    Blocks.BIRCH_LOG, ModBlocks.ORANGE_BIRCH_LEAVES.get(), 5, 2, 1, 2).ignoreVines()
+                    Blocks.BIRCH_LOG, ModBlocks.ORANGE_BIRCH_LEAVES, 5, 2, 1, 2).ignoreVines()
             .decorators(List.of(beehive005)).build();
     public static final TreeConfiguration TALL_ORANGE_BIRCH_0002 = TreeFeatures.createStraightBlobTree(
-                    Blocks.BIRCH_LOG, ModBlocks.ORANGE_BIRCH_LEAVES.get(), 5, 2, 6, 2).ignoreVines()
+                    Blocks.BIRCH_LOG, ModBlocks.ORANGE_BIRCH_LEAVES, 5, 2, 6, 2).ignoreVines()
             .decorators(List.of(beehive0002)).build();
     public static final TreeConfiguration YELLOW_BIRCH = TreeFeatures.createStraightBlobTree(
-            Blocks.BIRCH_LOG, ModBlocks.YELLOW_BIRCH_LEAVES.get(), 5, 2, 1, 2).ignoreVines().build();
+            Blocks.BIRCH_LOG, ModBlocks.YELLOW_BIRCH_LEAVES, 5, 2, 1, 2).ignoreVines().build();
     public static final TreeConfiguration YELLOW_BIRCH_0002 = TreeFeatures.createStraightBlobTree(
-                    Blocks.BIRCH_LOG, ModBlocks.YELLOW_BIRCH_LEAVES.get(), 5, 2, 1, 2).ignoreVines()
+                    Blocks.BIRCH_LOG, ModBlocks.YELLOW_BIRCH_LEAVES, 5, 2, 1, 2).ignoreVines()
             .decorators(List.of(beehive0002)).build();
     public static final TreeConfiguration YELLOW_BIRCH_005 = TreeFeatures.createStraightBlobTree(
-                    Blocks.BIRCH_LOG, ModBlocks.YELLOW_BIRCH_LEAVES.get(), 5, 2, 1, 2).ignoreVines()
+                    Blocks.BIRCH_LOG, ModBlocks.YELLOW_BIRCH_LEAVES, 5, 2, 1, 2).ignoreVines()
             .decorators(List.of(beehive005)).build();
     public static final TreeConfiguration TALL_YELLOW_BIRCH_0002 = TreeFeatures.createStraightBlobTree(
-                    Blocks.BIRCH_LOG, ModBlocks.YELLOW_BIRCH_LEAVES.get(), 5, 2, 6, 2).ignoreVines()
+                    Blocks.BIRCH_LOG, ModBlocks.YELLOW_BIRCH_LEAVES, 5, 2, 6, 2).ignoreVines()
             .decorators(List.of(beehive0002)).build();
     public static final TreeConfiguration GINKGO = new TreeConfiguration.TreeConfigurationBuilder(
-            BlockStateProvider.simple(ModBlocks.GINKGO_LOG.get()),
+            BlockStateProvider.simple(ModBlocks.GINKGO_LOG),
             new StraightTrunkPlacer(5, 2, 0),
-            BlockStateProvider.simple(ModBlocks.GINKGO_LEAVES.get()),
+            BlockStateProvider.simple(ModBlocks.GINKGO_LEAVES),
             new GinkgoFoliagePlacer(ConstantInt.of(3), ConstantInt.of(0), ConstantInt.of(4), 135),
             new TwoLayersFeatureSize(1, 0, 1)
     ).build();
     public static final TreeConfiguration FANCY_GINKGO = new TreeConfiguration.TreeConfigurationBuilder(
-            BlockStateProvider.simple(ModBlocks.GINKGO_LOG.get()),
+            BlockStateProvider.simple(ModBlocks.GINKGO_LOG),
             new FancyTrunkPlacer(9, 5, 0),
-            BlockStateProvider.simple(ModBlocks.GINKGO_LEAVES.get()),
+            BlockStateProvider.simple(ModBlocks.GINKGO_LEAVES),
             new FancyFoliagePlacer(ConstantInt.of(2), ConstantInt.of(4), 4),
             new TwoLayersFeatureSize(0, 0, 0, OptionalInt.of(4))
     ).build();
     public static final TreeConfiguration MAPLE = TreeFeatures.createStraightBlobTree(
-            ModBlocks.MAPLE_LOG.get(), ModBlocks.MAPLE_LEAVES.get(), 4, 2, 0, 2).ignoreVines().build();
+            ModBlocks.MAPLE_LOG, ModBlocks.MAPLE_LEAVES, 4, 2, 0, 2).ignoreVines().build();
     public static final TreeConfiguration FANCY_MAPLE = new TreeConfiguration.TreeConfigurationBuilder(
-            BlockStateProvider.simple(ModBlocks.MAPLE_LOG.get()),
+            BlockStateProvider.simple(ModBlocks.MAPLE_LOG),
             new CherryTrunkPlacer(
                     5,
                     2,
@@ -93,12 +93,12 @@ public class ModTreeConfigurations {
                     UniformInt.of(-3, -2),
                     UniformInt.of(-1, 0)
             ),
-            BlockStateProvider.simple(ModBlocks.MAPLE_LEAVES.get()),
+            BlockStateProvider.simple(ModBlocks.MAPLE_LEAVES),
             new CherryFoliagePlacer(ConstantInt.of(3), ConstantInt.of(0), ConstantInt.of(5), 0.25F, 0.5F, 0.066666667F, 0.16666667F),
             new TwoLayersFeatureSize(1, 0, 2)
     ).ignoreVines().build();
     public static final TreeConfiguration FROST = new TreeConfiguration.TreeConfigurationBuilder(
-            BlockStateProvider.simple(ModBlocks.FROST_LOG.get()),
+            BlockStateProvider.simple(ModBlocks.FROST_LOG),
             new CherryTrunkPlacer(
                     7,
                     1,
@@ -110,17 +110,17 @@ public class ModTreeConfigurations {
                     UniformInt.of(-4, -3),
                     UniformInt.of(-1, 0)
             ),
-            BlockStateProvider.simple(ModBlocks.FROST_LEAVES.get()),
+            BlockStateProvider.simple(ModBlocks.FROST_LEAVES),
             new CherryFoliagePlacer(ConstantInt.of(4), ConstantInt.of(0), ConstantInt.of(5), 0.25F, 0.5F, 0.16666667F, 0.33333334F),
             new TwoLayersFeatureSize(1, 0, 2)
     ).ignoreVines().build();
     public static final TreeConfiguration DAWN_REDWOOD = new TreeConfiguration.TreeConfigurationBuilder(
-            BlockStateProvider.simple(ModBlocks.DAWN_REDWOOD_LOG.get()),
+            BlockStateProvider.simple(ModBlocks.DAWN_REDWOOD_LOG),
             new DawnRedwoodTrunkPlacer(12, 10, 8, UniformInt.of(3, 5)),
-            BlockStateProvider.simple(ModBlocks.DAWN_REDWOOD_LEAVES.get()),
+            BlockStateProvider.simple(ModBlocks.DAWN_REDWOOD_LEAVES),
             new DawnRedwoodFoliagePlacer(UniformInt.of(3, 4), UniformInt.of(0, 2), UniformInt.of(3, 5)),
             Optional.of(
-                    new DawnRedwoodRootPlacer(ConstantInt.of(0), BlockStateProvider.simple(ModBlocks.DAWN_REDWOOD_ROOTS.get()), Optional.empty())
+                    new DawnRedwoodRootPlacer(ConstantInt.of(0), BlockStateProvider.simple(ModBlocks.DAWN_REDWOOD_ROOTS), Optional.empty())
             ),
             new TwoLayersFeatureSize(2, 0, 2)
     ).ignoreVines().build();
@@ -141,9 +141,9 @@ public class ModTreeConfigurations {
             .decorators(List.of(beehive))
             .build();
     public static final TreeConfiguration WILLOW = new TreeConfiguration.TreeConfigurationBuilder(
-            BlockStateProvider.simple(ModBlocks.WILLOW_LOG.get()),
+            BlockStateProvider.simple(ModBlocks.WILLOW_LOG),
             new StraightTrunkPlacer(5, 1, 2),
-            BlockStateProvider.simple(ModBlocks.WILLOW_LEAVES.get()),
+            BlockStateProvider.simple(ModBlocks.WILLOW_LEAVES),
             new CherryFoliagePlacer(ConstantInt.of(4), ConstantInt.of(0), ConstantInt.of(4), 0.5F, 0.8F, 0.2F, 0.33333334F),
             new TwoLayersFeatureSize(1, 0, 1)
     ).decorators(
@@ -153,9 +153,9 @@ public class ModTreeConfigurations {
             )
     ).ignoreVines().build();
     public static final TreeConfiguration FANCY_WILLOW = new TreeConfiguration.TreeConfigurationBuilder(
-            BlockStateProvider.simple(ModBlocks.WILLOW_LOG.get()),
+            BlockStateProvider.simple(ModBlocks.WILLOW_LOG),
             new FancyTrunkPlacer(8, 2, 4),
-            BlockStateProvider.simple(ModBlocks.WILLOW_LEAVES.get()),
+            BlockStateProvider.simple(ModBlocks.WILLOW_LEAVES),
             new CherryFoliagePlacer(ConstantInt.of(4), ConstantInt.of(2), ConstantInt.of(4), 0.5F, 0.8F, 0.33333334F, 0.4F),
             new TwoLayersFeatureSize(1, 0, 2)
     ).decorators(
@@ -167,7 +167,7 @@ public class ModTreeConfigurations {
 
     private static TreeConfiguration.TreeConfigurationBuilder crabapple() {
         return new TreeConfiguration.TreeConfigurationBuilder(
-                BlockStateProvider.simple(ModBlocks.CRABAPPLE_LOG.get()),
+                BlockStateProvider.simple(ModBlocks.CRABAPPLE_LOG),
                 new CherryTrunkPlacer(
                         7,
                         1,
@@ -179,7 +179,7 @@ public class ModTreeConfigurations {
                         UniformInt.of(-5, -3),
                         UniformInt.of(-2, -1)
                 ),
-                BlockStateProvider.simple(ModBlocks.CRABAPPLE_LEAVES.get()),
+                BlockStateProvider.simple(ModBlocks.CRABAPPLE_LEAVES),
                 new CherryFoliagePlacer(ConstantInt.of(4), ConstantInt.of(0), ConstantInt.of(5), 0.25F, 0.5F, 0.16666667F, 0.33333334F),
                 new TwoLayersFeatureSize(1, 0, 2)
         )
@@ -199,7 +199,7 @@ public class ModTreeConfigurations {
                         UniformInt.of(-4, -3),
                         UniformInt.of(-1, 0)
                 ),
-                BlockStateProvider.simple(ModBlocks.WHITE_CHERRY_LEAVES.get()),
+                BlockStateProvider.simple(ModBlocks.WHITE_CHERRY_LEAVES),
                 new CherryFoliagePlacer(ConstantInt.of(4), ConstantInt.of(0), ConstantInt.of(5), 0.25F, 0.5F, 0.16666667F, 0.33333334F),
                 new TwoLayersFeatureSize(1, 0, 2)
         )
@@ -207,7 +207,7 @@ public class ModTreeConfigurations {
     }
     private static TreeConfiguration.TreeConfigurationBuilder jacaranda() {
         return new TreeConfiguration.TreeConfigurationBuilder(
-                BlockStateProvider.simple(ModBlocks.JACARANDA_LOG.get()),
+                BlockStateProvider.simple(ModBlocks.JACARANDA_LOG),
                 new CherryTrunkPlacer(
                         7,
                         2,
@@ -219,7 +219,7 @@ public class ModTreeConfigurations {
                         UniformInt.of(-5, -2),
                         UniformInt.of(-2, 0)
                 ),
-                BlockStateProvider.simple(ModBlocks.JACARANDA_LEAVES.get()),
+                BlockStateProvider.simple(ModBlocks.JACARANDA_LEAVES),
                 new CherryFoliagePlacer(ConstantInt.of(4), ConstantInt.of(0), ConstantInt.of(5), 0.5F, 0.75F, 0.16666667F, 0.33333334F),
                 new TwoLayersFeatureSize(1, 0, 2)
         )

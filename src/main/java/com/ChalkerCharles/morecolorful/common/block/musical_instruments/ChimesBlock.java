@@ -144,7 +144,7 @@ public class ChimesBlock extends PercussionInstrumentBlock{
     @Override
     public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
         DoubleBlockHalf doubleBlockHalf = state.getValue(HALF);
-        if (!level.isClientSide && (player.isCreative() || !player.hasCorrectToolForDrops(state, level, pos))) {
+        if (!level.isClientSide && (player.isCreative() || !player.hasCorrectToolForDrops(state))) {
             if (doubleBlockHalf == DoubleBlockHalf.UPPER) {
                 BlockPos blockpos = pos.below();
                 BlockState blockstate = level.getBlockState(blockpos);
