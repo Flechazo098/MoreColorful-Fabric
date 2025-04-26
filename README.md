@@ -1,4 +1,4 @@
-![MoreColorful.logo](/src/main/resources/logo.png "logo")
+![MoreColorful.logo](/src/main/resources/assets/morecolorful/icon.png "logo")
 
 Welcome to More Colorful!
 =======

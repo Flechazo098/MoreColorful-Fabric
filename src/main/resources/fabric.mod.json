@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "id": "morecolorful",
+  "version": "${version}",
+  "name": "More Colorful",
+  "description": "A mod that adds various stuff.\nStill in development.",
+  "authors": [
+    "ChalkerCharles",
+    "Flechazo"
+  ],
+  "contact": {
+    "repo": "https://github.com/ChalkerCharles/MoreColorful",
+    "fork": "https://github.com/Flechazo098/MoreColorful-Fabric"
+  },
+  "license": "MIT",
+  "icon": "assets/morecolorful/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.example.ExampleMod"
+    ],
+    "client": [
+      "com.example.ExampleModClient"
+    ],
+    "mm:early_risers": [
+      "com.ChalkerCharles.morecolorful.util.EarlyRiser"
+    ]
+  },
+  "mixins": [
+    "morecolorful.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.16.2",
+    "minecraft": "~1.21.1",
+    "java": ">=21",
+    "fabric-api": "*"
+  },
+  "accessWidener": "morecolorful.accesswidener"
+}
