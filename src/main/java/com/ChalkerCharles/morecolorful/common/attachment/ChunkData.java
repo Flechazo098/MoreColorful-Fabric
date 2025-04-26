@@ -3,9 +3,10 @@ package com.ChalkerCharles.morecolorful.common.attachment;
 import com.ChalkerCharles.morecolorful.Config;
 import com.ChalkerCharles.morecolorful.common.level.LevelThermalEngine;
 import com.ChalkerCharles.morecolorful.common.level.ModChunkStatus;
+import com.ChalkerCharles.morecolorful.util.mixin.ChunkLevelGetter;
 import com.ChalkerCharles.morecolorful.util.mixin.IChunkSourceExtension;
 import com.ChalkerCharles.morecolorful.util.mixin.IProtoChunkExtension;
-import net.minecraft.core.HolderLookup;
+import net.fabricmc.fabric.api.attachment.v1.AttachmentTarget;
 import net.minecraft.core.SectionPos;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
@@ -18,20 +19,20 @@ import net.minecraft.world.level.chunk.ChunkSource;
 import net.minecraft.world.level.chunk.DataLayer;
 import net.minecraft.world.level.chunk.ProtoChunk;
 import net.minecraft.world.level.chunk.status.ChunkStatus;
-import net.neoforged.neoforge.attachment.IAttachmentHolder;
-import net.neoforged.neoforge.common.util.INBTSerializable;
-import org.jetbrains.annotations.UnknownNullability;
 
-public final class ChunkData implements INBTSerializable<CompoundTag> {
+public final class ChunkData {
     private final ChunkAccess chunk;
     private volatile boolean isThermalOn;
 
-    public ChunkData(IAttachmentHolder holder) {
-        this.chunk = (ChunkAccess) holder;
+    public ChunkData() {
+        this.chunk = null;
     }
 
+    public ChunkData(AttachmentTarget holder) {
+        this.chunk = (ChunkAccess) holder;
+    }
     private static ChunkData get(ChunkAccess chunk) {
-        return chunk.getData(ModDataAttachments.CHUNK_DATA);
+        return chunk.getAttached(ModDataAttachments.CHUNK_DATA);
     }
 
     public static boolean isThermalCorrect(ChunkAccess chunk) {
@@ -47,13 +48,11 @@ public final class ChunkData implements INBTSerializable<CompoundTag> {
         get(chunk).setThermalCorrect(correct);
     }
 
-    @Override
-    @UnknownNullability
-    public CompoundTag serializeNBT(HolderLookup.Provider provider) {
+    public CompoundTag serializeNBT() {
         CompoundTag nbt = new CompoundTag();
-        if (Config.THERMAL_SYSTEM.isFalse()) return nbt;
+        if (Config.THERMAL_SYSTEM.isFalse() || this.chunk == null) return nbt;
         ListTag temperatures = new ListTag();
-        ServerLevel level = (ServerLevel) this.chunk.getLevel();
+        ServerLevel level = (ServerLevel) ((ChunkLevelGetter)this.chunk).moreColorful_Fabric$getLevel();
         ChunkPos chunkpos = this.chunk.getPos();
         nbt.putString("status", BuiltInRegistries.CHUNK_STATUS.getKey(this.chunk.getPersistedStatus()).toString());
         if (level != null) {
@@ -79,10 +78,9 @@ public final class ChunkData implements INBTSerializable<CompoundTag> {
         return nbt;
     }
 
-    @Override
-    public void deserializeNBT(HolderLookup.Provider provider, CompoundTag nbt) {
-        if (Config.THERMAL_SYSTEM.isFalse()) return;
-        ServerLevel level = (ServerLevel) this.chunk.getLevel();
+    public void deserializeNBT(CompoundTag nbt) {
+        if (Config.THERMAL_SYSTEM.isFalse() || this.chunk == null) return;
+        ServerLevel level = (ServerLevel) ((ChunkLevelGetter)this.chunk).moreColorful_Fabric$getLevel();
         ChunkPos chunkpos = this.chunk.getPos();
         if (level != null) {
             ChunkSource chunksource = level.getChunkSource();

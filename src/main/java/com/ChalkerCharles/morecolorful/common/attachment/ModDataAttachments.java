@@ -3,24 +3,35 @@ package com.ChalkerCharles.morecolorful.common.attachment;
 import com.ChalkerCharles.morecolorful.MoreColorful;
 import com.ChalkerCharles.morecolorful.network.packets.DrumSetPacket;
 import com.ChalkerCharles.morecolorful.network.packets.PlayingScreenPacket;
-import net.neoforged.bus.api.IEventBus;
-import net.neoforged.neoforge.attachment.AttachmentType;
-import net.neoforged.neoforge.registries.DeferredRegister;
-import net.neoforged.neoforge.registries.NeoForgeRegistries;
-
-import java.util.function.Supplier;
+import net.fabricmc.fabric.api.attachment.v1.AttachmentRegistry;
+import net.fabricmc.fabric.api.attachment.v1.AttachmentType;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.Entity;
 
 public class ModDataAttachments {
-    public static final DeferredRegister<AttachmentType<?>> ATTACHMENT_TYPES = DeferredRegister.create(NeoForgeRegistries.Keys.ATTACHMENT_TYPES, MoreColorful.MODID);
+    public static final AttachmentType<Boolean> IS_PLAYING_INSTRUMENT = AttachmentRegistry.createDefaulted(
+            ResourceLocation.fromNamespaceAndPath(MoreColorful.MODID, "is_playing_instrument"),
+            () -> false);
 
-    public static final Supplier<AttachmentType<Boolean>> IS_PLAYING_INSTRUMENT = ATTACHMENT_TYPES.register("is_playing_instrument", () -> AttachmentType.builder(() -> false).build());
-    public static final Supplier<AttachmentType<PlayingScreenPacket>> PLAYING_SCREEN_DATA = ATTACHMENT_TYPES.register("playing_screen_data", () -> AttachmentType.builder(PlayingScreenPacket::new).build());
-    public static final Supplier<AttachmentType<Float>> PLAYING_SCREEN_TICK = ATTACHMENT_TYPES.register("playing_screen_tick", () -> AttachmentType.builder(() -> 0F).build());
-    public static final Supplier<AttachmentType<DrumSetPacket>> DRUM_SET_DATA = ATTACHMENT_TYPES.register("drum_set_data", () -> AttachmentType.builder(DrumSetPacket::new).build());
+    public static final AttachmentType<PlayingScreenPacket> PLAYING_SCREEN_DATA = AttachmentRegistry.createDefaulted(
+            ResourceLocation.fromNamespaceAndPath(MoreColorful.MODID, "playing_screen_data"),
+            PlayingScreenPacket::new);
 
-    public static final Supplier<AttachmentType<ChunkData>> CHUNK_DATA = ATTACHMENT_TYPES.register("chunk_data", () -> AttachmentType.serializable(ChunkData::new).build());
+    public static final AttachmentType<Float> PLAYING_SCREEN_TICK = AttachmentRegistry.createDefaulted(
+            ResourceLocation.fromNamespaceAndPath(MoreColorful.MODID, "playing_screen_tick"),
+            () -> 0F);
 
-    public static void register(IEventBus eventBus){
-        ATTACHMENT_TYPES.register(eventBus);
+    public static final AttachmentType<DrumSetPacket> DRUM_SET_DATA = AttachmentRegistry.createDefaulted(
+            ResourceLocation.fromNamespaceAndPath(MoreColorful.MODID, "drum_set_data"),
+            DrumSetPacket::new);
+
+    public static final AttachmentType<ChunkData> CHUNK_DATA = AttachmentRegistry.<ChunkData>builder()
+            .initializer(ChunkData::new)
+            .buildAndRegister(ResourceLocation.fromNamespaceAndPath(MoreColorful.MODID, "chunk_data"));
+    public static void setDrumSetData(Entity entity, DrumSetPacket packet) {
+        entity.setAttached(DRUM_SET_DATA, packet);
+    }
+
+    public static void register() {
     }
 }
