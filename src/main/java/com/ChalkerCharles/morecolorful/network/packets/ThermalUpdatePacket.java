@@ -4,8 +4,10 @@ import com.ChalkerCharles.morecolorful.MoreColorful;
 import com.ChalkerCharles.morecolorful.common.level.LevelThermalEngine;
 import com.ChalkerCharles.morecolorful.util.mixin.IChunkSourceExtension;
 import com.ChalkerCharles.morecolorful.util.mixin.ILevelExtension;
+import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.core.SectionPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
@@ -15,18 +17,20 @@ import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.chunk.DataLayer;
 import net.minecraft.world.level.chunk.LevelChunk;
 import net.minecraft.world.level.chunk.LevelChunkSection;
-import net.neoforged.neoforge.network.handling.IPayloadContext;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.util.BitSet;
 import java.util.Iterator;
 
 public record ThermalUpdatePacket(int x, int z, ThermalUpdateData data, boolean sent) implements CustomPacketPayload {
-    public static final CustomPacketPayload.Type<ThermalUpdatePacket> TYPE = new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(MoreColorful.MODID, "thermal_update"));
+    public static final ResourceLocation TYPE_ID = ResourceLocation.fromNamespaceAndPath(MoreColorful.MODID, "thermal_update");
+    public static final Type<ThermalUpdatePacket> TYPE = CustomPacketPayload.createType(TYPE_ID.toString());
 
     public static final StreamCodec<FriendlyByteBuf, ThermalUpdatePacket> STREAM_CODEC = StreamCodec.ofMember(
             ThermalUpdatePacket::write, ThermalUpdatePacket::new
     );
+
 
     public ThermalUpdatePacket(ChunkPos pChunkPos, LevelThermalEngine thermalEngine, @Nullable BitSet temperature, boolean sent) {
         this(pChunkPos.x, pChunkPos.z, new ThermalUpdateData(pChunkPos, thermalEngine, temperature), sent);
@@ -44,26 +48,31 @@ public record ThermalUpdatePacket(int x, int z, ThermalUpdateData data, boolean 
     }
 
     @Override
+    @NotNull
     public Type<? extends CustomPacketPayload> type() {
         return TYPE;
     }
 
-    public static void handle(final ThermalUpdatePacket packet, final IPayloadContext context) {
-        ClientLevel level = Minecraft.getInstance().level;
-        if (level == null) return;
-        int x = packet.x();
-        int z = packet.z();
-        ThermalUpdateData data = packet.data();
-        boolean sent = packet.sent();
-        context.enqueueWork(() -> ((ILevelExtension) level).moreColorful$queueThermalUpdate(() -> {
-            applyThermalData(level, x, z, data);
-            if (sent) {
-                LevelChunk levelchunk = level.getChunkSource().getChunk(x, z, false);
-                if (levelchunk != null) {
-                    enableChunkLight(level, levelchunk, x, z);
+    public static void handleClient(Minecraft client, ClientPacketListener handler, FriendlyByteBuf buf, PacketSender responseSender) {
+        ThermalUpdatePacket packet = STREAM_CODEC.decode(buf);
+        client.execute(() -> {
+            ClientLevel level = client.level;
+            if (level == null) return;
+            int x = packet.x();
+            int z = packet.z();
+            ThermalUpdateData data = packet.data();
+            boolean sent = packet.sent();
+
+            ((ILevelExtension) level).moreColorful$queueThermalUpdate(() -> {
+                applyThermalData(level, x, z, data);
+                if (sent) {
+                    LevelChunk levelchunk = level.getChunkSource().getChunk(x, z, false);
+                    if (levelchunk != null) {
+                        enableChunkLight(level, levelchunk, x, z);
+                    }
                 }
-            }
-        }));
+            });
+        });
     }
 
     private static void applyThermalData(ClientLevel level, int pX, int pZ, ThermalUpdateData pData) {

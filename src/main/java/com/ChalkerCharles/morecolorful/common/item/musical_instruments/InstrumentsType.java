@@ -2,8 +2,8 @@ package com.ChalkerCharles.morecolorful.common.item.musical_instruments;
 
 import com.ChalkerCharles.morecolorful.common.ModSounds;
 import com.google.common.collect.ImmutableMap;
-import io.netty.buffer.ByteBuf;
 import net.minecraft.core.Holder;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.sounds.SoundEvent;
@@ -57,7 +57,11 @@ public enum InstrumentsType implements StringRepresentable {
     private final Holder<SoundEvent> soundEvent;
     private final Type type;
     private static final IntFunction<InstrumentsType> BY_ID = ByIdMap.continuous(InstrumentsType::getId, values(), ByIdMap.OutOfBoundsStrategy.ZERO);
-    public static final StreamCodec<ByteBuf, InstrumentsType> STREAM_CODEC = ByteBufCodecs.idMapper(BY_ID, InstrumentsType::getId);
+    public static final StreamCodec<FriendlyByteBuf, InstrumentsType> STREAM_CODEC = StreamCodec.ofMember(
+            (InstrumentsType type, FriendlyByteBuf buf) -> buf.writeVarInt(type.getId()),
+            (FriendlyByteBuf buf) -> BY_ID.apply(buf.readVarInt())
+    );
+
     InstrumentsType(Holder<SoundEvent> pSoundEvent, Type type) {
         this.soundEvent = pSoundEvent;
         this.type = type;
@@ -74,7 +78,7 @@ public enum InstrumentsType implements StringRepresentable {
 
     @Override
     public String getSerializedName() {
-        return this.name();
+        return this.name().toLowerCase();
     }
 
     public static final Map<NoteBlockInstrument, InstrumentsType> MAPPER = new ImmutableMap.Builder<NoteBlockInstrument, InstrumentsType>()

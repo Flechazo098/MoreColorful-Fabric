@@ -15,7 +15,17 @@ import java.util.BitSet;
 import java.util.List;
 
 public record ThermalUpdateData(BitSet yMask, BitSet emptyYMask, List<byte[]> updates) {
-    private static final StreamCodec<ByteBuf, byte[]> DATA_LAYER_STREAM_CODEC = ByteBufCodecs.byteArray(2048);
+    private static final StreamCodec<FriendlyByteBuf, byte[]> DATA_LAYER_STREAM_CODEC = new StreamCodec<>() {
+        @Override
+        public byte[] decode(FriendlyByteBuf friendlyByteBuf) {
+            return friendlyByteBuf.readByteArray(2048);
+        }
+
+        @Override
+        public void encode(FriendlyByteBuf friendlyByteBuf, byte[] bs) {
+            friendlyByteBuf.writeByteArray(bs);
+        }
+    };
 
     public ThermalUpdateData(ChunkPos pChunkPos, LevelThermalEngine thermalEngine, @Nullable BitSet temperature) {
         this(new BitSet(), new BitSet(), new ArrayList<>());

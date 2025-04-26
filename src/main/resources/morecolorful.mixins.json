@@ -18,6 +18,7 @@
     "block.IceBlockMixin",
     "block.NoteBlockMixin",
     "block.SnowLayerBlockMixin",
+    "chunk.ChunkAccessMixin",
     "chunk.ChunkHolderMixin",
     "chunk.ChunkMapMixin",
     "chunk.ChunkPyramidMixin",

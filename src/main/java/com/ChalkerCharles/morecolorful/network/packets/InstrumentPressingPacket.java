@@ -2,50 +2,59 @@ package com.ChalkerCharles.morecolorful.network.packets;
 
 import com.ChalkerCharles.morecolorful.MoreColorful;
 import com.ChalkerCharles.morecolorful.common.attachment.ModDataAttachments;
-import io.netty.buffer.ByteBuf;
-import net.minecraft.network.codec.ByteBufCodecs;
+import net.fabricmc.fabric.api.networking.v1.PacketSender;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientPacketListener;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.network.ServerGamePacketListenerImpl;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
-import net.neoforged.neoforge.network.PacketDistributor;
-import net.neoforged.neoforge.network.handling.IPayloadContext;
 import org.jetbrains.annotations.NotNull;
 
 public record InstrumentPressingPacket(int id, boolean isPressing) implements CustomPacketPayload {
-    public static final CustomPacketPayload.Type<InstrumentPressingPacket> TYPE = new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(MoreColorful.MODID, "playing_screen_closed"));
-    public static final StreamCodec<ByteBuf, InstrumentPressingPacket> STREAM_CODEC = StreamCodec.composite(
-            ByteBufCodecs.INT,
-            InstrumentPressingPacket::id,
-            ByteBufCodecs.BOOL,
-            InstrumentPressingPacket::isPressing,
-            InstrumentPressingPacket::new);
+    public static final ResourceLocation TYPE_ID = ResourceLocation.fromNamespaceAndPath(MoreColorful.MODID, "playing_screen_closed");
+    public static final Type<InstrumentPressingPacket> TYPE = CustomPacketPayload.createType(TYPE_ID.toString());
+
+    public static final StreamCodec<FriendlyByteBuf, InstrumentPressingPacket> STREAM_CODEC = StreamCodec.ofMember(
+            (InstrumentPressingPacket packet, FriendlyByteBuf buf) -> {
+                buf.writeInt(packet.id());
+                buf.writeBoolean(packet.isPressing());
+            },
+            (FriendlyByteBuf buf) -> new InstrumentPressingPacket(buf.readInt(), buf.readBoolean())
+    );
+
     @Override
-    public @NotNull Type<? extends CustomPacketPayload> type() {
+    @NotNull
+    public Type<? extends CustomPacketPayload> type() {
         return TYPE;
     }
-
-    public static void handleClient(final InstrumentPressingPacket data, final IPayloadContext context) {
-        int id = data.id();
-        boolean isPressing = data.isPressing();
-        Player player = context.player();
-        Entity entity = player.level().getEntity(id);
-        context.enqueueWork(() -> {
-            if (entity instanceof Player) {
-                entity.setData(ModDataAttachments.IS_PLAYING_INSTRUMENT, isPressing);
+    public static void handleClient(Minecraft client, ClientPacketListener handler, FriendlyByteBuf buf, PacketSender responseSender) {
+        InstrumentPressingPacket packet = STREAM_CODEC.decode(buf);
+        client.execute(() -> {
+            if (client.level != null) {
+                Entity entity = client.level.getEntity(packet.id());
+                if (entity instanceof Player) {
+                    entity.setAttached(ModDataAttachments.IS_PLAYING_INSTRUMENT, packet.isPressing());
+                }
             }
         });
     }
-    public static void handleServer(final InstrumentPressingPacket data, final IPayloadContext context) {
-        int id = data.id();
-        boolean isPressing = data.isPressing();
-        Player player = context.player();
-        Entity entity = player.level().getEntity(id);
-        context.enqueueWork(() -> {
+
+    public static void handleServer(MinecraftServer server, ServerPlayer player, ServerGamePacketListenerImpl handler, FriendlyByteBuf buf, PacketSender responseSender) {
+        InstrumentPressingPacket packet = STREAM_CODEC.decode(buf);
+        server.execute(() -> {
+            Entity entity = player.level().getEntity(packet.id());
             if (entity instanceof Player) {
-                entity.setData(ModDataAttachments.IS_PLAYING_INSTRUMENT, isPressing);
-                PacketDistributor.sendToAllPlayers(data);
+                entity.setAttached(ModDataAttachments.IS_PLAYING_INSTRUMENT, packet.isPressing());
+                for (ServerPlayer serverPlayer : server.getPlayerList().getPlayers()) {
+                    ServerPlayNetworking.send(serverPlayer, packet);
+                }
             }
         });
     }

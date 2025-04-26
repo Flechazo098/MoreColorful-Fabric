@@ -23,28 +23,28 @@ public interface CymbalUtils {
     default Set<Integer> pressingPlayers(Level level, BlockPos pos) {
         return level.players().stream()
                 .filter(p -> {
-                    BlockPos pos1 = p.getData(ModDataAttachments.PLAYING_SCREEN_DATA).pos();
+                    BlockPos pos1 = p.getAttached(ModDataAttachments.PLAYING_SCREEN_DATA).pos();
                     BlockState state = level.getBlockState(pos1);
                     pos1 = (state.is(ModBlocks.RIDE_CYMBAL) || state.is(ModBlocks.CRASH_CYMBAL)) && state.getValue(HALF) == DoubleBlockHalf.LOWER
                             ? pos1.above() : pos1;
-                    return p.getData(ModDataAttachments.IS_PLAYING_INSTRUMENT) && pos.equals(pos1);
+                    return p.getAttached(ModDataAttachments.IS_PLAYING_INSTRUMENT) && pos.equals(pos1);
                 })
                 .map(Entity::getId).collect(Collectors.toSet());
     }
 
     default Set<Integer> pressingPlayersForHiHat(Level level, BlockPos pos) {
         return level.players().stream()
-                .filter(p -> p.getData(ModDataAttachments.IS_PLAYING_INSTRUMENT)
-                                && pos.equals(p.getData(ModDataAttachments.PLAYING_SCREEN_DATA).pos()))
+                .filter(p -> Boolean.TRUE.equals(p.getAttached(ModDataAttachments.IS_PLAYING_INSTRUMENT))
+                                && pos.equals(p.getAttached(ModDataAttachments.PLAYING_SCREEN_DATA).pos()))
                 .map(Entity::getId).collect(Collectors.toSet());
     }
     default Set<Integer> pressingBassDrumPlayers(Level level, BlockPos pos) {
         return level.players().stream()
                 .filter(p -> {
-                    BlockPos pos1 = p.getData(ModDataAttachments.DRUM_SET_DATA).pos();
+                    BlockPos pos1 = p.getAttached(ModDataAttachments.DRUM_SET_DATA).pos();
                     BlockState state = level.getBlockState(pos1);
                     pos1 = state.is(ModBlocks.DRUM_SET) ? getBassDrumPos(pos1, state) : pos1;
-                    return p.getData(ModDataAttachments.DRUM_SET_DATA).isPressingBassDrum() && pos.equals(pos1);
+                    return p.getAttached(ModDataAttachments.DRUM_SET_DATA).isPressingBassDrum() && pos.equals(pos1);
                 })
                 .map(Entity::getId).collect(Collectors.toSet());
     }
@@ -63,10 +63,10 @@ public interface CymbalUtils {
     default Set<Integer> pressingHatPlayers(Level level, BlockPos pos) {
         return level.players().stream()
                 .filter(p -> {
-                    BlockPos pos1 = p.getData(ModDataAttachments.DRUM_SET_DATA).pos();
+                    BlockPos pos1 = p.getAttached(ModDataAttachments.DRUM_SET_DATA).pos();
                     BlockState state = level.getBlockState(pos1);
                     pos1 = state.is(ModBlocks.DRUM_SET) ? getHatPos(pos1, state) : pos1;
-                    return p.getData(ModDataAttachments.DRUM_SET_DATA).isPressingHat() && pos.equals(pos1);
+                    return p.getAttached(ModDataAttachments.DRUM_SET_DATA).isPressingHat() && pos.equals(pos1);
                 })
                 .map(Entity::getId).collect(Collectors.toSet());
     }
@@ -85,10 +85,10 @@ public interface CymbalUtils {
     default Set<Integer> pressingRidePlayers(Level level, BlockPos pos) {
         return level.players().stream()
                 .filter(p -> {
-                    BlockPos pos1 = p.getData(ModDataAttachments.DRUM_SET_DATA).pos();
+                    BlockPos pos1 = p.getAttached(ModDataAttachments.DRUM_SET_DATA).pos();
                     BlockState state = level.getBlockState(pos1);
                     pos1 = state.is(ModBlocks.DRUM_SET) ? getRidePos(pos1, state) : pos1;
-                    return p.getData(ModDataAttachments.DRUM_SET_DATA).isPressingRide() && pos.equals(pos1);
+                    return p.getAttached(ModDataAttachments.DRUM_SET_DATA).isPressingRide() && pos.equals(pos1);
                 })
                 .map(Entity::getId).collect(Collectors.toSet());
     }
@@ -107,10 +107,10 @@ public interface CymbalUtils {
     default Set<Integer> pressingCrashPlayers(Level level, BlockPos pos) {
         return level.players().stream()
                 .filter(p -> {
-                    BlockPos pos1 = p.getData(ModDataAttachments.DRUM_SET_DATA).pos();
+                    BlockPos pos1 = p.getAttached(ModDataAttachments.DRUM_SET_DATA).pos();
                     BlockState state = level.getBlockState(pos1);
                     pos1 = state.is(ModBlocks.DRUM_SET) ? getCrashPos(pos1, state) : pos1;
-                    return p.getData(ModDataAttachments.DRUM_SET_DATA).isPressingCrash() && pos.equals(pos1);
+                    return p.getAttached(ModDataAttachments.DRUM_SET_DATA).isPressingCrash() && pos.equals(pos1);
                 })
                 .map(Entity::getId).collect(Collectors.toSet());
     }
