@@ -16,6 +16,7 @@
     "block.FlowerPotBlockMixin",
     "block.FrostedIceBlockMixin",
     "block.IceBlockMixin",
+    "block.NoteBlockMixin",
     "block.SnowLayerBlockMixin",
     "chunk.ChunkHolderMixin",
     "chunk.ChunkMapMixin",

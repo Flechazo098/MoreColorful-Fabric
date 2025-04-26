@@ -1,8 +1,9 @@
 package com.ChalkerCharles.morecolorful.util.melody;
 
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.neoforge.event.level.NoteBlockEvent;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -10,6 +11,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class MelodyHandler {
+    private static final MelodyHandler INSTANCE = new MelodyHandler();
+
     private final NoteBlockHandler[] noteBlockHandlers = new NoteBlockHandler[]{
             new NoteBlockHandler(Melodies.EXAMPLE),
             new NoteBlockHandler(Melodies.EXAMPLE_1),
@@ -17,11 +20,14 @@ public class MelodyHandler {
             new NoteBlockHandler(Melodies.EXAMPLE_3)
     };
 
-    @SubscribeEvent
-    public void onNoteBlockPlaying(NoteBlockEvent.Play event) {
-        if (!event.getLevel().isClientSide()) {
+    public static MelodyHandler getInstance() {
+        return INSTANCE;
+    }
+
+    public void onNoteBlockPlaying(Level level, BlockPos pos, BlockState state, int noteId, NoteBlockInstrument instrument) {
+        if (!level.isClientSide()) {
             for (NoteBlockHandler handler : noteBlockHandlers) {
-                handler.handleMelody(event);
+                handler.handleMelody(level, pos, state, noteId, instrument);
             }
         }
     }
@@ -38,9 +44,7 @@ public class MelodyHandler {
             this.melody = melody;
         }
 
-        private void handleMelody(NoteBlockEvent.Play event) {
-            NoteBlockInstrument instrument = event.getInstrument();
-            int noteId = event.getVanillaNoteId();
+        private void handleMelody(Level level, BlockPos pos, BlockState state, int noteId, NoteBlockInstrument instrument) {
             if (melody.matchedType(instrument)) {
                 Note note = melody.notes()[ordinal];
                 if (note.isChord()) {

@@ -1,0 +1,31 @@
+accessWidener v1 named
+
+# For Adding Custom Note Block Instrument and MapColors & Modifying Vanilia Block Properties
+accessible class net/minecraft/world/level/block/state/properties/NoteBlockInstrument$Type
+accessible method net/minecraft/world/level/material/MapColor <init> (II)V
+
+# For Adding Stripped Logs and Woods
+accessible field net/minecraft/world/item/AxeItem STRIPPABLES Ljava/util/Map;
+mutable field net/minecraft/world/item/AxeItem STRIPPABLES Ljava/util/Map;
+
+# Helping to Define Block Properties
+accessible method net/minecraft/world/level/block/Blocks always (Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;)Z
+
+# For Datagen use
+extendable method net/minecraft/data/loot/BlockLootSubProvider hasShearsOrSilkTouch ()Lnet/minecraft/world/level/storage/loot/predicates/LootItemCondition$Builder;
+extendable method net/minecraft/data/loot/BlockLootSubProvider doesNotHaveShearsOrSilkTouch ()Lnet/minecraft/world/level/storage/loot/predicates/LootItemCondition$Builder;
+
+# For Custom Biomes
+extendable method net/minecraft/data/worldgen/biome/OverworldBiomes biome (ZFFLnet/minecraft/world/level/biome/MobSpawnSettings$Builder;Lnet/minecraft/world/level/biome/BiomeGenerationSettings$Builder;Lnet/minecraft/sounds/Music;)Lnet/minecraft/world/level/biome/Biome;
+extendable method net/minecraft/data/worldgen/biome/OverworldBiomes biome (ZFFIILjava/lang/Integer;Ljava/lang/Integer;Lnet/minecraft/world/level/biome/MobSpawnSettings$Builder;Lnet/minecraft/world/level/biome/BiomeGenerationSettings$Builder;Lnet/minecraft/sounds/Music;)Lnet/minecraft/world/level/biome/Biome;
+extendable method net/minecraft/data/worldgen/biome/OverworldBiomes globalOverworldGeneration (Lnet/minecraft/world/level/biome/BiomeGenerationSettings$Builder;)V
+
+# For Custom Trees
+accessible method net/minecraft/data/worldgen/features/TreeFeatures createStraightBlobTree (Lnet/minecraft/world/level/block/Block;Lnet/minecraft/world/level/block/Block;IIII)Lnet/minecraft/world/level/levelgen/feature/configurations/TreeConfiguration$TreeConfigurationBuilder;
+accessible method net/minecraft/data/worldgen/features/TreeFeatures createOak ()Lnet/minecraft/world/level/levelgen/feature/configurations/TreeConfiguration$TreeConfigurationBuilder;
+accessible method net/minecraft/data/worldgen/features/TreeFeatures createBirch ()Lnet/minecraft/world/level/levelgen/feature/configurations/TreeConfiguration$TreeConfigurationBuilder;
+accessible method net/minecraft/data/worldgen/features/TreeFeatures cherry ()Lnet/minecraft/world/level/levelgen/feature/configurations/TreeConfiguration$TreeConfigurationBuilder;
+
+# For thermal system
+accessible class net/minecraft/server/level/ServerChunkCache$MainThreadExecutor
+accessible method net/minecraft/server/level/ChunkMap getChunkQueueLevel (J)Ljava/util/function/IntSupplier;
