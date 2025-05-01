@@ -110,12 +110,17 @@ public abstract class ChunkMapMixin implements IChunkMapExtension {
         }
     }
 
-    @Inject(method = "lambda$scheduleUnload$12", at = @At(value = "INVOKE", target = "net/minecraft/server/level/ThreadedLevelLightEngine.tryScheduleUpdate()V", shift = At.Shift.AFTER))
-    private void scheduleUnload(ChunkHolder pChunkHolder, long pChunkPos, CallbackInfo ci, @Local ChunkAccess chunkaccess) {
+    @Inject(method = "scheduleUnload(JLnet/minecraft/server/level/ChunkHolder;)V", at = @At("RETURN"))
+    private void onChunkUnload(long l, ChunkHolder chunkHolder, CallbackInfo ci) {
         if (!Config.isThermalSystemEnabled()) return;
-        this.moreColorful$thermalEngine.updateChunkStatus(chunkaccess.getPos());
-        this.moreColorful$thermalEngine.tryScheduleUpdate();
+
+        ChunkAccess chunkaccess = chunkHolder.getLatestChunk();
+        if (chunkaccess != null) {
+            this.moreColorful$thermalEngine.updateChunkStatus(chunkaccess.getPos());
+            this.moreColorful$thermalEngine.tryScheduleUpdate();
+        }
     }
+
 
     @Unique
     @Override

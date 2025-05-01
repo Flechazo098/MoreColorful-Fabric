@@ -126,7 +126,7 @@ public class DrumSetScreen extends Screen {
     public boolean isPauseScreen() {return false;}
     public boolean shouldCloseOnEsc() {
         isPressing = false;
-        PacketDistributor.sendToServer(new DrumSetPacket(false, false, false, false, pPos, pPlayer.getId()));
+        ClientPlayNetworking.send(new DrumSetPacket(false, false, false, false, pPos, pPlayer.getId()));
         return true;
     }
 
@@ -198,7 +198,7 @@ public class DrumSetScreen extends Screen {
             if (!(pPlayer.level().getBlockState(pPos).getBlock() instanceof DrumSetBlock)) {
                 minecraft.setScreen(null);
                 isPressing = false;
-                PacketDistributor.sendToServer(new DrumSetPacket(false, false, false, false, pPos, pPlayer.getId()));
+                ClientPlayNetworking.send(new DrumSetPacket(false, false, false, false, pPos, pPlayer.getId()));
             }
         }
 
@@ -206,7 +206,7 @@ public class DrumSetScreen extends Screen {
         boolean isPressingHat = hat_1.isPressed || hat_2.isPressed || hat_3.isPressed;
         boolean isPressingRide = ride.isPressed;
         boolean isPressingCrash = crash.isPressed;
-        PacketDistributor.sendToServer(new DrumSetPacket(isPressingBassDrum, isPressingHat, isPressingRide, isPressingCrash, pPos, pPlayer.getId()));
+        ClientPlayNetworking.send(new DrumSetPacket(isPressingBassDrum, isPressingHat, isPressingRide, isPressingCrash, pPos, pPlayer.getId()));
     }
 
     public static void openScreen(Player pPlayer, BlockPos pPos){

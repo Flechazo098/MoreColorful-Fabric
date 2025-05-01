@@ -6,13 +6,13 @@ import com.ChalkerCharles.morecolorful.common.level.LevelThermalEngine;
 import com.ChalkerCharles.morecolorful.network.packets.ThermalUpdatePacket;
 import com.ChalkerCharles.morecolorful.util.mixin.IChunkHolderExtension;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.server.level.ChunkHolder;
 import net.minecraft.server.level.GenerationChunkHolder;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.chunk.ChunkAccess;
 import net.minecraft.world.level.chunk.LevelChunk;
-import net.neoforged.neoforge.network.PacketDistributor;
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -59,7 +59,7 @@ public abstract class ChunkHolderMixin extends GenerationChunkHolder implements 
                 ThermalUpdatePacket packet = new ThermalUpdatePacket(
                         pChunk.getPos(), this.moreColorful$thermalEngine, this.moreColorful$changedThermalSectionFilter, false
                 );
-                list.forEach(p -> PacketDistributor.sendToPlayer(p, packet));
+                list.forEach(p -> ServerPlayNetworking.send(p, packet));
             }
 
             this.moreColorful$changedThermalSectionFilter.clear();
@@ -76,7 +76,7 @@ public abstract class ChunkHolderMixin extends GenerationChunkHolder implements 
     @Override
     public void moreColorful$sectionThermalChanged(int pSectionY) {
         if (!Config.isThermalSystemEnabled()) return;
-        ChunkAccess chunkaccess = this.getChunkIfPresent(ModChunkStatus.INITIALIZE_THERMAL.get());
+        ChunkAccess chunkaccess = this.getChunkIfPresent(ModChunkStatus.INITIALIZE_THERMAL);
         if (chunkaccess != null) {
             chunkaccess.setUnsaved(true);
             LevelChunk levelchunk = this.getTickingChunk();

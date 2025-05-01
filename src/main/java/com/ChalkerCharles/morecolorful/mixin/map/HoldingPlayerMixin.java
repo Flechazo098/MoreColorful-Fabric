@@ -15,14 +15,14 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 public abstract class HoldingPlayerMixin {
     @Shadow
     @Final
-    MapItemSavedData this$0;
+    MapItemSavedData field_132;
 
     @Inject(method = "createPatch", at = @At("RETURN"), locals = LocalCapture.CAPTURE_FAILSOFT, cancellable = true)
     private void createPatch(CallbackInfoReturnable<MapItemSavedData.MapPatch> cir, int i, int j, int k, int l) {
         byte[] bytes = new byte[k * l];
         for (int i1 = 0; i1 < k; i1++) {
             for (int j1 = 0; j1 < l; j1++) {
-                bytes[i1 + j1 * k] = ((IMapItemSavedDataExtension) this$0).moreColorful$getColors()[i + i1 + (j + j1) * 128];
+                bytes[i1 + j1 * k] = ((IMapItemSavedDataExtension) field_132).moreColorful$getColors()[i + i1 + (j + j1) * 128];
             }
         }
         MapItemSavedData.MapPatch mapPatch = cir.getReturnValue();

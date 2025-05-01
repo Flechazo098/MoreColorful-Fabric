@@ -1,247 +1,283 @@
 package com.ChalkerCharles.morecolorful.common;
 
+import com.ChalkerCharles.morecolorful.MoreColorful;
 import com.ChalkerCharles.morecolorful.common.block.ModBlocks;
-import com.google.common.collect.Maps;
+import com.ChalkerCharles.morecolorful.util.BlockEntityTypeHelper;
 import net.minecraft.world.item.AxeItem;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FireBlock;
 import net.minecraft.world.level.block.FlowerPotBlock;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.neoforged.neoforge.event.BlockEntityTypeAddBlocksEvent;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public final class ModCommonSetup {
-    @SubscribeEvent
-    public static void setStrippedWoodBlocks(FMLCommonSetupEvent event) {
-        event.enqueueWork(() -> {
-            AxeItem.STRIPPABLES = Maps.newHashMap(AxeItem.STRIPPABLES);
-            AxeItem.STRIPPABLES.put(ModBlocks.CRABAPPLE_LOG.get(), ModBlocks.STRIPPED_CRABAPPLE_LOG.get());
-            AxeItem.STRIPPABLES.put(ModBlocks.CRABAPPLE_WOOD.get(), ModBlocks.STRIPPED_CRABAPPLE_WOOD.get());
-            AxeItem.STRIPPABLES.put(ModBlocks.EBONY_LOG.get(), ModBlocks.STRIPPED_EBONY_LOG.get());
-            AxeItem.STRIPPABLES.put(ModBlocks.EBONY_WOOD.get(), ModBlocks.STRIPPED_EBONY_WOOD.get());
-            AxeItem.STRIPPABLES.put(ModBlocks.GINKGO_LOG.get(), ModBlocks.STRIPPED_GINKGO_LOG.get());
-            AxeItem.STRIPPABLES.put(ModBlocks.GINKGO_WOOD.get(), ModBlocks.STRIPPED_GINKGO_WOOD.get());
-            AxeItem.STRIPPABLES.put(ModBlocks.MAPLE_LOG.get(), ModBlocks.STRIPPED_MAPLE_LOG.get());
-            AxeItem.STRIPPABLES.put(ModBlocks.MAPLE_WOOD.get(), ModBlocks.STRIPPED_MAPLE_WOOD.get());
-            AxeItem.STRIPPABLES.put(ModBlocks.FROST_LOG.get(), ModBlocks.STRIPPED_FROST_LOG.get());
-            AxeItem.STRIPPABLES.put(ModBlocks.FROST_WOOD.get(), ModBlocks.STRIPPED_FROST_WOOD.get());
-            AxeItem.STRIPPABLES.put(ModBlocks.DAWN_REDWOOD_LOG.get(), ModBlocks.STRIPPED_DAWN_REDWOOD_LOG.get());
-            AxeItem.STRIPPABLES.put(ModBlocks.DAWN_REDWOOD_WOOD.get(), ModBlocks.STRIPPED_DAWN_REDWOOD_WOOD.get());
-            AxeItem.STRIPPABLES.put(ModBlocks.JACARANDA_LOG.get(), ModBlocks.STRIPPED_JACARANDA_LOG.get());
-            AxeItem.STRIPPABLES.put(ModBlocks.JACARANDA_WOOD.get(), ModBlocks.STRIPPED_JACARANDA_WOOD.get());
-            AxeItem.STRIPPABLES.put(ModBlocks.WILLOW_LOG.get(), ModBlocks.STRIPPED_WILLOW_LOG.get());
-            AxeItem.STRIPPABLES.put(ModBlocks.WILLOW_WOOD.get(), ModBlocks.STRIPPED_WILLOW_WOOD.get());
-        });
+    
+    public static void init() {
+        setStrippedWoodBlocks();
+        addFlowerPotBlocks();
+        setFlammableBlocks();
+        addBlockEntity();
+    }
+    
+    public static void setStrippedWoodBlocks() {
+        HashMap<Block, Block> strippables = new HashMap<>(AxeItem.STRIPPABLES);
+        strippables.put(ModBlocks.CRABAPPLE_LOG, ModBlocks.STRIPPED_CRABAPPLE_LOG);
+        strippables.put(ModBlocks.CRABAPPLE_WOOD, ModBlocks.STRIPPED_CRABAPPLE_WOOD);
+        strippables.put(ModBlocks.EBONY_LOG, ModBlocks.STRIPPED_EBONY_LOG);
+        strippables.put(ModBlocks.EBONY_WOOD, ModBlocks.STRIPPED_EBONY_WOOD);
+        strippables.put(ModBlocks.GINKGO_LOG, ModBlocks.STRIPPED_GINKGO_LOG);
+        strippables.put(ModBlocks.GINKGO_WOOD, ModBlocks.STRIPPED_GINKGO_WOOD);
+        strippables.put(ModBlocks.MAPLE_LOG, ModBlocks.STRIPPED_MAPLE_LOG);
+        strippables.put(ModBlocks.MAPLE_WOOD, ModBlocks.STRIPPED_MAPLE_WOOD);
+        strippables.put(ModBlocks.FROST_LOG, ModBlocks.STRIPPED_FROST_LOG);
+        strippables.put(ModBlocks.FROST_WOOD, ModBlocks.STRIPPED_FROST_WOOD);
+        strippables.put(ModBlocks.DAWN_REDWOOD_LOG, ModBlocks.STRIPPED_DAWN_REDWOOD_LOG);
+        strippables.put(ModBlocks.DAWN_REDWOOD_WOOD, ModBlocks.STRIPPED_DAWN_REDWOOD_WOOD);
+        strippables.put(ModBlocks.JACARANDA_LOG, ModBlocks.STRIPPED_JACARANDA_LOG);
+        strippables.put(ModBlocks.JACARANDA_WOOD, ModBlocks.STRIPPED_JACARANDA_WOOD);
+        strippables.put(ModBlocks.WILLOW_LOG, ModBlocks.STRIPPED_WILLOW_LOG);
+        strippables.put(ModBlocks.WILLOW_WOOD, ModBlocks.STRIPPED_WILLOW_WOOD);
+
+        AxeItem.STRIPPABLES = strippables;
     }
 
-    @SubscribeEvent
-    public static void addFlowerPotBlocks(FMLCommonSetupEvent event) {
-        event.enqueueWork(() -> {
-            FlowerPotBlock pot = (FlowerPotBlock) Blocks.FLOWER_POT;
-            pot.addPlant(ModBlocks.CRABAPPLE_SAPLING.getId(), ModBlocks.POTTED_CRABAPPLE_SAPLING);
-            pot.addPlant(ModBlocks.WHITE_CHERRY_SAPLING.getId(), ModBlocks.POTTED_WHITE_CHERRY_SAPLING);
-            pot.addPlant(ModBlocks.ORANGE_BIRCH_SAPLING.getId(), ModBlocks.POTTED_ORANGE_BIRCH_SAPLING);
-            pot.addPlant(ModBlocks.YELLOW_BIRCH_SAPLING.getId(), ModBlocks.POTTED_YELLOW_BIRCH_SAPLING);
-            pot.addPlant(ModBlocks.GINKGO_SAPLING.getId(), ModBlocks.POTTED_GINKGO_SAPLING);
-            pot.addPlant(ModBlocks.MAPLE_SAPLING.getId(), ModBlocks.POTTED_MAPLE_SAPLING);
-            pot.addPlant(ModBlocks.FROST_SAPLING.getId(), ModBlocks.POTTED_FROST_SAPLING);
-            pot.addPlant(ModBlocks.DAWN_REDWOOD_SAPLING.getId(), ModBlocks.POTTED_DAWN_REDWOOD_SAPLING);
-            pot.addPlant(ModBlocks.JACARANDA_SAPLING.getId(), ModBlocks.POTTED_JACARANDA_SAPLING);
-            pot.addPlant(ModBlocks.WILLOW_SAPLING.getId(), ModBlocks.POTTED_WILLOW_SAPLING);
-            pot.addPlant(ModBlocks.PINK_DAISY.getId(), ModBlocks.POTTED_PINK_DAISY);
-            pot.addPlant(ModBlocks.RED_CARNATION.getId(), ModBlocks.POTTED_RED_CARNATION);
-            pot.addPlant(ModBlocks.PINK_CARNATION.getId(), ModBlocks.POTTED_PINK_CARNATION);
-            pot.addPlant(ModBlocks.WHITE_CARNATION.getId(), ModBlocks.POTTED_WHITE_CARNATION);
-            pot.addPlant(ModBlocks.RED_SPIDER_LILY.getId(), ModBlocks.POTTED_RED_SPIDER_LILY);
-            pot.addPlant(ModBlocks.YELLOW_CHRYSANTHEMUM.getId(), ModBlocks.POTTED_YELLOW_CHRYSANTHEMUM);
-            pot.addPlant(ModBlocks.GREEN_CHRYSANTHEMUM.getId(), ModBlocks.POTTED_GREEN_CHRYSANTHEMUM);
-            pot.addPlant(ModBlocks.OPEN_DAYBLOOM.getId(), ModBlocks.POTTED_OPEN_DAYBLOOM);
-            pot.addPlant(ModBlocks.CLOSED_DAYBLOOM.getId(), ModBlocks.POTTED_CLOSED_DAYBLOOM);
-            pot.addPlant(ModBlocks.EDELWEISS.getId(), ModBlocks.POTTED_EDELWEISS);
-            pot.addPlant(ModBlocks.CROCUS.getId(), ModBlocks.POTTED_CROCUS);
-            pot.addPlant(ModBlocks.IRIS.getId(), ModBlocks.POTTED_IRIS);
-            pot.addPlant(ModBlocks.LAVENDER.getId(), ModBlocks.POTTED_LAVENDER);
-            pot.addPlant(ModBlocks.DAFFODIL.getId(), ModBlocks.POTTED_DAFFODIL);
-            pot.addPlant(ModBlocks.GERBERA_DAISY.getId(), ModBlocks.POTTED_GERBERA_DAISY);
-            pot.addPlant(ModBlocks.RAPESEED_FLOWER.getId(), ModBlocks.POTTED_RAPESEED_FLOWER);
-        });
-    }
 
-    @SubscribeEvent
-    public static void setFlammableBlocks(FMLCommonSetupEvent event) {
-        event.enqueueWork(() -> {
+
+        public static void addFlowerPotBlocks() {
+                // 获取原版花盆方块
+                FlowerPotBlock pot = (FlowerPotBlock) Blocks.FLOWER_POT;
+
+                // 使用反射获取 POTTED_BY_CONTENT 字段并修改它
+                try {
+                        // 获取 POTTED_BY_CONTENT 字段
+                        java.lang.reflect.Field field = FlowerPotBlock.class.getDeclaredField("POTTED_BY_CONTENT");
+                        field.setAccessible(true);
+
+                        // 获取当前映射
+                        @SuppressWarnings("unchecked")
+                        Map<Block, Block> pottedByContent = (Map<Block, Block>) field.get(null);
+
+                        // 如果映射是不可变的，创建一个新的可变映射
+                        if (!(pottedByContent instanceof HashMap)) {
+                                pottedByContent = new HashMap<>(pottedByContent);
+                                field.set(null, pottedByContent);
+                        }
+
+                        // 添加我们的花盆映射
+                        registerPottedPlant(pottedByContent, ModBlocks.CRABAPPLE_SAPLING, ModBlocks.POTTED_CRABAPPLE_SAPLING);
+                        registerPottedPlant(pottedByContent, ModBlocks.WHITE_CHERRY_SAPLING, ModBlocks.POTTED_WHITE_CHERRY_SAPLING);
+                        registerPottedPlant(pottedByContent, ModBlocks.ORANGE_BIRCH_SAPLING, ModBlocks.POTTED_ORANGE_BIRCH_SAPLING);
+                        registerPottedPlant(pottedByContent, ModBlocks.YELLOW_BIRCH_SAPLING, ModBlocks.POTTED_YELLOW_BIRCH_SAPLING);
+                        registerPottedPlant(pottedByContent, ModBlocks.GINKGO_SAPLING, ModBlocks.POTTED_GINKGO_SAPLING);
+                        registerPottedPlant(pottedByContent, ModBlocks.MAPLE_SAPLING, ModBlocks.POTTED_MAPLE_SAPLING);
+                        registerPottedPlant(pottedByContent, ModBlocks.FROST_SAPLING, ModBlocks.POTTED_FROST_SAPLING);
+                        registerPottedPlant(pottedByContent, ModBlocks.DAWN_REDWOOD_SAPLING, ModBlocks.POTTED_DAWN_REDWOOD_SAPLING);
+                        registerPottedPlant(pottedByContent, ModBlocks.JACARANDA_SAPLING, ModBlocks.POTTED_JACARANDA_SAPLING);
+                        registerPottedPlant(pottedByContent, ModBlocks.WILLOW_SAPLING, ModBlocks.POTTED_WILLOW_SAPLING);
+                        registerPottedPlant(pottedByContent, ModBlocks.PINK_DAISY, ModBlocks.POTTED_PINK_DAISY);
+                        registerPottedPlant(pottedByContent, ModBlocks.RED_CARNATION, ModBlocks.POTTED_RED_CARNATION);
+                        registerPottedPlant(pottedByContent, ModBlocks.PINK_CARNATION, ModBlocks.POTTED_PINK_CARNATION);
+                        registerPottedPlant(pottedByContent, ModBlocks.WHITE_CARNATION, ModBlocks.POTTED_WHITE_CARNATION);
+                        registerPottedPlant(pottedByContent, ModBlocks.RED_SPIDER_LILY, ModBlocks.POTTED_RED_SPIDER_LILY);
+                        registerPottedPlant(pottedByContent, ModBlocks.YELLOW_CHRYSANTHEMUM, ModBlocks.POTTED_YELLOW_CHRYSANTHEMUM);
+                        registerPottedPlant(pottedByContent, ModBlocks.GREEN_CHRYSANTHEMUM, ModBlocks.POTTED_GREEN_CHRYSANTHEMUM);
+                        registerPottedPlant(pottedByContent, ModBlocks.OPEN_DAYBLOOM, ModBlocks.POTTED_OPEN_DAYBLOOM);
+                        registerPottedPlant(pottedByContent, ModBlocks.CLOSED_DAYBLOOM, ModBlocks.POTTED_CLOSED_DAYBLOOM);
+                        registerPottedPlant(pottedByContent, ModBlocks.EDELWEISS, ModBlocks.POTTED_EDELWEISS);
+                        registerPottedPlant(pottedByContent, ModBlocks.CROCUS, ModBlocks.POTTED_CROCUS);
+                        registerPottedPlant(pottedByContent, ModBlocks.IRIS, ModBlocks.POTTED_IRIS);
+                        registerPottedPlant(pottedByContent, ModBlocks.LAVENDER, ModBlocks.POTTED_LAVENDER);
+                        registerPottedPlant(pottedByContent, ModBlocks.DAFFODIL, ModBlocks.POTTED_DAFFODIL);
+                        registerPottedPlant(pottedByContent, ModBlocks.GERBERA_DAISY, ModBlocks.POTTED_GERBERA_DAISY);
+                        registerPottedPlant(pottedByContent, ModBlocks.RAPESEED_FLOWER, ModBlocks.POTTED_RAPESEED_FLOWER);
+
+                } catch (Exception e) {
+                        MoreColorful.LOGGER.error("无法注册花盆方块: {}", e.getMessage());
+                        MoreColorful.LOGGER.error("异常详情:", e);
+                }
+        }
+
+        private static void registerPottedPlant(Map<Block, Block> pottedByContent, Block plant, Block pottedPlant) {
+                pottedByContent.put(plant, pottedPlant);
+        }
+
+
+
+    public static void setFlammableBlocks() {
             FireBlock fireblock = (FireBlock) Blocks.FIRE;
-            fireblock.setFlammable(ModBlocks.CRABAPPLE_LOG.get(), 5, 5);
-            fireblock.setFlammable(ModBlocks.CRABAPPLE_WOOD.get(), 5, 5);
-            fireblock.setFlammable(ModBlocks.STRIPPED_CRABAPPLE_LOG.get(), 5, 5);
-            fireblock.setFlammable(ModBlocks.STRIPPED_CRABAPPLE_WOOD.get(), 5, 5);
-            fireblock.setFlammable(ModBlocks.CRABAPPLE_PLANKS.get(), 5, 20);
-            fireblock.setFlammable(ModBlocks.CRABAPPLE_STAIRS.get(), 5, 20);
-            fireblock.setFlammable(ModBlocks.CRABAPPLE_SLAB.get(), 5, 20);
-            fireblock.setFlammable(ModBlocks.CRABAPPLE_FENCE.get(), 5, 20);
-            fireblock.setFlammable(ModBlocks.CRABAPPLE_FENCE_GATE.get(), 5, 20);
+            fireblock.setFlammable(ModBlocks.CRABAPPLE_LOG, 5, 5);
+            fireblock.setFlammable(ModBlocks.CRABAPPLE_WOOD, 5, 5);
+            fireblock.setFlammable(ModBlocks.STRIPPED_CRABAPPLE_LOG, 5, 5);
+            fireblock.setFlammable(ModBlocks.STRIPPED_CRABAPPLE_WOOD, 5, 5);
+            fireblock.setFlammable(ModBlocks.CRABAPPLE_PLANKS, 5, 20);
+            fireblock.setFlammable(ModBlocks.CRABAPPLE_STAIRS, 5, 20);
+            fireblock.setFlammable(ModBlocks.CRABAPPLE_SLAB, 5, 20);
+            fireblock.setFlammable(ModBlocks.CRABAPPLE_FENCE, 5, 20);
+            fireblock.setFlammable(ModBlocks.CRABAPPLE_FENCE_GATE, 5, 20);
 
-            fireblock.setFlammable(ModBlocks.EBONY_LOG.get(), 5, 5);
-            fireblock.setFlammable(ModBlocks.EBONY_WOOD.get(), 5, 5);
-            fireblock.setFlammable(ModBlocks.STRIPPED_EBONY_LOG.get(), 5, 5);
-            fireblock.setFlammable(ModBlocks.STRIPPED_EBONY_WOOD.get(), 5, 5);
-            fireblock.setFlammable(ModBlocks.EBONY_PLANKS.get(), 5, 20);
-            fireblock.setFlammable(ModBlocks.EBONY_STAIRS.get(), 5, 20);
-            fireblock.setFlammable(ModBlocks.EBONY_SLAB.get(), 5, 20);
-            fireblock.setFlammable(ModBlocks.EBONY_FENCE.get(), 5, 20);
-            fireblock.setFlammable(ModBlocks.EBONY_FENCE_GATE.get(), 5, 20);
+            fireblock.setFlammable(ModBlocks.EBONY_LOG, 5, 5);
+            fireblock.setFlammable(ModBlocks.EBONY_WOOD, 5, 5);
+            fireblock.setFlammable(ModBlocks.STRIPPED_EBONY_LOG, 5, 5);
+            fireblock.setFlammable(ModBlocks.STRIPPED_EBONY_WOOD, 5, 5);
+            fireblock.setFlammable(ModBlocks.EBONY_PLANKS, 5, 20);
+            fireblock.setFlammable(ModBlocks.EBONY_STAIRS, 5, 20);
+            fireblock.setFlammable(ModBlocks.EBONY_SLAB, 5, 20);
+            fireblock.setFlammable(ModBlocks.EBONY_FENCE, 5, 20);
+            fireblock.setFlammable(ModBlocks.EBONY_FENCE_GATE, 5, 20);
 
-            fireblock.setFlammable(ModBlocks.GINKGO_LOG.get(), 5, 5);
-            fireblock.setFlammable(ModBlocks.GINKGO_WOOD.get(), 5, 5);
-            fireblock.setFlammable(ModBlocks.STRIPPED_GINKGO_LOG.get(), 5, 5);
-            fireblock.setFlammable(ModBlocks.STRIPPED_GINKGO_WOOD.get(), 5, 5);
-            fireblock.setFlammable(ModBlocks.GINKGO_PLANKS.get(), 5, 20);
-            fireblock.setFlammable(ModBlocks.GINKGO_STAIRS.get(), 5, 20);
-            fireblock.setFlammable(ModBlocks.GINKGO_SLAB.get(), 5, 20);
-            fireblock.setFlammable(ModBlocks.GINKGO_FENCE.get(), 5, 20);
-            fireblock.setFlammable(ModBlocks.GINKGO_FENCE_GATE.get(), 5, 20);
+            fireblock.setFlammable(ModBlocks.GINKGO_LOG, 5, 5);
+            fireblock.setFlammable(ModBlocks.GINKGO_WOOD, 5, 5);
+            fireblock.setFlammable(ModBlocks.STRIPPED_GINKGO_LOG, 5, 5);
+            fireblock.setFlammable(ModBlocks.STRIPPED_GINKGO_WOOD, 5, 5);
+            fireblock.setFlammable(ModBlocks.GINKGO_PLANKS, 5, 20);
+            fireblock.setFlammable(ModBlocks.GINKGO_STAIRS, 5, 20);
+            fireblock.setFlammable(ModBlocks.GINKGO_SLAB, 5, 20);
+            fireblock.setFlammable(ModBlocks.GINKGO_FENCE, 5, 20);
+            fireblock.setFlammable(ModBlocks.GINKGO_FENCE_GATE, 5, 20);
 
-            fireblock.setFlammable(ModBlocks.MAPLE_LOG.get(), 5, 5);
-            fireblock.setFlammable(ModBlocks.MAPLE_WOOD.get(), 5, 5);
-            fireblock.setFlammable(ModBlocks.STRIPPED_MAPLE_LOG.get(), 5, 5);
-            fireblock.setFlammable(ModBlocks.STRIPPED_MAPLE_WOOD.get(), 5, 5);
-            fireblock.setFlammable(ModBlocks.MAPLE_PLANKS.get(), 5, 20);
-            fireblock.setFlammable(ModBlocks.MAPLE_STAIRS.get(), 5, 20);
-            fireblock.setFlammable(ModBlocks.MAPLE_SLAB.get(), 5, 20);
-            fireblock.setFlammable(ModBlocks.MAPLE_FENCE.get(), 5, 20);
-            fireblock.setFlammable(ModBlocks.MAPLE_FENCE_GATE.get(), 5, 20);
+            fireblock.setFlammable(ModBlocks.MAPLE_LOG, 5, 5);
+            fireblock.setFlammable(ModBlocks.MAPLE_WOOD, 5, 5);
+            fireblock.setFlammable(ModBlocks.STRIPPED_MAPLE_LOG, 5, 5);
+            fireblock.setFlammable(ModBlocks.STRIPPED_MAPLE_WOOD, 5, 5);
+            fireblock.setFlammable(ModBlocks.MAPLE_PLANKS, 5, 20);
+            fireblock.setFlammable(ModBlocks.MAPLE_STAIRS, 5, 20);
+            fireblock.setFlammable(ModBlocks.MAPLE_SLAB, 5, 20);
+            fireblock.setFlammable(ModBlocks.MAPLE_FENCE, 5, 20);
+            fireblock.setFlammable(ModBlocks.MAPLE_FENCE_GATE, 5, 20);
 
-            fireblock.setFlammable(ModBlocks.FROST_LOG.get(), 5, 5);
-            fireblock.setFlammable(ModBlocks.FROST_WOOD.get(), 5, 5);
-            fireblock.setFlammable(ModBlocks.STRIPPED_FROST_LOG.get(), 5, 5);
-            fireblock.setFlammable(ModBlocks.STRIPPED_FROST_WOOD.get(), 5, 5);
-            fireblock.setFlammable(ModBlocks.FROST_PLANKS.get(), 5, 20);
-            fireblock.setFlammable(ModBlocks.FROST_STAIRS.get(), 5, 20);
-            fireblock.setFlammable(ModBlocks.FROST_SLAB.get(), 5, 20);
-            fireblock.setFlammable(ModBlocks.FROST_FENCE.get(), 5, 20);
-            fireblock.setFlammable(ModBlocks.FROST_FENCE_GATE.get(), 5, 20);
+            fireblock.setFlammable(ModBlocks.FROST_LOG, 5, 5);
+            fireblock.setFlammable(ModBlocks.FROST_WOOD, 5, 5);
+            fireblock.setFlammable(ModBlocks.STRIPPED_FROST_LOG, 5, 5);
+            fireblock.setFlammable(ModBlocks.STRIPPED_FROST_WOOD, 5, 5);
+            fireblock.setFlammable(ModBlocks.FROST_PLANKS, 5, 20);
+            fireblock.setFlammable(ModBlocks.FROST_STAIRS, 5, 20);
+            fireblock.setFlammable(ModBlocks.FROST_SLAB, 5, 20);
+            fireblock.setFlammable(ModBlocks.FROST_FENCE, 5, 20);
+            fireblock.setFlammable(ModBlocks.FROST_FENCE_GATE, 5, 20);
 
-            fireblock.setFlammable(ModBlocks.DAWN_REDWOOD_LOG.get(), 5, 5);
-            fireblock.setFlammable(ModBlocks.DAWN_REDWOOD_WOOD.get(), 5, 5);
-            fireblock.setFlammable(ModBlocks.STRIPPED_DAWN_REDWOOD_LOG.get(), 5, 5);
-            fireblock.setFlammable(ModBlocks.STRIPPED_DAWN_REDWOOD_WOOD.get(), 5, 5);
-            fireblock.setFlammable(ModBlocks.DAWN_REDWOOD_PLANKS.get(), 5, 20);
-            fireblock.setFlammable(ModBlocks.DAWN_REDWOOD_STAIRS.get(), 5, 20);
-            fireblock.setFlammable(ModBlocks.DAWN_REDWOOD_SLAB.get(), 5, 20);
-            fireblock.setFlammable(ModBlocks.DAWN_REDWOOD_FENCE.get(), 5, 20);
-            fireblock.setFlammable(ModBlocks.DAWN_REDWOOD_FENCE_GATE.get(), 5, 20);
-            fireblock.setFlammable(ModBlocks.DAWN_REDWOOD_ROOTS.get(), 5, 20);
+            fireblock.setFlammable(ModBlocks.DAWN_REDWOOD_LOG, 5, 5);
+            fireblock.setFlammable(ModBlocks.DAWN_REDWOOD_WOOD, 5, 5);
+            fireblock.setFlammable(ModBlocks.STRIPPED_DAWN_REDWOOD_LOG, 5, 5);
+            fireblock.setFlammable(ModBlocks.STRIPPED_DAWN_REDWOOD_WOOD, 5, 5);
+            fireblock.setFlammable(ModBlocks.DAWN_REDWOOD_PLANKS, 5, 20);
+            fireblock.setFlammable(ModBlocks.DAWN_REDWOOD_STAIRS, 5, 20);
+            fireblock.setFlammable(ModBlocks.DAWN_REDWOOD_SLAB, 5, 20);
+            fireblock.setFlammable(ModBlocks.DAWN_REDWOOD_FENCE, 5, 20);
+            fireblock.setFlammable(ModBlocks.DAWN_REDWOOD_FENCE_GATE, 5, 20);
+            fireblock.setFlammable(ModBlocks.DAWN_REDWOOD_ROOTS, 5, 20);
 
-            fireblock.setFlammable(ModBlocks.JACARANDA_LOG.get(), 5, 5);
-            fireblock.setFlammable(ModBlocks.JACARANDA_WOOD.get(), 5, 5);
-            fireblock.setFlammable(ModBlocks.STRIPPED_JACARANDA_LOG.get(), 5, 5);
-            fireblock.setFlammable(ModBlocks.STRIPPED_JACARANDA_WOOD.get(), 5, 5);
-            fireblock.setFlammable(ModBlocks.JACARANDA_PLANKS.get(), 5, 20);
-            fireblock.setFlammable(ModBlocks.JACARANDA_STAIRS.get(), 5, 20);
-            fireblock.setFlammable(ModBlocks.JACARANDA_SLAB.get(), 5, 20);
-            fireblock.setFlammable(ModBlocks.JACARANDA_FENCE.get(), 5, 20);
-            fireblock.setFlammable(ModBlocks.JACARANDA_FENCE_GATE.get(), 5, 20);
+            fireblock.setFlammable(ModBlocks.JACARANDA_LOG, 5, 5);
+            fireblock.setFlammable(ModBlocks.JACARANDA_WOOD, 5, 5);
+            fireblock.setFlammable(ModBlocks.STRIPPED_JACARANDA_LOG, 5, 5);
+            fireblock.setFlammable(ModBlocks.STRIPPED_JACARANDA_WOOD, 5, 5);
+            fireblock.setFlammable(ModBlocks.JACARANDA_PLANKS, 5, 20);
+            fireblock.setFlammable(ModBlocks.JACARANDA_STAIRS, 5, 20);
+            fireblock.setFlammable(ModBlocks.JACARANDA_SLAB, 5, 20);
+            fireblock.setFlammable(ModBlocks.JACARANDA_FENCE, 5, 20);
+            fireblock.setFlammable(ModBlocks.JACARANDA_FENCE_GATE, 5, 20);
 
-            fireblock.setFlammable(ModBlocks.WILLOW_LOG.get(), 5, 5);
-            fireblock.setFlammable(ModBlocks.WILLOW_WOOD.get(), 5, 5);
-            fireblock.setFlammable(ModBlocks.STRIPPED_WILLOW_LOG.get(), 5, 5);
-            fireblock.setFlammable(ModBlocks.STRIPPED_WILLOW_WOOD.get(), 5, 5);
-            fireblock.setFlammable(ModBlocks.WILLOW_PLANKS.get(), 5, 20);
-            fireblock.setFlammable(ModBlocks.WILLOW_STAIRS.get(), 5, 20);
-            fireblock.setFlammable(ModBlocks.WILLOW_SLAB.get(), 5, 20);
-            fireblock.setFlammable(ModBlocks.WILLOW_FENCE.get(), 5, 20);
-            fireblock.setFlammable(ModBlocks.WILLOW_FENCE_GATE.get(), 5, 20);
+            fireblock.setFlammable(ModBlocks.WILLOW_LOG, 5, 5);
+            fireblock.setFlammable(ModBlocks.WILLOW_WOOD, 5, 5);
+            fireblock.setFlammable(ModBlocks.STRIPPED_WILLOW_LOG, 5, 5);
+            fireblock.setFlammable(ModBlocks.STRIPPED_WILLOW_WOOD, 5, 5);
+            fireblock.setFlammable(ModBlocks.WILLOW_PLANKS, 5, 20);
+            fireblock.setFlammable(ModBlocks.WILLOW_STAIRS, 5, 20);
+            fireblock.setFlammable(ModBlocks.WILLOW_SLAB, 5, 20);
+            fireblock.setFlammable(ModBlocks.WILLOW_FENCE, 5, 20);
+            fireblock.setFlammable(ModBlocks.WILLOW_FENCE_GATE, 5, 20);
 
-            fireblock.setFlammable(ModBlocks.CRABAPPLE_LEAVES.get(), 30, 60);
-            fireblock.setFlammable(ModBlocks.BEGONIAS.get(), 60, 100);
-            fireblock.setFlammable(ModBlocks.WHITE_CHERRY_LEAVES.get(), 30, 60);
-            fireblock.setFlammable(ModBlocks.WHITE_PETALS.get(), 60, 100);
-            fireblock.setFlammable(ModBlocks.ORANGE_BIRCH_LEAVES.get(), 30, 60);
-            fireblock.setFlammable(ModBlocks.ORANGE_BIRCH_LEAF_LITTER.get(), 60, 100);
-            fireblock.setFlammable(ModBlocks.YELLOW_BIRCH_LEAVES.get(), 30, 60);
-            fireblock.setFlammable(ModBlocks.YELLOW_BIRCH_LEAF_LITTER.get(), 60, 100);
-            fireblock.setFlammable(ModBlocks.GINKGO_LEAVES.get(), 30, 60);
-            fireblock.setFlammable(ModBlocks.GINKGO_LEAF_LITTER.get(), 60, 100);
-            fireblock.setFlammable(ModBlocks.MAPLE_LEAVES.get(), 30, 60);
-            fireblock.setFlammable(ModBlocks.MAPLE_LEAF_LITTER.get(), 60, 100);
-            fireblock.setFlammable(ModBlocks.FROST_LEAVES.get(), 30, 60);
-            fireblock.setFlammable(ModBlocks.FROSTY_PETALS.get(), 60, 100);
-            fireblock.setFlammable(ModBlocks.DAWN_REDWOOD_LEAVES.get(), 30, 60);
-            fireblock.setFlammable(ModBlocks.DAWN_REDWOOD_LEAF_LITTER.get(), 60, 100);
-            fireblock.setFlammable(ModBlocks.JACARANDA_LEAVES.get(), 30, 60);
-            fireblock.setFlammable(ModBlocks.VIOLETS.get(), 60, 100);
-            fireblock.setFlammable(ModBlocks.BUTTERCUPS.get(), 60, 100);
-            fireblock.setFlammable(ModBlocks.FORGET_ME_NOTS.get(), 60, 100);
-            fireblock.setFlammable(ModBlocks.BABY_BLUE_EYES.get(), 60, 100);
-            fireblock.setFlammable(ModBlocks.SPEEDWELLS.get(), 60, 100);
-            fireblock.setFlammable(ModBlocks.WOOD_SORRELS.get(), 60, 100);
-            fireblock.setFlammable(ModBlocks.WILLOW_LEAVES.get(), 30, 60);
-            fireblock.setFlammable(ModBlocks.WILLOW_BRANCHES.get(), 15, 100);
+            fireblock.setFlammable(ModBlocks.CRABAPPLE_LEAVES, 30, 60);
+            fireblock.setFlammable(ModBlocks.BEGONIAS, 60, 100);
+            fireblock.setFlammable(ModBlocks.WHITE_CHERRY_LEAVES, 30, 60);
+            fireblock.setFlammable(ModBlocks.WHITE_PETALS, 60, 100);
+            fireblock.setFlammable(ModBlocks.ORANGE_BIRCH_LEAVES, 30, 60);
+            fireblock.setFlammable(ModBlocks.ORANGE_BIRCH_LEAF_LITTER, 60, 100);
+            fireblock.setFlammable(ModBlocks.YELLOW_BIRCH_LEAVES, 30, 60);
+            fireblock.setFlammable(ModBlocks.YELLOW_BIRCH_LEAF_LITTER, 60, 100);
+            fireblock.setFlammable(ModBlocks.GINKGO_LEAVES, 30, 60);
+            fireblock.setFlammable(ModBlocks.GINKGO_LEAF_LITTER, 60, 100);
+            fireblock.setFlammable(ModBlocks.MAPLE_LEAVES, 30, 60);
+            fireblock.setFlammable(ModBlocks.MAPLE_LEAF_LITTER, 60, 100);
+            fireblock.setFlammable(ModBlocks.FROST_LEAVES, 30, 60);
+            fireblock.setFlammable(ModBlocks.FROSTY_PETALS, 60, 100);
+            fireblock.setFlammable(ModBlocks.DAWN_REDWOOD_LEAVES, 30, 60);
+            fireblock.setFlammable(ModBlocks.DAWN_REDWOOD_LEAF_LITTER, 60, 100);
+            fireblock.setFlammable(ModBlocks.JACARANDA_LEAVES, 30, 60);
+            fireblock.setFlammable(ModBlocks.VIOLETS, 60, 100);
+            fireblock.setFlammable(ModBlocks.BUTTERCUPS, 60, 100);
+            fireblock.setFlammable(ModBlocks.FORGET_ME_NOTS, 60, 100);
+            fireblock.setFlammable(ModBlocks.BABY_BLUE_EYES, 60, 100);
+            fireblock.setFlammable(ModBlocks.SPEEDWELLS, 60, 100);
+            fireblock.setFlammable(ModBlocks.WOOD_SORRELS, 60, 100);
+            fireblock.setFlammable(ModBlocks.WILLOW_LEAVES, 30, 60);
+            fireblock.setFlammable(ModBlocks.WILLOW_BRANCHES, 15, 100);
 
-            fireblock.setFlammable(ModBlocks.PINK_DAISY.get(), 60, 100);
-            fireblock.setFlammable(ModBlocks.RED_CARNATION.get(), 60, 100);
-            fireblock.setFlammable(ModBlocks.PINK_CARNATION.get(), 60, 100);
-            fireblock.setFlammable(ModBlocks.WHITE_CARNATION.get(), 60, 100);
-            fireblock.setFlammable(ModBlocks.RED_SPIDER_LILY.get(), 60, 100);
-            fireblock.setFlammable(ModBlocks.YELLOW_CHRYSANTHEMUM.get(), 60, 100);
-            fireblock.setFlammable(ModBlocks.GREEN_CHRYSANTHEMUM.get(), 60, 100);
-            fireblock.setFlammable(ModBlocks.OPEN_DAYBLOOM.get(), 60, 100);
-            fireblock.setFlammable(ModBlocks.CLOSED_DAYBLOOM.get(), 60, 100);
-            fireblock.setFlammable(ModBlocks.EDELWEISS.get(), 60, 100);
-            fireblock.setFlammable(ModBlocks.CROCUS.get(), 60, 100);
-            fireblock.setFlammable(ModBlocks.IRIS.get(), 60, 100);
-            fireblock.setFlammable(ModBlocks.LAVENDER.get(), 60, 100);
-            fireblock.setFlammable(ModBlocks.DAFFODIL.get(), 60, 100);
-            fireblock.setFlammable(ModBlocks.GERBERA_DAISY.get(), 60, 100);
-            fireblock.setFlammable(ModBlocks.RAPESEED_FLOWER.get(), 60, 100);
+            fireblock.setFlammable(ModBlocks.PINK_DAISY, 60, 100);
+            fireblock.setFlammable(ModBlocks.RED_CARNATION, 60, 100);
+            fireblock.setFlammable(ModBlocks.PINK_CARNATION, 60, 100);
+            fireblock.setFlammable(ModBlocks.WHITE_CARNATION, 60, 100);
+            fireblock.setFlammable(ModBlocks.RED_SPIDER_LILY, 60, 100);
+            fireblock.setFlammable(ModBlocks.YELLOW_CHRYSANTHEMUM, 60, 100);
+            fireblock.setFlammable(ModBlocks.GREEN_CHRYSANTHEMUM, 60, 100);
+            fireblock.setFlammable(ModBlocks.OPEN_DAYBLOOM, 60, 100);
+            fireblock.setFlammable(ModBlocks.CLOSED_DAYBLOOM, 60, 100);
+            fireblock.setFlammable(ModBlocks.EDELWEISS, 60, 100);
+            fireblock.setFlammable(ModBlocks.CROCUS, 60, 100);
+            fireblock.setFlammable(ModBlocks.IRIS, 60, 100);
+            fireblock.setFlammable(ModBlocks.LAVENDER, 60, 100);
+            fireblock.setFlammable(ModBlocks.DAFFODIL, 60, 100);
+            fireblock.setFlammable(ModBlocks.GERBERA_DAISY, 60, 100);
+            fireblock.setFlammable(ModBlocks.RAPESEED_FLOWER, 60, 100);
 
-            fireblock.setFlammable(ModBlocks.CATTAIL.get(), 60, 100);
-            fireblock.setFlammable(ModBlocks.TALL_RAPESEED_FLOWER.get(), 60, 100);
+            fireblock.setFlammable(ModBlocks.CATTAIL, 60, 100);
+            fireblock.setFlammable(ModBlocks.TALL_RAPESEED_FLOWER, 60, 100);
 
-            fireblock.setFlammable(ModBlocks.SHORT_WATER_GRASS.get(), 60, 100);
-            fireblock.setFlammable(ModBlocks.TALL_WATER_GRASS.get(), 60, 100);
-            fireblock.setFlammable(ModBlocks.REED.get(), 60, 100);
-            fireblock.setFlammable(ModBlocks.STRAWBERRY_BUSH.get(), 60, 100);
-            fireblock.setFlammable(ModBlocks.BLUEBERRY_BUSH.get(), 60, 100);
-        });
+            fireblock.setFlammable(ModBlocks.SHORT_WATER_GRASS, 60, 100);
+            fireblock.setFlammable(ModBlocks.TALL_WATER_GRASS, 60, 100);
+            fireblock.setFlammable(ModBlocks.REED, 60, 100);
+            fireblock.setFlammable(ModBlocks.STRAWBERRY_BUSH, 60, 100);
+            fireblock.setFlammable(ModBlocks.BLUEBERRY_BUSH, 60, 100);
     }
 
-    @SubscribeEvent
-    public static void addBlockEntity(BlockEntityTypeAddBlocksEvent event) {
-        event.modify(BlockEntityType.SIGN,
-                ModBlocks.CRABAPPLE_SIGN.get(),
-                ModBlocks.CRABAPPLE_WALL_SIGN.get(),
-                ModBlocks.EBONY_SIGN.get(),
-                ModBlocks.EBONY_WALL_SIGN.get(),
-                ModBlocks.GINKGO_SIGN.get(),
-                ModBlocks.GINKGO_WALL_SIGN.get(),
-                ModBlocks.MAPLE_SIGN.get(),
-                ModBlocks.MAPLE_WALL_SIGN.get(),
-                ModBlocks.FROST_SIGN.get(),
-                ModBlocks.FROST_WALL_SIGN.get(),
-                ModBlocks.DAWN_REDWOOD_SIGN.get(),
-                ModBlocks.DAWN_REDWOOD_WALL_SIGN.get(),
-                ModBlocks.JACARANDA_SIGN.get(),
-                ModBlocks.JACARANDA_WALL_SIGN.get(),
-                ModBlocks.WILLOW_SIGN.get(),
-                ModBlocks.WILLOW_WALL_SIGN.get());
-        event.modify(BlockEntityType.HANGING_SIGN,
-                ModBlocks.CRABAPPLE_HANGING_SIGN.get(),
-                ModBlocks.CRABAPPLE_WALL_HANGING_SIGN.get(),
-                ModBlocks.EBONY_HANGING_SIGN.get(),
-                ModBlocks.EBONY_WALL_HANGING_SIGN.get(),
-                ModBlocks.GINKGO_HANGING_SIGN.get(),
-                ModBlocks.GINKGO_WALL_HANGING_SIGN.get(),
-                ModBlocks.MAPLE_HANGING_SIGN.get(),
-                ModBlocks.MAPLE_WALL_HANGING_SIGN.get(),
-                ModBlocks.FROST_HANGING_SIGN.get(),
-                ModBlocks.FROST_WALL_HANGING_SIGN.get(),
-                ModBlocks.DAWN_REDWOOD_HANGING_SIGN.get(),
-                ModBlocks.DAWN_REDWOOD_WALL_HANGING_SIGN.get(),
-                ModBlocks.JACARANDA_HANGING_SIGN.get(),
-                ModBlocks.JACARANDA_WALL_HANGING_SIGN.get(),
-                ModBlocks.WILLOW_HANGING_SIGN.get(),
-                ModBlocks.WILLOW_WALL_HANGING_SIGN.get());
-    }
+
+        public static void addBlockEntity() {
+                BlockEntityTypeHelper.addValidBlocks(BlockEntityType.SIGN,
+                        ModBlocks.CRABAPPLE_SIGN,
+                        ModBlocks.CRABAPPLE_WALL_SIGN,
+                        ModBlocks.EBONY_SIGN,
+                        ModBlocks.EBONY_WALL_SIGN,
+                        ModBlocks.GINKGO_SIGN,
+                        ModBlocks.GINKGO_WALL_SIGN,
+                        ModBlocks.MAPLE_SIGN,
+                        ModBlocks.MAPLE_WALL_SIGN,
+                        ModBlocks.FROST_SIGN,
+                        ModBlocks.FROST_WALL_SIGN,
+                        ModBlocks.DAWN_REDWOOD_SIGN,
+                        ModBlocks.DAWN_REDWOOD_WALL_SIGN,
+                        ModBlocks.JACARANDA_SIGN,
+                        ModBlocks.JACARANDA_WALL_SIGN,
+                        ModBlocks.WILLOW_SIGN,
+                        ModBlocks.WILLOW_WALL_SIGN);
+
+                BlockEntityTypeHelper.addValidBlocks(BlockEntityType.HANGING_SIGN,
+                        ModBlocks.CRABAPPLE_HANGING_SIGN,
+                        ModBlocks.CRABAPPLE_WALL_HANGING_SIGN,
+                        ModBlocks.EBONY_HANGING_SIGN,
+                        ModBlocks.EBONY_WALL_HANGING_SIGN,
+                        ModBlocks.GINKGO_HANGING_SIGN,
+                        ModBlocks.GINKGO_WALL_HANGING_SIGN,
+                        ModBlocks.MAPLE_HANGING_SIGN,
+                        ModBlocks.MAPLE_WALL_HANGING_SIGN,
+                        ModBlocks.FROST_HANGING_SIGN,
+                        ModBlocks.FROST_WALL_HANGING_SIGN,
+                        ModBlocks.DAWN_REDWOOD_HANGING_SIGN,
+                        ModBlocks.DAWN_REDWOOD_WALL_HANGING_SIGN,
+                        ModBlocks.JACARANDA_HANGING_SIGN,
+                        ModBlocks.JACARANDA_WALL_HANGING_SIGN,
+                        ModBlocks.WILLOW_HANGING_SIGN,
+                        ModBlocks.WILLOW_WALL_HANGING_SIGN);
+        }
 }

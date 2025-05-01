@@ -36,7 +36,7 @@ public class DawnRedwoodTrunkPlacer extends TrunkPlacer {
 
     @Override
     protected TrunkPlacerType<?> type() {
-        return ModTrunkPlacers.DAWN_REDWOOD_TRUNK_PLACER.get();
+        return ModTrunkPlacers.DAWN_REDWOOD_TRUNK_PLACER;
     }
 
     @Override

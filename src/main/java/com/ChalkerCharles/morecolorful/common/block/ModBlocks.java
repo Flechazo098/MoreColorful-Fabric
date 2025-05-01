@@ -63,9 +63,9 @@ public class ModBlocks {
     public static final PressurePlateBlock CRABAPPLE_PRESSURE_PLATE = register("crabapple_pressure_plate", new PressurePlateBlock(ModBlockSetTypes.CRABAPPLE, ofFullCopy(Blocks.CHERRY_PRESSURE_PLATE).mapColor(MapColor.TERRACOTTA_PINK)));
     public static final ButtonBlock CRABAPPLE_BUTTON = register("crabapple_button", woodenButton(ModBlockSetTypes.CRABAPPLE, Blocks.CHERRY_BUTTON, MapColor.TERRACOTTA_PINK));
     public static final StandingSignBlock CRABAPPLE_SIGN = register("crabapple_sign", new StandingSignBlock(ModWoodTypes.CRABAPPLE, ofFullCopy(Blocks.CHERRY_SIGN).mapColor(MapColor.TERRACOTTA_PINK)));
-    public static final WallSignBlock CRABAPPLE_WALL_SIGN = register("crabapple_wall_sign", new WallSignBlock(ModWoodTypes.CRABAPPLE, ofFullCopy(Blocks.CHERRY_WALL_SIGN).mapColor(MapColor.TERRACOTTA_PINK).lootFrom(CRABAPPLE_SIGN)));
+    public static final WallSignBlock CRABAPPLE_WALL_SIGN = register("crabapple_wall_sign", new WallSignBlock(ModWoodTypes.CRABAPPLE, ofFullCopy(Blocks.CHERRY_WALL_SIGN).mapColor(MapColor.TERRACOTTA_PINK)));
     public static final CeilingHangingSignBlock CRABAPPLE_HANGING_SIGN = register("crabapple_hanging_sign", new CeilingHangingSignBlock(ModWoodTypes.CRABAPPLE, ofFullCopy(Blocks.CHERRY_HANGING_SIGN).mapColor(MapColor.TERRACOTTA_PINK)));
-    public static final WallHangingSignBlock CRABAPPLE_WALL_HANGING_SIGN = register("crabapple_wall_hanging_sign", new WallHangingSignBlock(ModWoodTypes.CRABAPPLE, ofFullCopy(Blocks.CHERRY_WALL_HANGING_SIGN).mapColor(MapColor.TERRACOTTA_PINK).lootFrom(CRABAPPLE_HANGING_SIGN)));
+    public static final WallHangingSignBlock CRABAPPLE_WALL_HANGING_SIGN = register("crabapple_wall_hanging_sign", new WallHangingSignBlock(ModWoodTypes.CRABAPPLE, ofFullCopy(Blocks.CHERRY_WALL_HANGING_SIGN).mapColor(MapColor.TERRACOTTA_PINK)));
     public static final LeavesBlock CRABAPPLE_LEAVES = register("crabapple_leaves", new PetalLeavesBlock(ofFullCopy(Blocks.CHERRY_LEAVES).mapColor(MapColorExtension.CRABAPPLE), ModParticles.CRABAPPLE_LEAVES));
     public static final SaplingBlock CRABAPPLE_SAPLING = register("crabapple_sapling", new SaplingBlock(ModTreeGrower.CRABAPPLE, ofFullCopy(Blocks.CHERRY_SAPLING).mapColor(MapColorExtension.CRABAPPLE)));
     public static final FlowerPotBlock POTTED_CRABAPPLE_SAPLING = register("potted_crabapple_sapling", flowerPot(CRABAPPLE_SAPLING));
@@ -85,9 +85,9 @@ public class ModBlocks {
     public static final PressurePlateBlock EBONY_PRESSURE_PLATE = register("ebony_pressure_plate", new PressurePlateBlock(ModBlockSetTypes.EBONY, ofFullCopy(Blocks.OAK_PRESSURE_PLATE).mapColor(MapColor.TERRACOTTA_BLACK).instrument(NoteBlockInstrumentExtension.GUZHENG)));
     public static final ButtonBlock EBONY_BUTTON = register("ebony_button", rareWoodButton(ModBlockSetTypes.EBONY, Blocks.OAK_BUTTON, MapColor.TERRACOTTA_BLACK));
     public static final StandingSignBlock EBONY_SIGN = register("ebony_sign", new StandingSignBlock(ModWoodTypes.EBONY, ofFullCopy(Blocks.OAK_SIGN).mapColor(MapColor.TERRACOTTA_BLACK).strength(1.5F).instrument(NoteBlockInstrumentExtension.GUZHENG)));
-    public static final WallSignBlock EBONY_WALL_SIGN = register("ebony_wall_sign", new WallSignBlock(ModWoodTypes.EBONY, ofFullCopy(Blocks.OAK_WALL_SIGN).mapColor(MapColor.TERRACOTTA_BLACK).lootFrom(EBONY_SIGN).strength(1.5F).instrument(NoteBlockInstrumentExtension.GUZHENG)));
+    public static final WallSignBlock EBONY_WALL_SIGN = register("ebony_wall_sign", new WallSignBlock(ModWoodTypes.EBONY, ofFullCopy(Blocks.OAK_WALL_SIGN).mapColor(MapColor.TERRACOTTA_BLACK).strength(1.5F).instrument(NoteBlockInstrumentExtension.GUZHENG)));
     public static final CeilingHangingSignBlock EBONY_HANGING_SIGN = register("ebony_hanging_sign", new CeilingHangingSignBlock(ModWoodTypes.EBONY, ofFullCopy(Blocks.OAK_HANGING_SIGN).mapColor(MapColor.TERRACOTTA_BLACK).strength(1.5F).instrument(NoteBlockInstrumentExtension.GUZHENG)));
-    public static final WallHangingSignBlock EBONY_WALL_HANGING_SIGN = register("ebony_wall_hanging_sign", new WallHangingSignBlock(ModWoodTypes.EBONY, ofFullCopy(Blocks.OAK_WALL_HANGING_SIGN).mapColor(MapColor.TERRACOTTA_BLACK).lootFrom(EBONY_HANGING_SIGN).strength(1.5F).instrument(NoteBlockInstrumentExtension.GUZHENG)));
+    public static final WallHangingSignBlock EBONY_WALL_HANGING_SIGN = register("ebony_wall_hanging_sign", new WallHangingSignBlock(ModWoodTypes.EBONY, ofFullCopy(Blocks.OAK_WALL_HANGING_SIGN).mapColor(MapColor.TERRACOTTA_BLACK).strength(1.5F).instrument(NoteBlockInstrumentExtension.GUZHENG)));
 
 
     public static final LeavesBlock WHITE_CHERRY_LEAVES = register("white_cherry_leaves", new PetalLeavesBlock(ofFullCopy(Blocks.CHERRY_LEAVES).mapColor(MapColor.SNOW), ModParticles.WHITE_CHERRY_LEAVES));
@@ -117,9 +117,9 @@ public class ModBlocks {
     public static final PressurePlateBlock GINKGO_PRESSURE_PLATE = register("ginkgo_pressure_plate", new PressurePlateBlock(ModBlockSetTypes.GINKGO, ofFullCopy(Blocks.OAK_PRESSURE_PLATE).mapColor(MapColor.SAND)));
     public static final ButtonBlock GINKGO_BUTTON = register("ginkgo_button", woodenButton(ModBlockSetTypes.GINKGO, Blocks.OAK_BUTTON, MapColor.SAND));
     public static final StandingSignBlock GINKGO_SIGN = register("ginkgo_sign", new StandingSignBlock(ModWoodTypes.GINKGO, ofFullCopy(Blocks.OAK_SIGN).mapColor(MapColor.SAND)));
-    public static final WallSignBlock GINKGO_WALL_SIGN = register("ginkgo_wall_sign", new WallSignBlock(ModWoodTypes.GINKGO, ofFullCopy(Blocks.OAK_WALL_SIGN).mapColor(MapColor.SAND).lootFrom(GINKGO_SIGN)));
+    public static final WallSignBlock GINKGO_WALL_SIGN = register("ginkgo_wall_sign", new WallSignBlock(ModWoodTypes.GINKGO, ofFullCopy(Blocks.OAK_WALL_SIGN).mapColor(MapColor.SAND)));
     public static final CeilingHangingSignBlock GINKGO_HANGING_SIGN = register("ginkgo_hanging_sign", new CeilingHangingSignBlock(ModWoodTypes.GINKGO, ofFullCopy(Blocks.OAK_HANGING_SIGN).mapColor(MapColor.SAND)));
-    public static final WallHangingSignBlock GINKGO_WALL_HANGING_SIGN = register("ginkgo_wall_hanging_sign", new WallHangingSignBlock(ModWoodTypes.GINKGO, ofFullCopy(Blocks.OAK_WALL_HANGING_SIGN).mapColor(MapColor.SAND).lootFrom(GINKGO_HANGING_SIGN)));
+    public static final WallHangingSignBlock GINKGO_WALL_HANGING_SIGN = register("ginkgo_wall_hanging_sign", new WallHangingSignBlock(ModWoodTypes.GINKGO, ofFullCopy(Blocks.OAK_WALL_HANGING_SIGN).mapColor(MapColor.SAND)));
     public static final LeavesBlock GINKGO_LEAVES = register("ginkgo_leaves", new FallingLeavesBlock(ofFullCopy(Blocks.OAK_LEAVES).mapColor(MapColor.GOLD), ModParticles.GINKGO_LEAVES));
     public static final SaplingBlock GINKGO_SAPLING = register("ginkgo_sapling", new SaplingBlock(ModTreeGrower.GINKGO, ofFullCopy(Blocks.OAK_SAPLING).mapColor(MapColor.GOLD)));
     public static final FlowerPotBlock POTTED_GINKGO_SAPLING = register("potted_ginkgo_sapling", flowerPot(GINKGO_SAPLING));
@@ -139,9 +139,9 @@ public class ModBlocks {
     public static final PressurePlateBlock MAPLE_PRESSURE_PLATE = register("maple_pressure_plate", new PressurePlateBlock(ModBlockSetTypes.MAPLE, ofFullCopy(Blocks.OAK_PRESSURE_PLATE).mapColor(MapColor.RAW_IRON)));
     public static final ButtonBlock MAPLE_BUTTON = register("maple_button", woodenButton(ModBlockSetTypes.MAPLE, Blocks.OAK_BUTTON, MapColor.RAW_IRON));
     public static final StandingSignBlock MAPLE_SIGN = register("maple_sign", new StandingSignBlock(ModWoodTypes.MAPLE, ofFullCopy(Blocks.OAK_SIGN).mapColor(MapColor.RAW_IRON)));
-    public static final WallSignBlock MAPLE_WALL_SIGN = register("maple_wall_sign", new WallSignBlock(ModWoodTypes.MAPLE, ofFullCopy(Blocks.OAK_WALL_SIGN).mapColor(MapColor.RAW_IRON).lootFrom(MAPLE_SIGN)));
+    public static final WallSignBlock MAPLE_WALL_SIGN = register("maple_wall_sign", new WallSignBlock(ModWoodTypes.MAPLE, ofFullCopy(Blocks.OAK_WALL_SIGN).mapColor(MapColor.RAW_IRON)));
     public static final CeilingHangingSignBlock MAPLE_HANGING_SIGN = register("maple_hanging_sign", new CeilingHangingSignBlock(ModWoodTypes.MAPLE, ofFullCopy(Blocks.OAK_HANGING_SIGN).mapColor(MapColor.RAW_IRON)));
-    public static final WallHangingSignBlock MAPLE_WALL_HANGING_SIGN = register("maple_wall_hanging_sign", new WallHangingSignBlock(ModWoodTypes.MAPLE, ofFullCopy(Blocks.OAK_WALL_HANGING_SIGN).mapColor(MapColor.RAW_IRON).lootFrom(MAPLE_HANGING_SIGN)));
+    public static final WallHangingSignBlock MAPLE_WALL_HANGING_SIGN = register("maple_wall_hanging_sign", new WallHangingSignBlock(ModWoodTypes.MAPLE, ofFullCopy(Blocks.OAK_WALL_HANGING_SIGN).mapColor(MapColor.RAW_IRON)));
     public static final LeavesBlock MAPLE_LEAVES = register("maple_leaves", new FallingLeavesBlock(ofFullCopy(Blocks.OAK_LEAVES).mapColor(MapColor.TERRACOTTA_RED), ModParticles.MAPLE_LEAVES));
     public static final SaplingBlock MAPLE_SAPLING = register("maple_sapling", new SaplingBlock(ModTreeGrower.MAPLE, ofFullCopy(Blocks.OAK_SAPLING).mapColor(MapColor.TERRACOTTA_RED)));
     public static final FlowerPotBlock POTTED_MAPLE_SAPLING = register("potted_maple_sapling", flowerPot(MAPLE_SAPLING));
@@ -160,9 +160,9 @@ public class ModBlocks {
     public static final PressurePlateBlock FROST_PRESSURE_PLATE = register("frost_pressure_plate", new PressurePlateBlock(ModBlockSetTypes.FROST, ofFullCopy(Blocks.CHERRY_PRESSURE_PLATE).mapColor(MapColorExtension.FROST_WOOD)));
     public static final ButtonBlock FROST_BUTTON = register("frost_button", woodenButton(ModBlockSetTypes.FROST, Blocks.CHERRY_BUTTON, MapColorExtension.FROST_WOOD));
     public static final StandingSignBlock FROST_SIGN = register("frost_sign", new StandingSignBlock(ModWoodTypes.FROST, ofFullCopy(Blocks.CHERRY_SIGN).mapColor(MapColorExtension.FROST_WOOD)));
-    public static final WallSignBlock FROST_WALL_SIGN = register("frost_wall_sign", new WallSignBlock(ModWoodTypes.FROST, ofFullCopy(Blocks.CHERRY_WALL_SIGN).mapColor(MapColorExtension.FROST_WOOD).lootFrom(FROST_SIGN)));
+    public static final WallSignBlock FROST_WALL_SIGN = register("frost_wall_sign", new WallSignBlock(ModWoodTypes.FROST, ofFullCopy(Blocks.CHERRY_WALL_SIGN).mapColor(MapColorExtension.FROST_WOOD)));
     public static final CeilingHangingSignBlock FROST_HANGING_SIGN = register("frost_hanging_sign", new CeilingHangingSignBlock(ModWoodTypes.FROST, ofFullCopy(Blocks.CHERRY_HANGING_SIGN).mapColor(MapColorExtension.FROST_WOOD)));
-    public static final WallHangingSignBlock FROST_WALL_HANGING_SIGN = register("frost_wall_hanging_sign", new WallHangingSignBlock(ModWoodTypes.FROST, ofFullCopy(Blocks.CHERRY_WALL_HANGING_SIGN).mapColor(MapColorExtension.FROST_WOOD).lootFrom(FROST_HANGING_SIGN)));
+    public static final WallHangingSignBlock FROST_WALL_HANGING_SIGN = register("frost_wall_hanging_sign", new WallHangingSignBlock(ModWoodTypes.FROST, ofFullCopy(Blocks.CHERRY_WALL_HANGING_SIGN).mapColor(MapColorExtension.FROST_WOOD)));
     public static final LeavesBlock FROST_LEAVES = register("frost_leaves", new PetalLeavesBlock(ofFullCopy(Blocks.CHERRY_LEAVES).mapColor(MapColorExtension.FROST), ModParticles.FROST_LEAVES));
     public static final SaplingBlock FROST_SAPLING = register("frost_sapling", new SaplingBlock(ModTreeGrower.FROST, ofFullCopy(Blocks.CHERRY_SAPLING).mapColor(MapColorExtension.FROST)));
     public static final FlowerPotBlock POTTED_FROST_SAPLING = register("potted_frost_sapling", flowerPot(FROST_SAPLING));
@@ -181,9 +181,9 @@ public class ModBlocks {
     public static final PressurePlateBlock DAWN_REDWOOD_PRESSURE_PLATE = register("dawn_redwood_pressure_plate", new PressurePlateBlock(ModBlockSetTypes.DAWN_REDWOOD, ofFullCopy(Blocks.OAK_PRESSURE_PLATE).mapColor(MapColor.TERRACOTTA_ORANGE)));
     public static final ButtonBlock DAWN_REDWOOD_BUTTON = register("dawn_redwood_button", woodenButton(ModBlockSetTypes.DAWN_REDWOOD, Blocks.OAK_BUTTON, MapColor.TERRACOTTA_ORANGE));
     public static final StandingSignBlock DAWN_REDWOOD_SIGN = register("dawn_redwood_sign", new StandingSignBlock(ModWoodTypes.DAWN_REDWOOD, ofFullCopy(Blocks.OAK_SIGN).mapColor(MapColor.TERRACOTTA_ORANGE)));
-    public static final WallSignBlock DAWN_REDWOOD_WALL_SIGN = register("dawn_redwood_wall_sign", new WallSignBlock(ModWoodTypes.DAWN_REDWOOD, ofFullCopy(Blocks.OAK_WALL_SIGN).mapColor(MapColor.TERRACOTTA_ORANGE).lootFrom(DAWN_REDWOOD_SIGN)));
+    public static final WallSignBlock DAWN_REDWOOD_WALL_SIGN = register("dawn_redwood_wall_sign", new WallSignBlock(ModWoodTypes.DAWN_REDWOOD, ofFullCopy(Blocks.OAK_WALL_SIGN).mapColor(MapColor.TERRACOTTA_ORANGE)));
     public static final CeilingHangingSignBlock DAWN_REDWOOD_HANGING_SIGN = register("dawn_redwood_hanging_sign", new CeilingHangingSignBlock(ModWoodTypes.DAWN_REDWOOD, ofFullCopy(Blocks.OAK_HANGING_SIGN).mapColor(MapColor.TERRACOTTA_ORANGE)));
-    public static final WallHangingSignBlock DAWN_REDWOOD_WALL_HANGING_SIGN = register("dawn_redwood_wall_hanging_sign", new WallHangingSignBlock(ModWoodTypes.DAWN_REDWOOD, ofFullCopy(Blocks.OAK_WALL_HANGING_SIGN).mapColor(MapColor.TERRACOTTA_ORANGE).lootFrom(DAWN_REDWOOD_HANGING_SIGN)));
+    public static final WallHangingSignBlock DAWN_REDWOOD_WALL_HANGING_SIGN = register("dawn_redwood_wall_hanging_sign", new WallHangingSignBlock(ModWoodTypes.DAWN_REDWOOD, ofFullCopy(Blocks.OAK_WALL_HANGING_SIGN).mapColor(MapColor.TERRACOTTA_ORANGE)));
     public static final LeavesBlock DAWN_REDWOOD_LEAVES = register("dawn_redwood_leaves", new FallingLeavesBlock(ofFullCopy(Blocks.OAK_LEAVES).mapColor(MapColor.TERRACOTTA_ORANGE), ModParticles.DAWN_REDWOOD_LEAVES));
     public static final SaplingBlock DAWN_REDWOOD_SAPLING = register("dawn_redwood_sapling", new WaterloggedSaplingBlock(ModTreeGrower.DAWN_REDWOOD, ofFullCopy(Blocks.OAK_SAPLING).mapColor(MapColor.TERRACOTTA_ORANGE)));
     public static final FlowerPotBlock POTTED_DAWN_REDWOOD_SAPLING = register("potted_dawn_redwood_sapling", flowerPot(DAWN_REDWOOD_SAPLING));
@@ -204,9 +204,9 @@ public class ModBlocks {
     public static final PressurePlateBlock JACARANDA_PRESSURE_PLATE = register("jacaranda_pressure_plate", new PressurePlateBlock(ModBlockSetTypes.JACARANDA, ofFullCopy(Blocks.CHERRY_PRESSURE_PLATE).mapColor(MapColorExtension.JACARANDA_WOOD)));
     public static final ButtonBlock JACARANDA_BUTTON = register("jacaranda_button", woodenButton(ModBlockSetTypes.JACARANDA, Blocks.CHERRY_BUTTON, MapColorExtension.JACARANDA_WOOD));
     public static final StandingSignBlock JACARANDA_SIGN = register("jacaranda_sign", new StandingSignBlock(ModWoodTypes.JACARANDA, ofFullCopy(Blocks.CHERRY_SIGN).mapColor(MapColorExtension.JACARANDA_WOOD)));
-    public static final WallSignBlock JACARANDA_WALL_SIGN = register("jacaranda_wall_sign", new WallSignBlock(ModWoodTypes.JACARANDA, ofFullCopy(Blocks.CHERRY_WALL_SIGN).mapColor(MapColorExtension.JACARANDA_WOOD).lootFrom(JACARANDA_SIGN)));
+    public static final WallSignBlock JACARANDA_WALL_SIGN = register("jacaranda_wall_sign", new WallSignBlock(ModWoodTypes.JACARANDA, ofFullCopy(Blocks.CHERRY_WALL_SIGN).mapColor(MapColorExtension.JACARANDA_WOOD)));
     public static final CeilingHangingSignBlock JACARANDA_HANGING_SIGN = register("jacaranda_hanging_sign", new CeilingHangingSignBlock(ModWoodTypes.JACARANDA, ofFullCopy(Blocks.CHERRY_HANGING_SIGN).mapColor(MapColorExtension.JACARANDA_WOOD)));
-    public static final WallHangingSignBlock JACARANDA_WALL_HANGING_SIGN = register("jacaranda_wall_hanging_sign", new WallHangingSignBlock(ModWoodTypes.JACARANDA, ofFullCopy(Blocks.CHERRY_WALL_HANGING_SIGN).mapColor(MapColorExtension.JACARANDA_WOOD).lootFrom(JACARANDA_HANGING_SIGN)));
+    public static final WallHangingSignBlock JACARANDA_WALL_HANGING_SIGN = register("jacaranda_wall_hanging_sign", new WallHangingSignBlock(ModWoodTypes.JACARANDA, ofFullCopy(Blocks.CHERRY_WALL_HANGING_SIGN).mapColor(MapColorExtension.JACARANDA_WOOD)));
     public static final LeavesBlock JACARANDA_LEAVES = register("jacaranda_leaves", new PetalLeavesBlock(ofFullCopy(Blocks.CHERRY_LEAVES).mapColor(MapColorExtension.JACARANDA), ModParticles.JACARANDA_LEAVES));
     public static final SaplingBlock JACARANDA_SAPLING = register("jacaranda_sapling", new SaplingBlock(ModTreeGrower.JACARANDA, ofFullCopy(Blocks.CHERRY_SAPLING).mapColor(MapColorExtension.JACARANDA)));
     public static final FlowerPotBlock POTTED_JACARANDA_SAPLING = register("potted_jacaranda_sapling", flowerPot(JACARANDA_SAPLING));
@@ -231,9 +231,9 @@ public class ModBlocks {
     public static final PressurePlateBlock WILLOW_PRESSURE_PLATE = register("willow_pressure_plate", new PressurePlateBlock(ModBlockSetTypes.WILLOW, ofFullCopy(Blocks.OAK_PRESSURE_PLATE).mapColor(MapColor.GLOW_LICHEN)));
     public static final ButtonBlock WILLOW_BUTTON = register("willow_button", woodenButton(ModBlockSetTypes.WILLOW, Blocks.OAK_BUTTON, MapColor.GLOW_LICHEN));
     public static final StandingSignBlock WILLOW_SIGN = register("willow_sign", new StandingSignBlock(ModWoodTypes.WILLOW, ofFullCopy(Blocks.OAK_SIGN).mapColor(MapColor.GLOW_LICHEN)));
-    public static final WallSignBlock WILLOW_WALL_SIGN = register("willow_wall_sign", new WallSignBlock(ModWoodTypes.WILLOW, ofFullCopy(Blocks.OAK_WALL_SIGN).mapColor(MapColor.GLOW_LICHEN).lootFrom(WILLOW_SIGN)));
+    public static final WallSignBlock WILLOW_WALL_SIGN = register("willow_wall_sign", new WallSignBlock(ModWoodTypes.WILLOW, ofFullCopy(Blocks.OAK_WALL_SIGN).mapColor(MapColor.GLOW_LICHEN)));
     public static final CeilingHangingSignBlock WILLOW_HANGING_SIGN = register("willow_hanging_sign", new CeilingHangingSignBlock(ModWoodTypes.WILLOW, ofFullCopy(Blocks.OAK_HANGING_SIGN).mapColor(MapColor.GLOW_LICHEN)));
-    public static final WallHangingSignBlock WILLOW_WALL_HANGING_SIGN = register("willow_wall_hanging_sign", new WallHangingSignBlock(ModWoodTypes.WILLOW, ofFullCopy(Blocks.OAK_WALL_HANGING_SIGN).mapColor(MapColor.GLOW_LICHEN).lootFrom(WILLOW_HANGING_SIGN)));
+    public static final WallHangingSignBlock WILLOW_WALL_HANGING_SIGN = register("willow_wall_hanging_sign", new WallHangingSignBlock(ModWoodTypes.WILLOW, ofFullCopy(Blocks.OAK_WALL_HANGING_SIGN).mapColor(MapColor.GLOW_LICHEN)));
     public static final LeavesBlock WILLOW_LEAVES = register("willow_leaves", new LeavesBlock(ofFullCopy(Blocks.OAK_LEAVES)));
     public static final SaplingBlock WILLOW_SAPLING = register("willow_sapling", new WaterloggedSaplingBlock(ModTreeGrower.WILLOW, ofFullCopy(Blocks.OAK_SAPLING)));
     public static final FlowerPotBlock POTTED_WILLOW_SAPLING = register("potted_willow_sapling", flowerPot(WILLOW_SAPLING));
@@ -328,7 +328,5 @@ public class ModBlocks {
     }
 
     public static void init() {
-        // 在Fabric中，注册会在静态初始化时自动完成
-        // 这个方法保留用于兼容性和初始化触发
     }
 }

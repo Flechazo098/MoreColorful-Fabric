@@ -24,11 +24,11 @@ public abstract class BeeMixin extends Animal implements NeutralMob, FlyingAnima
     @Inject(method = "isFlowerValid", at = @At("HEAD"), cancellable = true)
     private void isFlowerValid(BlockPos pPos, CallbackInfoReturnable<Boolean> cir) {
         BlockState state = this.level().getBlockState(pPos);
-        if (this.level().isLoaded(pPos) && state.is(HolderSet.direct(
-                ModBlocks.CLOSED_DAYBLOOM,
-                ModBlocks.CLOSED_WATER_LILY,
-                ModBlocks.CLOSED_WHITE_WATER_LILY,
-                ModBlocks.CLOSED_BLUE_WATER_LILY)
+        if (this.level().isLoaded(pPos) && (
+                state.is(ModBlocks.CLOSED_DAYBLOOM) ||
+                        state.is(ModBlocks.CLOSED_WATER_LILY) ||
+                        state.is(ModBlocks.CLOSED_WHITE_WATER_LILY) ||
+                        state.is(ModBlocks.CLOSED_BLUE_WATER_LILY)
         )) {
             cir.setReturnValue(false);
         }

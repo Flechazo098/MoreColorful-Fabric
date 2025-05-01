@@ -35,7 +35,7 @@ public class GinkgoFoliagePlacer extends RandomSpreadFoliagePlacer {
 
     @Override
     protected FoliagePlacerType<?> type() {
-        return ModFoliagePlacers.GINKGO_FOLIAGE_PLACER.get();
+        return ModFoliagePlacers.GINKGO_FOLIAGE_PLACER;
     }
 
     @Override

@@ -15,7 +15,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
-import net.neoforged.neoforge.network.PacketDistributor;
 
 public abstract class PercussionInstrumentBlock extends MusicalInstrumentBlock {
     public PercussionInstrumentBlock(InstrumentsType pType, Properties properties) {

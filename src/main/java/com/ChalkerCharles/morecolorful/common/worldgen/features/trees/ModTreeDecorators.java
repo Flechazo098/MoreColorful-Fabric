@@ -2,20 +2,19 @@ package com.ChalkerCharles.morecolorful.common.worldgen.features.trees;
 
 import com.ChalkerCharles.morecolorful.MoreColorful;
 import com.ChalkerCharles.morecolorful.common.worldgen.features.trees.treedecorators.WillowBranchesDecorator;
-import net.minecraft.core.registries.Registries;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorType;
-import net.neoforged.bus.api.IEventBus;
-import net.neoforged.neoforge.registries.DeferredRegister;
-
-import java.util.function.Supplier;
 
 public class ModTreeDecorators {
-    public static final DeferredRegister<TreeDecoratorType<?>> TREE_DECORATORS = DeferredRegister.create(Registries.TREE_DECORATOR_TYPE, MoreColorful.MODID);
+    public static final TreeDecoratorType<WillowBranchesDecorator> WILLOW_BRANCHES_DECORATOR =
+            register("willow_branches_decorator", new TreeDecoratorType<>(WillowBranchesDecorator.CODEC));
 
-    public static final Supplier<TreeDecoratorType<WillowBranchesDecorator>> WILLOW_BRANCHES_DECORATOR =
-            TREE_DECORATORS.register("dawn_redwood_root_placer", () -> new TreeDecoratorType<>(WillowBranchesDecorator.CODEC));
+    private static <P extends TreeDecoratorType<?>> P register(String name, P decoratorType) {
+        return Registry.register(BuiltInRegistries.TREE_DECORATOR_TYPE, ResourceLocation.fromNamespaceAndPath(MoreColorful.MODID, name), decoratorType);
+    }
 
-    public static void register(IEventBus eventBus) {
-        TREE_DECORATORS.register(eventBus);
+    public static void init() {
     }
 }

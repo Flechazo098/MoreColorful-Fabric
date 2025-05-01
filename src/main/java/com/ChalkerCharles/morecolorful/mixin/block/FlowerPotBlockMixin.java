@@ -12,13 +12,11 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 
-import java.util.function.Supplier;
-
 @Mixin(FlowerPotBlock.class)
 public abstract class FlowerPotBlockMixin extends Block {
     @Shadow
     @Final
-    private Supplier<? extends Block> flowerDelegate;
+    private Block potted;
 
     private FlowerPotBlockMixin(Properties properties) {
         super(properties);
@@ -28,7 +26,7 @@ public abstract class FlowerPotBlockMixin extends Block {
     @Override
     protected void randomTick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom) {
         if (this.isRandomlyTicking(pState) && pLevel.dimensionType().natural()) {
-            boolean flag = this.flowerDelegate == ModBlocks.OPEN_DAYBLOOM;
+            boolean flag = this.potted == ModBlocks.OPEN_DAYBLOOM;
             boolean flag1 = pLevel.isNight();
             if (flag == flag1) {
                 pLevel.setBlock(pPos, this.moreColorful$opposite(pState), 3);

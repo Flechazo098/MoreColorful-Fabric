@@ -6,6 +6,7 @@ import com.ChalkerCharles.morecolorful.common.attachment.ChunkData;
 import com.ChalkerCharles.morecolorful.mixin.accessor.IChunkStatusMixin;
 import com.ChalkerCharles.morecolorful.util.mixin.IProtoChunkExtension;
 import com.ChalkerCharles.morecolorful.util.mixin.IWorldGenContextExtension;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.GenerationChunkHolder;
@@ -29,7 +30,7 @@ public class ModChunkStatus {
     }
 
     private static ChunkStatus registerChunkStatus(String name, ChunkStatus status) {
-        return Registry.register(Registries.CHUNK_STATUS, ResourceLocation.fromNamespaceAndPath(MoreColorful.MODID, name), status);
+        return Registry.register(BuiltInRegistries.CHUNK_STATUS, ResourceLocation.fromNamespaceAndPath(MoreColorful.MODID, name), status);
     }
 
     private static boolean isThermalized(ChunkAccess chunk) {
@@ -54,5 +55,7 @@ public class ModChunkStatus {
             ((IChunkStatusMixin) ChunkStatus.FULL).setIndex(ChunkStatus.FULL.getIndex() + 2);
         }
     }
+    public static void init() {
 
+    }
 }

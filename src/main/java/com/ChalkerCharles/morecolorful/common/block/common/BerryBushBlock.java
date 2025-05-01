@@ -31,10 +31,10 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.neoforged.neoforge.common.CommonHooks;
-import net.neoforged.neoforge.common.util.Lazy;
 
+import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Supplier;
 
 public class BerryBushBlock extends BushBlock implements BonemealableBlock {
     public static final MapCodec<BerryBushBlock> CODEC = simpleCodec(BerryBushBlock::new);
@@ -42,10 +42,18 @@ public class BerryBushBlock extends BushBlock implements BonemealableBlock {
     private static final VoxelShape SAPLING_SHAPE = Block.box(3.0, 0.0, 3.0, 13.0, 8.0, 13.0);
     private static final VoxelShape MID_GROWTH_SHAPE = Block.box(1.0, 0.0, 1.0, 15.0, 12.0, 15.0);
     private static final VoxelShape GROWN_SHAPE = Block.box(1.0, 0.0, 1.0, 15.0, 16.0, 15.0);
-    private static final Lazy<Map<Block, Item>> BERRIES = Lazy.of(() -> ImmutableMap.of(
-            ModBlocks.STRAWBERRY_BUSH.get(), ModItems.STRAWBERRY.get(),
-            ModBlocks.BLUEBERRY_BUSH.get(), ModItems.BLUEBERRIES.get()
-    ));
+
+    // 简单的延迟初始化Map
+    private static Map<Block, Item> BERRIES;
+
+    private static Map<Block, Item> getBerries() {
+        if (BERRIES == null) {
+            BERRIES = new HashMap<>();
+            BERRIES.put(ModBlocks.STRAWBERRY_BUSH, ModItems.STRAWBERRY);
+            BERRIES.put(ModBlocks.BLUEBERRY_BUSH, ModItems.BLUEBERRIES);
+        }
+        return BERRIES;
+    }
 
     @Override
     protected MapCodec<? extends BushBlock> codec() {
@@ -69,7 +77,7 @@ public class BerryBushBlock extends BushBlock implements BonemealableBlock {
     }
 
     public Item getBerry(BerryBushBlock block){
-        return BERRIES.get().get(block);
+        return getBerries().get(block);
     }
 
     @Override
@@ -80,10 +88,9 @@ public class BerryBushBlock extends BushBlock implements BonemealableBlock {
     @Override
     protected void randomTick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom) {
         int i = pState.getValue(AGE);
-        if (i < 4 && pLevel.getRawBrightness(pPos.above(), 0) >= 9 && CommonHooks.canCropGrow(pLevel, pPos, pState, pRandom.nextInt(5) == 0)) {
+        if (i < 4 && pLevel.getRawBrightness(pPos.above(), 0) >= 9 && pRandom.nextInt(5) == 0) {
             BlockState blockstate = pState.setValue(AGE, i + 1);
             pLevel.setBlock(pPos, blockstate, 2);
-            CommonHooks.fireCropGrowPost(pLevel, pPos, pState);
             pLevel.gameEvent(GameEvent.BLOCK_CHANGE, pPos, GameEvent.Context.of(blockstate));
         }
     }

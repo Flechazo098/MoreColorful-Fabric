@@ -9,6 +9,7 @@
     "FoxEatBerriesGoalMixin",
     "LevelMixin",
     "NoteBlockInstrumentMixin",
+    "accessor.BlockEntityTypeAccessorMixin",
     "accessor.IBlockStateBaseMixin",
     "accessor.IChunkStatusMixin",
     "block.BlockMixin",
@@ -35,6 +36,7 @@
     "map.MapPatchMixin"
   ],
   "client": [
+    "DebugScreenOverlayMixin",
     "client.ClientChunkCacheMixin",
     "client.ClientLevelMixin",
     "client.CreateWorldScreenMixin",

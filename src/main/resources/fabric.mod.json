@@ -17,10 +17,13 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "com.example.ExampleMod"
+      "com.ChalkerCharles.morecolorful.MoreColorful"
     ],
     "client": [
-      "com.example.ExampleModClient"
+      "com.ChalkerCharles.morecolorful.client.MoreColorfulClient"
+    ],
+    "fabric-datagen": [
+      "com.ChalkerCharles.morecolorful.common.datagen.DataGenerators"
     ],
     "mm:early_risers": [
       "com.ChalkerCharles.morecolorful.util.EarlyRiser"

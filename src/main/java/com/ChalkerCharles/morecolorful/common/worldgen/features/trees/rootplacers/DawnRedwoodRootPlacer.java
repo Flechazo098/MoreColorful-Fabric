@@ -33,7 +33,7 @@ public class DawnRedwoodRootPlacer extends RootPlacer {
 
     @Override
     protected RootPlacerType<?> type() {
-        return ModRootPlacers.DAWN_REDWOOD_PLACER.get();
+        return ModRootPlacers.DAWN_REDWOOD_PLACER;
     }
 
     @Override

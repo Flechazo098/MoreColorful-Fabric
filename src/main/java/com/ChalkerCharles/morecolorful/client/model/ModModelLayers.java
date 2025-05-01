@@ -21,4 +21,7 @@ public class ModModelLayers {
     private static ModelLayerLocation register(String pPath, String pModel) {
         return new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(MoreColorful.MODID, pPath), pModel);
     }
+    public static void init() {
+
+    }
 }

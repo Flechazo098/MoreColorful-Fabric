@@ -1,12 +1,12 @@
 {
-  "type": "neoforge:add_features",
+  "type": "minecraft:add_features",
   "biomes": [
+    "minecraft:river",
     "minecraft:swamp",
-    "minecraft:mangrove_swamp",
     "morecolorful:dawn_redwood_swamp",
     "morecolorful:willow_bayou",
     "morecolorful:ice_marsh"
   ],
-  "features": "morecolorful:patch_water_grass",
+  "features": "morecolorful:patch_reed",
   "step": "vegetal_decoration"
 }

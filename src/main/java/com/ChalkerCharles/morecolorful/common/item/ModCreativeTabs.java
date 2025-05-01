@@ -12,7 +12,6 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.level.ItemLike;
 
 public class ModCreativeTabs {
     public static final ResourceKey<CreativeModeTab> MUSICAL_INSTRUMENTS_TAB_KEY = ResourceKey.create(
@@ -66,7 +65,7 @@ public class ModCreativeTabs {
             })
             .build();
 
-    public static void initialize() {
+    public static void init () {
         Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, MUSICAL_INSTRUMENTS_TAB_KEY, MUSICAL_INSTRUMENTS_TAB);
 
         ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.BUILDING_BLOCKS).register(entries -> {

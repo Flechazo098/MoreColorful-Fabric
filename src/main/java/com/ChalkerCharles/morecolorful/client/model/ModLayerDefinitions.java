@@ -1,19 +1,20 @@
 package com.ChalkerCharles.morecolorful.client.model;
 
-import com.ChalkerCharles.morecolorful.MoreColorful;
 import com.ChalkerCharles.morecolorful.client.renderer.block.CymbalRenderer;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.client.event.EntityRenderersEvent;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 
-@EventBusSubscriber(modid = MoreColorful.MODID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+@Environment(EnvType.CLIENT)
 public class ModLayerDefinitions {
-    @SubscribeEvent
-    public static void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
-        event.registerLayerDefinition(ModModelLayers.RIDE_CYMBAL, CymbalRenderer::createRide);
-        event.registerLayerDefinition(ModModelLayers.CRASH_CYMBAL, CymbalRenderer::createCrash);
-        event.registerLayerDefinition(ModModelLayers.DRUM_SET_RIDE, CymbalRenderer::createDrumSetRide);
-        event.registerLayerDefinition(ModModelLayers.DRUM_SET_CRASH, CymbalRenderer::createDrumSetCrash);
+
+    private static void registerLayerDefinitions() {
+        EntityModelLayerRegistry.registerModelLayer(ModModelLayers.RIDE_CYMBAL, CymbalRenderer::createRide);
+        EntityModelLayerRegistry.registerModelLayer(ModModelLayers.CRASH_CYMBAL, CymbalRenderer::createCrash);
+        EntityModelLayerRegistry.registerModelLayer(ModModelLayers.DRUM_SET_RIDE, CymbalRenderer::createDrumSetRide);
+        EntityModelLayerRegistry.registerModelLayer(ModModelLayers.DRUM_SET_CRASH, CymbalRenderer::createDrumSetCrash);
+    }
+    public static void init() {
+        registerLayerDefinitions();
     }
 }

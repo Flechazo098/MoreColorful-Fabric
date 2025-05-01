@@ -28,7 +28,7 @@ public class DawnRedwoodFoliagePlacer extends FoliagePlacer {
 
     @Override
     protected FoliagePlacerType<?> type() {
-        return ModFoliagePlacers.DAWN_REDWOOD_FOLIAGE_PLACER.get();
+        return ModFoliagePlacers.DAWN_REDWOOD_FOLIAGE_PLACER;
     }
 
     @Override

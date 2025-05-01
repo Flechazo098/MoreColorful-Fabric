@@ -19,9 +19,11 @@ import net.minecraft.world.level.block.state.BlockState;
 import java.util.*;
 import java.util.stream.Collectors;
 
+@me.shedaniel.autoconfig.annotation.Config(name = "morecolorful")
 public class Config implements ConfigData {
     private static final String prefix = MoreColorful.MODID + ".config.";
     private static Config INSTANCE;
+    private static boolean initialized = false;
 
     @ConfigEntry.Gui.CollapsibleObject
     @ConfigEntry.Category("block")
@@ -68,12 +70,69 @@ public class Config implements ConfigData {
     }
 
     public static void init() {
-        AutoConfig.register(Config.class, JanksonConfigSerializer::new);
-        INSTANCE = AutoConfig.getConfigHolder(Config.class).getConfig();
-        loadConfigValues();
+        if (initialized) {
+            return;
+        }
+
+        try {
+            AutoConfig.register(Config.class, JanksonConfigSerializer::new);
+            INSTANCE = AutoConfig.getConfigHolder(Config.class).getConfig();
+
+            // 初始化静态字段
+            blockTemperature = new Object2IntOpenHashMap<>();
+            thermalResistance = new Object2IntOpenHashMap<>();
+            disabledBiomes = new HashSet<>();
+
+            // 解析配置
+            loadConfigValues();
+
+            initialized = true;
+            MoreColorful.LOGGER.info("Config initialized successfully");
+        } catch (Exception e) {
+            MoreColorful.LOGGER.error("Failed to initialize config", e);
+            // 提供默认值以防止空指针异常
+            if (blockTemperature == null) blockTemperature = new Object2IntOpenHashMap<>();
+            if (thermalResistance == null) thermalResistance = new Object2IntOpenHashMap<>();
+            if (disabledBiomes == null) disabledBiomes = new HashSet<>();
+        }
     }
 
+//    private static void parseBlockTemperature() {
+//        blockTemperature = INSTANCE.block.blockTemperature.stream()
+//                .map(StringParser::parseBlockEntry)
+//                .filter(StringParser.BlockEntry::validate)
+//                .collect(Collectors.toMap(
+//                        StringParser.BlockEntry::getStates,
+//                        entry -> Integer.parseInt(entry.value()),
+//                        (i, j) -> j,
+//                        Object2IntOpenHashMap::new));
+//    }
+//
+//
+//    private static void parseThermalResistance() {
+//        thermalResistance = INSTANCE.block.thermalResistance.stream()
+//                .map(StringParser::parseBlockEntry)
+//                .filter(StringParser.BlockEntry::validate)
+//                .collect(Collectors.toMap(
+//                        StringParser.BlockEntry::getStates,
+//                        entry -> Integer.parseInt(entry.value()),
+//                        (i, j) -> j,
+//                        Object2IntOpenHashMap::new));
+//    }
+//
+//
+//    private static void parseDisabledBiomes() {
+//        disabledBiomes = INSTANCE.world.disabledBiomes.stream()
+//                .map(biome -> ResourceKey.create(Registries.BIOME, ResourceLocation.parse(biome)))
+//                .collect(Collectors.toSet());
+//    }
+
+
     public static void loadConfigValues() {
+        if (INSTANCE == null) {
+            MoreColorful.LOGGER.error("Config instance is not initialized!");
+            return;
+        }
         blockTemperature = INSTANCE.block.blockTemperature.stream()
                 .map(StringParser::parseBlockEntry)
                 .filter(StringParser.BlockEntry::validate)

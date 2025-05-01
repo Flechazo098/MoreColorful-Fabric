@@ -466,7 +466,7 @@ public class ModVegetationFeatures {
                 )
         );
         register(context, PATCH_REED,
-                ModFeatures.REED.get(),
+                ModFeatures.REED,
                 new ProbabilityFeatureConfiguration(0.4F)
         );
         register(context, PATCH_WATER_LILY,

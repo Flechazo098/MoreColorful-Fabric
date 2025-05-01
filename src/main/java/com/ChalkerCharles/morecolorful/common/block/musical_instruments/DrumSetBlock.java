@@ -12,15 +12,18 @@ import com.mojang.serialization.MapCodec;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.tags.EnchantmentTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -39,7 +42,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.neoforged.neoforge.server.ServerLifecycleHooks;
 
 import javax.annotation.Nullable;
 
@@ -289,14 +291,15 @@ public class DrumSetBlock extends BaseEntityBlock {
     @Override
     public BlockState playerWillDestroy(Level pLevel, BlockPos pPos, BlockState pState, Player pPlayer) {
         ItemStack stack = pPlayer.getMainHandItem();
-        MinecraftServer server = ServerLifecycleHooks.getCurrentServer();
+        MinecraftServer server = pLevel.getServer();
         BlockPos blockpos = getBassDrumPos(pPos, pState);
-        boolean hasSilkTouch = (server != null && stack.getEnchantmentLevel(server.registryAccess().registryOrThrow(Registries.ENCHANTMENT).getHolderOrThrow(Enchantments.SILK_TOUCH)) > 0);
+        boolean hasSilkTouch = EnchantmentHelper.hasTag(stack, EnchantmentTags.PREVENTS_BEE_SPAWNS_WHEN_MINING);
         if (!pLevel.isClientSide && (pPlayer.isCreative() || hasSilkTouch)) {
             BlockState blockstate = pLevel.getBlockState(blockpos);
             if (blockstate.is(this) && blockstate.getValue(PART) == DrumSetPart.MID_LOWER) {
                 pLevel.setBlock(blockpos, Blocks.AIR.defaultBlockState(), 35);
                 pLevel.levelEvent(pPlayer, 2001, blockpos, Block.getId(blockstate));
+
                 if (!pPlayer.isCreative()) {
                     popResource(pLevel, blockpos, ModItems.DRUM_SET.getDefaultInstance());
                 }

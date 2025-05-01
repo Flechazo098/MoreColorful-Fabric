@@ -1,26 +1,24 @@
 package com.ChalkerCharles.morecolorful.util;
 
+import com.ChalkerCharles.morecolorful.client.ModItemClientSetup;
 import com.ChalkerCharles.morecolorful.common.block.ModBlocks;
-import com.ChalkerCharles.morecolorful.common.item.ModItems;
 import com.chocohead.mm.api.ClassTinkerers;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.item.Items;
 
-import java.util.function.Supplier;
 
 public class EarlyRiser implements Runnable{
     @Override
     public void run () {
         registerArmPoses();
         registerBoatTypes();
+
     }
 
     private void registerArmPoses () {
         // 使用String方式指定构造函数参数类型，避免过早加载Minecraft类
-        var armPoseBuilder = ClassTinkerers.enumBuilder("net.minecraft.client.model.HumanoidModel$ArmPose",
-                "Z", "net/minecraft/client/model/HumanoidModel$ArmPoseTransformer");
+        var armPoseBuilder = ClassTinkerers.enumBuilder("net.minecraft.client.model.HumanoidModel$ArmPose", "Z", "Lnet/minecraft/client/model/HumanoidModel$ArmPoseTransformer;");
 
         // FLUTE
         armPoseBuilder.addEnum("MORECOLORFUL_FLUTE", () -> new Object[]{
@@ -318,90 +316,58 @@ public class EarlyRiser implements Runnable{
     }
 
     private void registerBoatTypes() {
-        // 使用String方式指定构造函数参数类型，避免过早加载Minecraft类
-        var boatTypeBuilder = ClassTinkerers.enumBuilder("net.minecraft.world.entity.vehicle.Boat$Type",
-                "java/util/function/Supplier", "java/lang/String",
-                "java/util/function/Supplier", "java/util/function/Supplier",
-                "java/util/function/Supplier", "Z");
+        var boatTypeBuilder = ClassTinkerers.enumBuilder(
+                "net.minecraft.world.entity.vehicle.Boat$Type",
+                "Lnet/minecraft/world/level/block/Block;",
+                "Ljava/lang/String;"
+        );
 
         // CRABAPPLE
         boatTypeBuilder.addEnum("MORECOLORFUL_CRABAPPLE", () -> new Object[]{
-                (Supplier<?>) () -> ModBlocks.CRABAPPLE_PLANKS,
-                "morecolorful:crabapple",
-                (Supplier<?>) () -> ModItems.CRABAPPLE_BOAT,
-                (Supplier<?>) () -> ModItems.CRABAPPLE_CHEST_BOAT,
-                (Supplier<?>) () -> Items.STICK,
-                false
+                ModBlocks.CRABAPPLE_PLANKS,
+                "crabapple"
         });
 
         // EBONY
         boatTypeBuilder.addEnum("MORECOLORFUL_EBONY", () -> new Object[]{
-                (Supplier<?>) () -> ModBlocks.EBONY_PLANKS,
-                "morecolorful:ebony",
-                (Supplier<?>) () -> ModItems.EBONY_BOAT,
-                (Supplier<?>) () -> ModItems.EBONY_CHEST_BOAT,
-                (Supplier<?>) () -> Items.STICK,
-                false
+                ModBlocks.EBONY_PLANKS,
+                "ebony"
         });
 
         // GINKGO
         boatTypeBuilder.addEnum("MORECOLORFUL_GINKGO", () -> new Object[]{
-                (Supplier<?>) () -> ModBlocks.GINKGO_PLANKS,
-                "morecolorful:ginkgo",
-                (Supplier<?>) () -> ModItems.GINKGO_BOAT,
-                (Supplier<?>) () -> ModItems.GINKGO_CHEST_BOAT,
-                (Supplier<?>) () -> Items.STICK,
-                false
+                ModBlocks.GINKGO_PLANKS,
+                "ginkgo"
         });
 
         // MAPLE
         boatTypeBuilder.addEnum("MORECOLORFUL_MAPLE", () -> new Object[]{
-                (Supplier<?>) () -> ModBlocks.MAPLE_PLANKS,
-                "morecolorful:maple",
-                (Supplier<?>) () -> ModItems.MAPLE_BOAT,
-                (Supplier<?>) () -> ModItems.MAPLE_CHEST_BOAT,
-                (Supplier<?>) () -> Items.STICK,
-                false
+                ModBlocks.MAPLE_PLANKS,
+                "maple"
         });
 
         // FROST
         boatTypeBuilder.addEnum("MORECOLORFUL_FROST", () -> new Object[]{
-                (Supplier<?>) () -> ModBlocks.FROST_PLANKS,
-                "morecolorful:frost",
-                (Supplier<?>) () -> ModItems.FROST_BOAT,
-                (Supplier<?>) () -> ModItems.FROST_CHEST_BOAT,
-                (Supplier<?>) () -> Items.STICK,
-                false
+                ModBlocks.FROST_PLANKS,
+                "frost"
         });
 
         // DAWN_REDWOOD
         boatTypeBuilder.addEnum("MORECOLORFUL_DAWN_REDWOOD", () -> new Object[]{
-                (Supplier<?>) () -> ModBlocks.DAWN_REDWOOD_PLANKS,
-                "morecolorful:dawn_redwood",
-                (Supplier<?>) () -> ModItems.DAWN_REDWOOD_BOAT,
-                (Supplier<?>) () -> ModItems.DAWN_REDWOOD_CHEST_BOAT,
-                (Supplier<?>) () -> Items.STICK,
-                false
+                ModBlocks.DAWN_REDWOOD_PLANKS,
+                "dawn_redwood"
         });
 
         // JACARANDA
         boatTypeBuilder.addEnum("MORECOLORFUL_JACARANDA", () -> new Object[]{
-                (Supplier<?>) () -> ModBlocks.JACARANDA_PLANKS,
-                "morecolorful:jacaranda",
-                (Supplier<?>) () -> ModItems.JACARANDA_BOAT,
-                (Supplier<?>) () -> ModItems.JACARANDA_CHEST_BOAT,
-                (Supplier<?>) () -> Items.STICK,
-                false
+                ModBlocks.JACARANDA_PLANKS,
+                "jacaranda"
         });
 
         // WILLOW
         boatTypeBuilder.addEnum("MORECOLORFUL_WILLOW", () -> new Object[]{
-                (Supplier<?>) () -> ModBlocks.WILLOW_PLANKS,
-                "morecolorful:willow",
-                (Supplier<?>) () -> ModItems.WILLOW_BOAT,
-                (Supplier<?>) () -> ModItems.WILLOW_CHEST_BOAT,
-                (Supplier<?>) () -> Items.STICK,
-                false
+                ModBlocks.WILLOW_PLANKS,
+                "willow"
         });
 
         boatTypeBuilder.build();

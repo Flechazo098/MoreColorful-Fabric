@@ -1,6 +1,5 @@
 package com.ChalkerCharles.morecolorful.client;
 
-import com.ChalkerCharles.morecolorful.MoreColorful;
 import com.ChalkerCharles.morecolorful.client.gui.PlayingScreen;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.KeyMapping;
@@ -28,7 +27,7 @@ public class ModKeyMapping {
             CATEGORY
     );
 
-    public static void register() {
+    public static void init() {
         KeyBindingHelper.registerKeyBinding(OCTAVE_TOGGLE);
         KeyBindingHelper.registerKeyBinding(DEBUG_TEXT_SCROLL_DOWN);
         KeyBindingHelper.registerKeyBinding(DEBUG_TEXT_SCROLL_UP);

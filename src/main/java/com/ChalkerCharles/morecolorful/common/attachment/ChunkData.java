@@ -50,7 +50,7 @@ public final class ChunkData {
 
     public CompoundTag serializeNBT() {
         CompoundTag nbt = new CompoundTag();
-        if (Config.THERMAL_SYSTEM.isFalse() || this.chunk == null) return nbt;
+        if (!Config.isThermalSystemEnabled() || this.chunk == null) return nbt;
         ListTag temperatures = new ListTag();
         ServerLevel level = (ServerLevel) ((ChunkLevelGetter)this.chunk).moreColorful_Fabric$getLevel();
         ChunkPos chunkpos = this.chunk.getPos();
@@ -79,7 +79,7 @@ public final class ChunkData {
     }
 
     public void deserializeNBT(CompoundTag nbt) {
-        if (Config.THERMAL_SYSTEM.isFalse() || this.chunk == null) return;
+        if (!Config.isThermalSystemEnabled() || this.chunk == null) return;
         ServerLevel level = (ServerLevel) ((ChunkLevelGetter)this.chunk).moreColorful_Fabric$getLevel();
         ChunkPos chunkpos = this.chunk.getPos();
         if (level != null) {
@@ -101,7 +101,7 @@ public final class ChunkData {
             }
             if (this.chunk instanceof ProtoChunk protoChunk) {
                 ChunkStatus chunkstatus = ChunkStatus.byName(nbt.getString("status"));
-                if (chunkstatus.isOrAfter(ModChunkStatus.INITIALIZE_THERMAL.get())) {
+                if (chunkstatus.isOrAfter(ModChunkStatus.INITIALIZE_THERMAL)) {
                     ((IProtoChunkExtension) protoChunk).moreColorful$setThermalEngine(thermalEngine);
                 }
             }

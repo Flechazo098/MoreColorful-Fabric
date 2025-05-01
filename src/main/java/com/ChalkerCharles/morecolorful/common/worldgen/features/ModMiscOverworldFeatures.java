@@ -16,7 +16,7 @@ public class ModMiscOverworldFeatures {
 
     public static void bootstrap(BootstrapContext<ConfiguredFeature<?, ?>> context) {
         register(context, WATER_LAKE,
-                ModFeatures.LAKE.get(),
+                ModFeatures.LAKE,
                 new LakeFeature.Configuration(
                         BlockStateProvider.simple(Blocks.WATER.defaultBlockState()),
                         BlockStateProvider.simple(Blocks.AIR.defaultBlockState())

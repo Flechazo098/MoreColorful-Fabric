@@ -17,7 +17,7 @@ public class ModBlockEntities {
     public static BlockEntityType<CrashCymbalBlockEntity> CRASH_CYMBAL;
     public static BlockEntityType<DrumSetBlockEntity> DRUM_SET;
 
-    public static void register() {
+    public static void init () {
         HIHAT = Registry.register(
                 BuiltInRegistries.BLOCK_ENTITY_TYPE,
                 ResourceLocation.fromNamespaceAndPath(MoreColorful.MODID, "hi_hat"),

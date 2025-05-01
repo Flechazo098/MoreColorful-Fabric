@@ -1,19 +1,20 @@
 package com.ChalkerCharles.morecolorful.client.renderer;
 
-import com.ChalkerCharles.morecolorful.MoreColorful;
 import com.ChalkerCharles.morecolorful.client.renderer.block.CymbalRenderer;
 import com.ChalkerCharles.morecolorful.common.block.ModBlockEntities;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.client.event.EntityRenderersEvent;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 
-@EventBusSubscriber(modid = MoreColorful.MODID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+@Environment(EnvType.CLIENT)
 public class RenderersRegistry {
-    @SubscribeEvent
-    public static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
-        event.registerBlockEntityRenderer(ModBlockEntities.RIDE_CYMBAL.get(), CymbalRenderer::new);
-        event.registerBlockEntityRenderer(ModBlockEntities.CRASH_CYMBAL.get(), CymbalRenderer::new);
-        event.registerBlockEntityRenderer(ModBlockEntities.DRUM_SET.get(), CymbalRenderer::new);
+    private static void registerRenderers() {
+        BlockEntityRenderers.register(ModBlockEntities.RIDE_CYMBAL, CymbalRenderer::new);
+        BlockEntityRenderers.register(ModBlockEntities.CRASH_CYMBAL, CymbalRenderer::new);
+        BlockEntityRenderers.register(ModBlockEntities.DRUM_SET, CymbalRenderer::new);
+    }
+
+    public static void init() {
+        registerRenderers();
     }
 }

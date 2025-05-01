@@ -87,7 +87,7 @@ public abstract class ServerChunkCacheMixin implements IChunkSourceExtension {
         if (!Config.isThermalSystemEnabled()) return null;
         long i = ChunkPos.asLong(pChunkX, pChunkZ);
         ChunkHolder chunkholder = this.getVisibleChunkIfPresent(i);
-        return chunkholder == null ? null : chunkholder.getChunkIfPresentUnchecked(ModChunkStatus.INITIALIZE_THERMAL.get().getParent());
+        return chunkholder == null ? null : chunkholder.getChunkIfPresentUnchecked(ModChunkStatus.INITIALIZE_THERMAL.getParent());
     }
 
     @Unique

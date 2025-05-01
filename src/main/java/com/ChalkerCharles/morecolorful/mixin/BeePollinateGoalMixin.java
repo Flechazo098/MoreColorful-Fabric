@@ -24,12 +24,12 @@ public abstract class BeePollinateGoalMixin {
     @Inject(method = "<init>", at = @At("TAIL"))
     private void setValidBlocks(Bee bee, CallbackInfo ci) {
         VALID_POLLINATION_BLOCKS = VALID_POLLINATION_BLOCKS.and(state ->
-                !(state.is(HolderSet.direct(
-                        ModBlocks.CLOSED_DAYBLOOM,
-                        ModBlocks.CLOSED_WATER_LILY,
-                        ModBlocks.CLOSED_WHITE_WATER_LILY,
-                        ModBlocks.CLOSED_BLUE_WATER_LILY)
-                ))
+                !(state.is(ModBlocks.CLOSED_DAYBLOOM) ||
+                        state.is(ModBlocks.CLOSED_WATER_LILY) ||
+                        state.is(ModBlocks.CLOSED_WHITE_WATER_LILY) ||
+                        state.is(ModBlocks.CLOSED_BLUE_WATER_LILY)
+                )
         );
+
     }
 }

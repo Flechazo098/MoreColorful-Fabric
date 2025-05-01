@@ -11,17 +11,17 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(targets = "net.minecraft.server.level.ServerChunkCache$MainThreadExecutor")
+@Mixin(value = ServerChunkCache.MainThreadExecutor.class)
 public abstract class MainThreadExecutorMixin {
 
     @Shadow
     @Final
-    private ServerChunkCache this$0;
+    ServerChunkCache field_18810;
 
     @Inject(method = "pollTask()Z", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/level/ThreadedLevelLightEngine;tryScheduleUpdate()V", shift = At.Shift.AFTER))
     private void pollTask(CallbackInfoReturnable<Boolean> cir) {
         if (Config.isThermalSystemEnabled()) {
-            ServerChunkCache cache = this.this$0;
+            ServerChunkCache cache = this.field_18810;
             ((ThreadedLevelThermalEngine) ((IChunkSourceExtension) cache).moreColorful$getThermalEngine()).tryScheduleUpdate();
         }
     }

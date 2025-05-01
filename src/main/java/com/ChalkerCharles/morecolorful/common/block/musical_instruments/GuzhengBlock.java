@@ -6,6 +6,7 @@ import com.ChalkerCharles.morecolorful.common.block.properties.HorizontalDoubleB
 import com.ChalkerCharles.morecolorful.common.block.properties.ModBlockStateProperties;
 import com.ChalkerCharles.morecolorful.common.item.musical_instruments.InstrumentsType;
 import com.ChalkerCharles.morecolorful.network.packets.PlayingScreenPacket;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionResult;
@@ -26,7 +27,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.neoforged.neoforge.network.PacketDistributor;
 
 import javax.annotation.Nullable;
 
@@ -89,9 +89,9 @@ public class GuzhengBlock extends MusicalInstrumentBlock {
     public InteractionResult useWithoutItem (BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, BlockHitResult pHitResult) {
         if (pLevel.isClientSide) {
             PlayingScreen.openPlayingScreen(pPlayer, pType, pPos);
-            PacketDistributor.sendToServer(new PlayingScreenPacket(pType, pPos, pPlayer.getId(), true));
+            ClientPlayNetworking.send(new PlayingScreenPacket(pType, pPos, pPlayer.getId(), true));
         }
-        pPlayer.awardStat(ModStats.INTERACT_WITH_GUZHENG.get());
+        pPlayer.awardStat(ModStats.INTERACT_WITH_GUZHENG);
         return InteractionResult.CONSUME;
     }
 
@@ -117,7 +117,7 @@ public class GuzhengBlock extends MusicalInstrumentBlock {
     }
     @Override
     public BlockState playerWillDestroy(Level pLevel, BlockPos pPos, BlockState pState, Player pPlayer) {
-        if (!pLevel.isClientSide && (pPlayer.isCreative() || !pPlayer.hasCorrectToolForDrops(pState, pLevel, pPos))) {
+        if (!pLevel.isClientSide && (pPlayer.isCreative() || !pPlayer.hasCorrectToolForDrops(pState))) {
             HorizontalDoubleBlockHalf half = pState.getValue(HALF);
             if (half == HorizontalDoubleBlockHalf.LEFT) {
                 BlockPos blockpos = pPos.relative(getNeighbourDirection(half, pState.getValue(FACING)));

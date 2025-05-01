@@ -24,7 +24,7 @@ public final class FileUtils {
             """;
     private static final String emptyModifier = """
             {
-                "type": "neoforge:none"
+                "type": "fabric:none"
             }
             """;
     private static final Path savesFolder = Path.of("saves");
@@ -32,7 +32,7 @@ public final class FileUtils {
 
     public static void generateDatapack(Path dir, List<String> modifiers, Consumer<Path> consumer) {
         String datapackRoot = dir + "/morecolorful_override";
-        String biomeModifierDir = datapackRoot + "/data/morecolorful/neoforge/biome_modifier";
+        String biomeModifierDir = datapackRoot + "/data/morecolorful/fabric/biome_modifier";
         Path packDir = Path.of(biomeModifierDir);
         Path packFile = Path.of(datapackRoot + "/pack.mcmeta");
         try {

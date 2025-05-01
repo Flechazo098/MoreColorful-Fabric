@@ -1,295 +1,67 @@
 package com.ChalkerCharles.morecolorful.common.datagen.loot;
 
 import com.ChalkerCharles.morecolorful.common.block.ModBlocks;
-import com.ChalkerCharles.morecolorful.common.block.properties.GrandPianoPart;
-import com.ChalkerCharles.morecolorful.common.block.properties.ModBlockStateProperties;
-import com.ChalkerCharles.morecolorful.common.block.properties.UprightPianoPart;
-import com.ChalkerCharles.morecolorful.common.datagen.helper.ModBlockLootTableHelper;
-import com.ChalkerCharles.morecolorful.common.item.ModItems;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.world.flag.FeatureFlags;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.level.block.Block;
-import net.neoforged.neoforge.registries.DeferredHolder;
 
-import java.util.Set;
-import java.util.stream.Collectors;
+import java.util.concurrent.CompletableFuture;
 
-public class ModBlockLootTableProvider extends ModBlockLootTableHelper {
-    public ModBlockLootTableProvider(HolderLookup.Provider pRegistries) {
-        super(Set.of(), FeatureFlags.REGISTRY.allFlags(), pRegistries);
+public class ModBlockLootTableProvider extends FabricBlockLootTableProvider  {
+
+
+    public ModBlockLootTableProvider (FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> registryLookup) {
+        super(dataOutput, registryLookup);
     }
 
     @Override
-    protected void generate() {
-        // Musical Instrument Blocks
-        dropForDoubleBlock(ModBlocks.HARP.get());
-        dropSelf(ModBlocks.BASS_DRUM.get());
-        dropSelf(ModBlocks.SNARE_DRUM.get());
-        dropSelf(ModBlocks.TOMTOM_DRUM.get());
-        dropSelf(ModBlocks.HIHAT.get());
-        dropForDoubleBlock(ModBlocks.RIDE_CYMBAL.get());
-        dropForDoubleBlock(ModBlocks.CRASH_CYMBAL.get());
-        dropForDoubleBlock(ModBlocks.CHIMES.get());
-        dropSelf(ModBlocks.GLOCKENSPIEL.get());
-        dropForHorizontalDoubleBlock(ModBlocks.XYLOPHONE.get());
-        dropForHorizontalDoubleBlock(ModBlocks.VIBRAPHONE.get());
-        dropForHorizontalDoubleBlock(ModBlocks.SYNTHESIZER_KEYBOARD_BIT.get());
-        dropForHorizontalDoubleBlock(ModBlocks.SYNTHESIZER_KEYBOARD_PLING.get());
-        dropForHorizontalDoubleBlock(ModBlocks.SYNTHESIZER_KEYBOARD_SCULK.get());
-        dropForHorizontalDoubleBlock(ModBlocks.SYNTHESIZER_KEYBOARD_AMETHYST.get());
-        dropForHorizontalDoubleBlock(ModBlocks.SYNTHESIZER_KEYBOARD_SAW.get());
-        dropForHorizontalDoubleBlock(ModBlocks.SYNTHESIZER_KEYBOARD_PLUCK.get());
-        dropForHorizontalDoubleBlock(ModBlocks.SYNTHESIZER_KEYBOARD_SYNTH_BASS.get());
-        dropForHorizontalDoubleBlock(ModBlocks.GUZHENG.get());
-        add(ModBlocks.UPRIGHT_PIANO.get(), createSinglePropConditionTable(ModBlocks.UPRIGHT_PIANO.get(), ModBlockStateProperties.UPRIGHT_PIANO_PART, UprightPianoPart.RIGHT_LOWER));
-        add(ModBlocks.GRAND_PIANO.get(), createSinglePropConditionTable(ModBlocks.GRAND_PIANO.get(), ModBlockStateProperties.GRAND_PIANO_PART, GrandPianoPart.FRONT_RIGHT_LOWER));
-        add(ModBlocks.DRUM_SET.get(), createDrumSetDrops());
+    public void generate () {
+// crabapple
+        this.dropSelf(ModBlocks.CRABAPPLE_SIGN);
+        this.dropOther(ModBlocks.CRABAPPLE_WALL_SIGN, ModBlocks.CRABAPPLE_SIGN);
+        this.dropSelf(ModBlocks.CRABAPPLE_HANGING_SIGN);
+        this.dropOther(ModBlocks.CRABAPPLE_WALL_HANGING_SIGN, ModBlocks.CRABAPPLE_HANGING_SIGN);
 
-        // Common Blocks
-        dropSelf(ModBlocks.CRABAPPLE_LOG.get());
-        dropSelf(ModBlocks.STRIPPED_CRABAPPLE_LOG.get());
-        dropSelf(ModBlocks.CRABAPPLE_WOOD.get());
-        dropSelf(ModBlocks.STRIPPED_CRABAPPLE_WOOD.get());
-        dropSelf(ModBlocks.CRABAPPLE_PLANKS.get());
-        dropSelf(ModBlocks.CRABAPPLE_STAIRS.get());
-        dropForSlab(ModBlocks.CRABAPPLE_SLAB.get());
-        dropSelf(ModBlocks.CRABAPPLE_FENCE.get());
-        dropSelf(ModBlocks.CRABAPPLE_FENCE_GATE.get());
-        dropForDoubleBlock(ModBlocks.CRABAPPLE_DOOR.get());
-        dropSelf(ModBlocks.CRABAPPLE_TRAPDOOR.get());
-        dropSelf(ModBlocks.CRABAPPLE_PRESSURE_PLATE.get());
-        dropSelf(ModBlocks.CRABAPPLE_BUTTON.get());
-        dropOther(ModBlocks.CRABAPPLE_SIGN.get(), ModItems.CRABAPPLE_SIGN.get());
-        dropOther(ModBlocks.CRABAPPLE_WALL_SIGN.get(), ModItems.CRABAPPLE_SIGN.get());
-        dropOther(ModBlocks.CRABAPPLE_HANGING_SIGN.get(), ModItems.CRABAPPLE_HANGING_SIGN.get());
-        dropOther(ModBlocks.CRABAPPLE_WALL_HANGING_SIGN.get(), ModItems.CRABAPPLE_HANGING_SIGN.get());
-        dropForLeavesWithExtraDrop(ModBlocks.CRABAPPLE_LEAVES.get(), ModBlocks.CRABAPPLE_SAPLING.get(), Items.APPLE);
-        dropSelf(ModBlocks.CRABAPPLE_SAPLING.get());
-        dropPottedContents(ModBlocks.POTTED_CRABAPPLE_SAPLING.get());
-        dropForPetals(ModBlocks.BEGONIAS.get());
-        dropForLeaves(ModBlocks.WHITE_CHERRY_LEAVES.get(), ModBlocks.WHITE_CHERRY_SAPLING.get());
-        dropSelf(ModBlocks.WHITE_CHERRY_SAPLING.get());
-        dropPottedContents(ModBlocks.POTTED_WHITE_CHERRY_SAPLING.get());
-        dropForPetals(ModBlocks.WHITE_PETALS.get());
+// ebony
+        this.dropSelf(ModBlocks.EBONY_SIGN);
+        this.dropOther(ModBlocks.EBONY_WALL_SIGN, ModBlocks.EBONY_SIGN);
+        this.dropSelf(ModBlocks.EBONY_HANGING_SIGN);
+        this.dropOther(ModBlocks.EBONY_WALL_HANGING_SIGN, ModBlocks.EBONY_HANGING_SIGN);
 
-        dropForLeavesWithLeafPile(ModBlocks.ORANGE_BIRCH_LEAVES.get(), ModBlocks.ORANGE_BIRCH_SAPLING.get(), ModItems.ORANGE_BIRCH_LEAF_LITTER);
-        dropSelf(ModBlocks.ORANGE_BIRCH_SAPLING.get());
-        dropPottedContents(ModBlocks.POTTED_ORANGE_BIRCH_SAPLING.get());
-        dropForLeafLitter(ModBlocks.ORANGE_BIRCH_LEAF_LITTER.get());
-        dropForLeavesWithLeafPile(ModBlocks.YELLOW_BIRCH_LEAVES.get(), ModBlocks.YELLOW_BIRCH_SAPLING.get(), ModItems.YELLOW_BIRCH_LEAF_LITTER);
-        dropSelf(ModBlocks.YELLOW_BIRCH_SAPLING.get());
-        dropPottedContents(ModBlocks.POTTED_YELLOW_BIRCH_SAPLING.get());
-        dropForLeafLitter(ModBlocks.YELLOW_BIRCH_LEAF_LITTER.get());
+// ginkgo
+        this.dropSelf(ModBlocks.GINKGO_SIGN);
+        this.dropOther(ModBlocks.GINKGO_WALL_SIGN, ModBlocks.GINKGO_SIGN);
+        this.dropSelf(ModBlocks.GINKGO_HANGING_SIGN);
+        this.dropOther(ModBlocks.GINKGO_WALL_HANGING_SIGN, ModBlocks.GINKGO_HANGING_SIGN);
 
-        dropSelf(ModBlocks.EBONY_LOG.get());
-        dropSelf(ModBlocks.STRIPPED_EBONY_LOG.get());
-        dropSelf(ModBlocks.EBONY_WOOD.get());
-        dropSelf(ModBlocks.STRIPPED_EBONY_WOOD.get());
-        dropSelf(ModBlocks.EBONY_PLANKS.get());
-        dropSelf(ModBlocks.EBONY_STAIRS.get());
-        dropForSlab(ModBlocks.EBONY_SLAB.get());
-        dropSelf(ModBlocks.EBONY_FENCE.get());
-        dropSelf(ModBlocks.EBONY_FENCE_GATE.get());
-        dropForDoubleBlock(ModBlocks.EBONY_DOOR.get());
-        dropSelf(ModBlocks.EBONY_TRAPDOOR.get());
-        dropSelf(ModBlocks.EBONY_PRESSURE_PLATE.get());
-        dropSelf(ModBlocks.EBONY_BUTTON.get());
-        dropOther(ModBlocks.EBONY_SIGN.get(), ModItems.EBONY_SIGN.get());
-        dropOther(ModBlocks.EBONY_WALL_SIGN.get(), ModItems.EBONY_SIGN.get());
-        dropOther(ModBlocks.EBONY_HANGING_SIGN.get(), ModItems.EBONY_HANGING_SIGN.get());
-        dropOther(ModBlocks.EBONY_WALL_HANGING_SIGN.get(), ModItems.EBONY_HANGING_SIGN.get());
+// maple
+        this.dropSelf(ModBlocks.MAPLE_SIGN);
+        this.dropOther(ModBlocks.MAPLE_WALL_SIGN, ModBlocks.MAPLE_SIGN);
+        this.dropSelf(ModBlocks.MAPLE_HANGING_SIGN);
+        this.dropOther(ModBlocks.MAPLE_WALL_HANGING_SIGN, ModBlocks.MAPLE_HANGING_SIGN);
 
-        dropSelf(ModBlocks.GINKGO_LOG.get());
-        dropSelf(ModBlocks.STRIPPED_GINKGO_LOG.get());
-        dropSelf(ModBlocks.GINKGO_WOOD.get());
-        dropSelf(ModBlocks.STRIPPED_GINKGO_WOOD.get());
-        dropSelf(ModBlocks.GINKGO_PLANKS.get());
-        dropSelf(ModBlocks.GINKGO_STAIRS.get());
-        dropForSlab(ModBlocks.GINKGO_SLAB.get());
-        dropSelf(ModBlocks.GINKGO_FENCE.get());
-        dropSelf(ModBlocks.GINKGO_FENCE_GATE.get());
-        dropForDoubleBlock(ModBlocks.GINKGO_DOOR.get());
-        dropSelf(ModBlocks.GINKGO_TRAPDOOR.get());
-        dropSelf(ModBlocks.GINKGO_PRESSURE_PLATE.get());
-        dropSelf(ModBlocks.GINKGO_BUTTON.get());
-        dropOther(ModBlocks.GINKGO_SIGN.get(), ModItems.GINKGO_SIGN.get());
-        dropOther(ModBlocks.GINKGO_WALL_SIGN.get(), ModItems.GINKGO_SIGN.get());
-        dropOther(ModBlocks.GINKGO_HANGING_SIGN.get(), ModItems.GINKGO_HANGING_SIGN.get());
-        dropOther(ModBlocks.GINKGO_WALL_HANGING_SIGN.get(), ModItems.GINKGO_HANGING_SIGN.get());
-        dropForLeavesWithLeafPile(ModBlocks.GINKGO_LEAVES.get(), ModBlocks.GINKGO_SAPLING.get(), ModItems.GINKGO_LEAF_LITTER);
-        dropSelf(ModBlocks.GINKGO_SAPLING.get());
-        dropPottedContents(ModBlocks.POTTED_GINKGO_SAPLING.get());
-        dropForLeafLitter(ModBlocks.GINKGO_LEAF_LITTER.get());
+// frost
+        this.dropSelf(ModBlocks.FROST_SIGN);
+        this.dropOther(ModBlocks.FROST_WALL_SIGN, ModBlocks.FROST_SIGN);
+        this.dropSelf(ModBlocks.FROST_HANGING_SIGN);
+        this.dropOther(ModBlocks.FROST_WALL_HANGING_SIGN, ModBlocks.FROST_HANGING_SIGN);
 
-        dropSelf(ModBlocks.MAPLE_LOG.get());
-        dropSelf(ModBlocks.STRIPPED_MAPLE_LOG.get());
-        dropSelf(ModBlocks.MAPLE_WOOD.get());
-        dropSelf(ModBlocks.STRIPPED_MAPLE_WOOD.get());
-        dropSelf(ModBlocks.MAPLE_PLANKS.get());
-        dropSelf(ModBlocks.MAPLE_STAIRS.get());
-        dropForSlab(ModBlocks.MAPLE_SLAB.get());
-        dropSelf(ModBlocks.MAPLE_FENCE.get());
-        dropSelf(ModBlocks.MAPLE_FENCE_GATE.get());
-        dropForDoubleBlock(ModBlocks.MAPLE_DOOR.get());
-        dropSelf(ModBlocks.MAPLE_TRAPDOOR.get());
-        dropSelf(ModBlocks.MAPLE_PRESSURE_PLATE.get());
-        dropSelf(ModBlocks.MAPLE_BUTTON.get());
-        dropOther(ModBlocks.MAPLE_SIGN.get(), ModItems.MAPLE_SIGN.get());
-        dropOther(ModBlocks.MAPLE_WALL_SIGN.get(), ModItems.MAPLE_SIGN.get());
-        dropOther(ModBlocks.MAPLE_HANGING_SIGN.get(), ModItems.MAPLE_HANGING_SIGN.get());
-        dropOther(ModBlocks.MAPLE_WALL_HANGING_SIGN.get(), ModItems.MAPLE_HANGING_SIGN.get());
-        dropForLeavesWithLeafPile(ModBlocks.MAPLE_LEAVES.get(), ModBlocks.MAPLE_SAPLING.get(), ModItems.MAPLE_LEAF_LITTER);
-        dropSelf(ModBlocks.MAPLE_SAPLING.get());
-        dropPottedContents(ModBlocks.POTTED_MAPLE_SAPLING.get());
-        dropForLeafLitter(ModBlocks.MAPLE_LEAF_LITTER.get());
+// dawn_redwood
+        this.dropSelf(ModBlocks.DAWN_REDWOOD_SIGN);
+        this.dropOther(ModBlocks.DAWN_REDWOOD_WALL_SIGN, ModBlocks.DAWN_REDWOOD_SIGN);
+        this.dropSelf(ModBlocks.DAWN_REDWOOD_HANGING_SIGN);
+        this.dropOther(ModBlocks.DAWN_REDWOOD_WALL_HANGING_SIGN, ModBlocks.DAWN_REDWOOD_HANGING_SIGN);
 
-        dropSelf(ModBlocks.FROST_LOG.get());
-        dropSelf(ModBlocks.STRIPPED_FROST_LOG.get());
-        dropSelf(ModBlocks.FROST_WOOD.get());
-        dropSelf(ModBlocks.STRIPPED_FROST_WOOD.get());
-        dropSelf(ModBlocks.FROST_PLANKS.get());
-        dropSelf(ModBlocks.FROST_STAIRS.get());
-        dropForSlab(ModBlocks.FROST_SLAB.get());
-        dropSelf(ModBlocks.FROST_FENCE.get());
-        dropSelf(ModBlocks.FROST_FENCE_GATE.get());
-        dropForDoubleBlock(ModBlocks.FROST_DOOR.get());
-        dropSelf(ModBlocks.FROST_TRAPDOOR.get());
-        dropSelf(ModBlocks.FROST_PRESSURE_PLATE.get());
-        dropSelf(ModBlocks.FROST_BUTTON.get());
-        dropOther(ModBlocks.FROST_SIGN.get(), ModItems.FROST_SIGN.get());
-        dropOther(ModBlocks.FROST_WALL_SIGN.get(), ModItems.FROST_SIGN.get());
-        dropOther(ModBlocks.FROST_HANGING_SIGN.get(), ModItems.FROST_HANGING_SIGN.get());
-        dropOther(ModBlocks.FROST_WALL_HANGING_SIGN.get(), ModItems.FROST_HANGING_SIGN.get());
-        dropForLeaves(ModBlocks.FROST_LEAVES.get(), ModBlocks.FROST_SAPLING.get());
-        dropSelf(ModBlocks.FROST_SAPLING.get());
-        dropPottedContents(ModBlocks.POTTED_FROST_SAPLING.get());
-        dropForPetals(ModBlocks.FROSTY_PETALS.get());
+// jacaranda
+        this.dropSelf(ModBlocks.JACARANDA_SIGN);
+        this.dropOther(ModBlocks.JACARANDA_WALL_SIGN, ModBlocks.JACARANDA_SIGN);
+        this.dropSelf(ModBlocks.JACARANDA_HANGING_SIGN);
+        this.dropOther(ModBlocks.JACARANDA_WALL_HANGING_SIGN, ModBlocks.JACARANDA_HANGING_SIGN);
 
-        dropSelf(ModBlocks.DAWN_REDWOOD_LOG.get());
-        dropSelf(ModBlocks.STRIPPED_DAWN_REDWOOD_LOG.get());
-        dropSelf(ModBlocks.DAWN_REDWOOD_WOOD.get());
-        dropSelf(ModBlocks.STRIPPED_DAWN_REDWOOD_WOOD.get());
-        dropSelf(ModBlocks.DAWN_REDWOOD_PLANKS.get());
-        dropSelf(ModBlocks.DAWN_REDWOOD_STAIRS.get());
-        dropForSlab(ModBlocks.DAWN_REDWOOD_SLAB.get());
-        dropSelf(ModBlocks.DAWN_REDWOOD_FENCE.get());
-        dropSelf(ModBlocks.DAWN_REDWOOD_FENCE_GATE.get());
-        dropForDoubleBlock(ModBlocks.DAWN_REDWOOD_DOOR.get());
-        dropSelf(ModBlocks.DAWN_REDWOOD_TRAPDOOR.get());
-        dropSelf(ModBlocks.DAWN_REDWOOD_PRESSURE_PLATE.get());
-        dropSelf(ModBlocks.DAWN_REDWOOD_BUTTON.get());
-        dropOther(ModBlocks.DAWN_REDWOOD_SIGN.get(), ModItems.DAWN_REDWOOD_SIGN.get());
-        dropOther(ModBlocks.DAWN_REDWOOD_WALL_SIGN.get(), ModItems.DAWN_REDWOOD_SIGN.get());
-        dropOther(ModBlocks.DAWN_REDWOOD_HANGING_SIGN.get(), ModItems.DAWN_REDWOOD_HANGING_SIGN.get());
-        dropOther(ModBlocks.DAWN_REDWOOD_WALL_HANGING_SIGN.get(), ModItems.DAWN_REDWOOD_HANGING_SIGN.get());
-        dropForLeavesWithLeafPile(ModBlocks.DAWN_REDWOOD_LEAVES.get(), ModBlocks.DAWN_REDWOOD_SAPLING.get(), ModItems.DAWN_REDWOOD_LEAF_LITTER);
-        dropSelf(ModBlocks.DAWN_REDWOOD_SAPLING.get());
-        dropPottedContents(ModBlocks.POTTED_DAWN_REDWOOD_SAPLING.get());
-        dropForLeafLitter(ModBlocks.DAWN_REDWOOD_LEAF_LITTER.get());
-        dropSelf(ModBlocks.DAWN_REDWOOD_ROOTS.get());
-
-        dropSelf(ModBlocks.JACARANDA_LOG.get());
-        dropSelf(ModBlocks.STRIPPED_JACARANDA_LOG.get());
-        dropSelf(ModBlocks.JACARANDA_WOOD.get());
-        dropSelf(ModBlocks.STRIPPED_JACARANDA_WOOD.get());
-        dropSelf(ModBlocks.JACARANDA_PLANKS.get());
-        dropSelf(ModBlocks.JACARANDA_STAIRS.get());
-        dropForSlab(ModBlocks.JACARANDA_SLAB.get());
-        dropSelf(ModBlocks.JACARANDA_FENCE.get());
-        dropSelf(ModBlocks.JACARANDA_FENCE_GATE.get());
-        dropForDoubleBlock(ModBlocks.JACARANDA_DOOR.get());
-        dropSelf(ModBlocks.JACARANDA_TRAPDOOR.get());
-        dropSelf(ModBlocks.JACARANDA_PRESSURE_PLATE.get());
-        dropSelf(ModBlocks.JACARANDA_BUTTON.get());
-        dropOther(ModBlocks.JACARANDA_SIGN.get(), ModItems.JACARANDA_SIGN.get());
-        dropOther(ModBlocks.JACARANDA_WALL_SIGN.get(), ModItems.JACARANDA_SIGN.get());
-        dropOther(ModBlocks.JACARANDA_HANGING_SIGN.get(), ModItems.JACARANDA_HANGING_SIGN.get());
-        dropOther(ModBlocks.JACARANDA_WALL_HANGING_SIGN.get(), ModItems.JACARANDA_HANGING_SIGN.get());
-        dropForLeaves(ModBlocks.JACARANDA_LEAVES.get(), ModBlocks.JACARANDA_SAPLING.get());
-        dropSelf(ModBlocks.JACARANDA_SAPLING.get());
-        dropPottedContents(ModBlocks.POTTED_JACARANDA_SAPLING.get());
-        dropForPetals(ModBlocks.VIOLETS.get());
-        dropForPetals(ModBlocks.BUTTERCUPS.get());
-        dropForPetals(ModBlocks.FORGET_ME_NOTS.get());
-        dropForPetals(ModBlocks.BABY_BLUE_EYES.get());
-        dropForPetals(ModBlocks.SPEEDWELLS.get());
-        dropForPetals(ModBlocks.WOOD_SORRELS.get());
-
-        dropSelf(ModBlocks.WILLOW_LOG.get());
-        dropSelf(ModBlocks.STRIPPED_WILLOW_LOG.get());
-        dropSelf(ModBlocks.WILLOW_WOOD.get());
-        dropSelf(ModBlocks.STRIPPED_WILLOW_WOOD.get());
-        dropSelf(ModBlocks.WILLOW_PLANKS.get());
-        dropSelf(ModBlocks.WILLOW_STAIRS.get());
-        dropForSlab(ModBlocks.WILLOW_SLAB.get());
-        dropSelf(ModBlocks.WILLOW_FENCE.get());
-        dropSelf(ModBlocks.WILLOW_FENCE_GATE.get());
-        dropForDoubleBlock(ModBlocks.WILLOW_DOOR.get());
-        dropSelf(ModBlocks.WILLOW_TRAPDOOR.get());
-        dropSelf(ModBlocks.WILLOW_PRESSURE_PLATE.get());
-        dropSelf(ModBlocks.WILLOW_BUTTON.get());
-        dropOther(ModBlocks.WILLOW_SIGN.get(), ModItems.WILLOW_SIGN.get());
-        dropOther(ModBlocks.WILLOW_WALL_SIGN.get(), ModItems.WILLOW_SIGN.get());
-        dropOther(ModBlocks.WILLOW_HANGING_SIGN.get(), ModItems.WILLOW_HANGING_SIGN.get());
-        dropOther(ModBlocks.WILLOW_WALL_HANGING_SIGN.get(), ModItems.WILLOW_HANGING_SIGN.get());
-        dropForLeaves(ModBlocks.WILLOW_LEAVES.get(), ModBlocks.WILLOW_SAPLING.get());
-        dropSelf(ModBlocks.WILLOW_SAPLING.get());
-        dropPottedContents(ModBlocks.POTTED_WILLOW_SAPLING.get());
-        dropWhenSheared(ModBlocks.WILLOW_BRANCHES.get());
-
-        dropSelf(ModBlocks.PINK_DAISY.get());
-        dropPottedContents(ModBlocks.POTTED_PINK_DAISY.get());
-        dropSelf(ModBlocks.RED_CARNATION.get());
-        dropPottedContents(ModBlocks.POTTED_RED_CARNATION.get());
-        dropSelf(ModBlocks.PINK_CARNATION.get());
-        dropPottedContents(ModBlocks.POTTED_PINK_CARNATION.get());
-        dropSelf(ModBlocks.WHITE_CARNATION.get());
-        dropPottedContents(ModBlocks.POTTED_WHITE_CARNATION.get());
-        dropSelf(ModBlocks.RED_SPIDER_LILY.get());
-        dropPottedContents(ModBlocks.POTTED_RED_SPIDER_LILY.get());
-        dropSelf(ModBlocks.YELLOW_CHRYSANTHEMUM.get());
-        dropPottedContents(ModBlocks.POTTED_YELLOW_CHRYSANTHEMUM.get());
-        dropSelf(ModBlocks.GREEN_CHRYSANTHEMUM.get());
-        dropPottedContents(ModBlocks.POTTED_GREEN_CHRYSANTHEMUM.get());
-        dropSelf(ModBlocks.OPEN_DAYBLOOM.get());
-        dropPottedContents(ModBlocks.POTTED_OPEN_DAYBLOOM.get());
-        dropSelf(ModBlocks.CLOSED_DAYBLOOM.get());
-        dropPottedContents(ModBlocks.POTTED_CLOSED_DAYBLOOM.get());
-        dropSelf(ModBlocks.EDELWEISS.get());
-        dropPottedContents(ModBlocks.POTTED_EDELWEISS.get());
-        dropSelf(ModBlocks.CROCUS.get());
-        dropPottedContents(ModBlocks.POTTED_CROCUS.get());
-        dropSelf(ModBlocks.IRIS.get());
-        dropPottedContents(ModBlocks.POTTED_IRIS.get());
-        dropSelf(ModBlocks.LAVENDER.get());
-        dropPottedContents(ModBlocks.POTTED_LAVENDER.get());
-        dropSelf(ModBlocks.DAFFODIL.get());
-        dropPottedContents(ModBlocks.POTTED_DAFFODIL.get());
-        dropSelf(ModBlocks.GERBERA_DAISY.get());
-        dropPottedContents(ModBlocks.POTTED_GERBERA_DAISY.get());
-        dropSelf(ModBlocks.RAPESEED_FLOWER.get());
-        dropPottedContents(ModBlocks.POTTED_RAPESEED_FLOWER.get());
-
-        dropForDoubleBlock(ModBlocks.CATTAIL.get());
-        dropForDoubleBlock(ModBlocks.TALL_RAPESEED_FLOWER.get());
-
-        dropForWaterGrass(ModBlocks.SHORT_WATER_GRASS.get());
-        dropForWaterGrass(ModBlocks.TALL_WATER_GRASS.get());
-        add(ModBlocks.REED.get(), createReedDrops());
-        dropBerries(ModBlocks.STRAWBERRY_BUSH.get(), ModItems.STRAWBERRY);
-        dropBerries(ModBlocks.BLUEBERRY_BUSH.get(), ModItems.BLUEBERRIES);
-        dropSelf(ModBlocks.OPEN_WATER_LILY.get());
-        dropSelf(ModBlocks.OPEN_WHITE_WATER_LILY.get());
-        dropSelf(ModBlocks.OPEN_BLUE_WATER_LILY.get());
-        dropSelf(ModBlocks.CLOSED_WATER_LILY.get());
-        dropSelf(ModBlocks.CLOSED_WHITE_WATER_LILY.get());
-        dropSelf(ModBlocks.CLOSED_BLUE_WATER_LILY.get());
-        dropForLeafLitter(ModBlocks.DUCKWEEDS.get());
-    }
-
-    @Override
-    protected Iterable<Block> getKnownBlocks() {
-        return ModBlocks.BLOCKS.getEntries().stream().map(DeferredHolder::value).collect(Collectors.toList());
+// willow
+        this.dropSelf(ModBlocks.WILLOW_SIGN);
+        this.dropOther(ModBlocks.WILLOW_WALL_SIGN, ModBlocks.WILLOW_SIGN);
+        this.dropSelf(ModBlocks.WILLOW_HANGING_SIGN);
+        this.dropOther(ModBlocks.WILLOW_WALL_HANGING_SIGN, ModBlocks.WILLOW_HANGING_SIGN);
     }
 }

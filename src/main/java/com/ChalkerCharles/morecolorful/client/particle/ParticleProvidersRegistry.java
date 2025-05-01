@@ -1,25 +1,29 @@
 package com.ChalkerCharles.morecolorful.client.particle;
 
-import com.ChalkerCharles.morecolorful.MoreColorful;
 import com.ChalkerCharles.morecolorful.client.particle.particles.LeafParticle;
 import com.ChalkerCharles.morecolorful.client.particle.particles.PetalParticle;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 
-@EventBusSubscriber(modid = MoreColorful.MODID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+@Environment(EnvType.CLIENT)
 public class ParticleProvidersRegistry {
-    @SubscribeEvent
-    public static void registerParticleProviders(RegisterParticleProvidersEvent event) {
-        event.registerSpriteSet(ModParticles.CRABAPPLE_LEAVES.get(), PetalParticle.Provider::new);
-        event.registerSpriteSet(ModParticles.WHITE_CHERRY_LEAVES.get(), PetalParticle.Provider::new);
-        event.registerSpriteSet(ModParticles.ORANGE_BIRCH_LEAVES.get(), LeafParticle.Provider::new);
-        event.registerSpriteSet(ModParticles.YELLOW_BIRCH_LEAVES.get(), LeafParticle.Provider::new);
-        event.registerSpriteSet(ModParticles.GINKGO_LEAVES.get(), LeafParticle.Provider::new);
-        event.registerSpriteSet(ModParticles.MAPLE_LEAVES.get(), LeafParticle.Provider::new);
-        event.registerSpriteSet(ModParticles.FROST_LEAVES.get(), PetalParticle.Provider::new);
-        event.registerSpriteSet(ModParticles.DAWN_REDWOOD_LEAVES.get(), LeafParticle.Provider::new);
-        event.registerSpriteSet(ModParticles.JACARANDA_LEAVES.get(), PetalParticle.Provider::new);
+
+    private static void registerParticleProviders() {
+        ParticleFactoryRegistry registry = ParticleFactoryRegistry.getInstance();
+
+        registry.register(ModParticles.CRABAPPLE_LEAVES, PetalParticle.Provider::new);
+        registry.register(ModParticles.WHITE_CHERRY_LEAVES, PetalParticle.Provider::new);
+        registry.register(ModParticles.ORANGE_BIRCH_LEAVES, LeafParticle.Provider::new);
+        registry.register(ModParticles.YELLOW_BIRCH_LEAVES, LeafParticle.Provider::new);
+        registry.register(ModParticles.GINKGO_LEAVES, LeafParticle.Provider::new);
+        registry.register(ModParticles.MAPLE_LEAVES, LeafParticle.Provider::new);
+        registry.register(ModParticles.FROST_LEAVES, PetalParticle.Provider::new);
+        registry.register(ModParticles.DAWN_REDWOOD_LEAVES, LeafParticle.Provider::new);
+        registry.register(ModParticles.JACARANDA_LEAVES, PetalParticle.Provider::new);
+    }
+
+    public static void init() {
+        registerParticleProviders();
     }
 }
