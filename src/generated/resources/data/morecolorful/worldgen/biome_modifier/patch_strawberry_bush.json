@@ -1,9 +1,0 @@
-{
-  "type": "minecraft:add_features",
-  "biomes": [
-    "minecraft:forest",
-    "minecraft:flower_forest"
-  ],
-  "features": "morecolorful:patch_strawberry_bush",
-  "step": "vegetal_decoration"
-}

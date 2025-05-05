@@ -1,14 +1,24 @@
 package com.ChalkerCharles.morecolorful.util;
 
+import com.ChalkerCharles.morecolorful.client.ModItemClientSetup;
 import com.chocohead.mm.api.ClassTinkerers;
 import net.minecraft.client.model.HumanoidModel;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.vehicle.Boat;
+import net.minecraft.world.item.ItemStack;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 枚举扩展工具类，用于获取通过Fabric ASM添加的枚举值
  */
 public class EnumExtensions {
     public static class ArmPose {
+
+        private static final Map<String, ModItemClientSetup.ArmPoseProvider> ITEM_POSE_PROVIDERS = new HashMap<>();
+
         // Flute
         public static final String FLUTE = "MORECOLORFUL_FLUTE";
 
@@ -54,9 +64,32 @@ public class EnumExtensions {
                 return HumanoidModel.ArmPose.ITEM;
             }
         }
+        // 注册物品的手臂姿势提供者
+        public static void registerArmPoseForItem(ItemStack stack, ModItemClientSetup.ArmPoseProvider provider) {
+            ITEM_POSE_PROVIDERS.put(stack.getItem().toString(), provider);
+        }
+
+        // 获取物品的手臂姿势
+        public static HumanoidModel.ArmPose getArmPoseForItem(LivingEntity entity, InteractionHand hand, ItemStack stack) {
+            ModItemClientSetup.ArmPoseProvider provider = ITEM_POSE_PROVIDERS.get(stack.getItem().toString());
+            if (provider != null) {
+                return provider.getArmPose(entity, hand, stack);
+            }
+            return HumanoidModel.ArmPose.ITEM;
+        }
     }
 
         public static class BoatType {
+
+            // 使用静态方法获取船类型，避免过早初始化
+            public static Boat.Type getBoatType(String name) {
+                try {
+                    return Boat.Type.valueOf(name);
+                } catch (IllegalArgumentException e) {
+                    return Boat.Type.OAK;
+                }
+            }
+
             public static final Boat.Type CRABAPPLE = getBoatType("MORECOLORFUL_CRABAPPLE");
             public static final Boat.Type EBONY = getBoatType("MORECOLORFUL_EBONY");
             public static final Boat.Type GINKGO = getBoatType("MORECOLORFUL_GINKGO");
@@ -66,8 +99,5 @@ public class EnumExtensions {
             public static final Boat.Type JACARANDA = getBoatType("MORECOLORFUL_JACARANDA");
             public static final Boat.Type WILLOW = getBoatType("MORECOLORFUL_WILLOW");
 
-            private static Boat.Type getBoatType (String name) {
-                return ClassTinkerers.getEnum(Boat.Type.class, name);
-            }
         }
     }

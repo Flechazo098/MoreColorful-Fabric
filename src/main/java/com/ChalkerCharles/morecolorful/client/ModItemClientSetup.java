@@ -9,6 +9,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.player.LocalPlayer;
@@ -17,20 +18,39 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
 @Environment(EnvType.CLIENT)
 public class ModItemClientSetup {
 
-    public static void init() {
-        // 不再需要延迟和等待逻辑
-        try {
-            setupUseAnim();
-            registerModelPredicate();
-        } catch (Exception e) {
-            MoreColorful.LOGGER.error("Error initializing ModItemClientSetup", e);
-        }
+    // 定义接口
+    public interface ArmPoseProvider {
+        HumanoidModel.ArmPose getArmPose(LivingEntity livingEntity, InteractionHand hand, ItemStack itemStack);
     }
+
+    public interface HandTransformProvider {
+        void transform(PoseStack poseStack, LocalPlayer player, HumanoidArm arm, ItemStack itemInHand, float partialTick, float equipProcess, float swingProcess);
+    }
+
+    private static boolean initialized = false;
+
+    public static void init() {
+        if (initialized) return;
+
+        // 使用客户端生命周期事件延迟初始化，确保所有类都已加载
+        ClientLifecycleEvents.CLIENT_STARTED.register(client -> {
+            try {
+                setupUseAnim();
+                registerModelPredicate();
+                initialized = true;
+                MoreColorful.LOGGER.info("ModItemClientSetup initialized successfully");
+            } catch (Exception e) {
+                MoreColorful.LOGGER.error("Error initializing ModItemClientSetup", e);
+            }
+        });
+    }
+
     private static void setupUseAnim() {
         try {
             // Flute
@@ -81,13 +101,13 @@ public class ModItemClientSetup {
             // Fiddle Bow
             registerHandTransform(ModItems.FIDDLE_BOW, (poseStack, player, arm, itemInHand, partialTick, equipProcess, swingProcess) -> {
                 float f = player.getTicksUsingItem();
-                float f1 = f % 20 >= 10 ? -(f % 20) + 10 : (f % 20) - 10;
+                float f1 = f % 20 >= 10 ? - (f % 20) + 10 : (f % 20) - 10;
                 if (Minecraft.getInstance().screen instanceof PlayingScreen pScreen && pScreen.isPressing) {
                     if (player.getUseItem().getItem() == ModItems.VIOLIN) {
                         poseStack.mulPose(Axis.YP.rotationDegrees(f1 * 2));
                         if (arm == HumanoidArm.RIGHT) {
                             poseStack.mulPose(Axis.YP.rotationDegrees(15.0F));
-                            poseStack.translate(-0.4, 0.12, 0.02);
+                            poseStack.translate(- 0.4, 0.12, 0.02);
                         } else {
                             poseStack.translate(0.32, 0.12, 0.02);
                         }
@@ -96,21 +116,20 @@ public class ModItemClientSetup {
                         poseStack.mulPose(Axis.XP.rotationDegrees(f1 / 2));
                         if (arm == HumanoidArm.RIGHT) {
                             poseStack.mulPose(Axis.YP.rotationDegrees(15.0F));
-                            poseStack.translate(-0.4, 0.0, -0.1);
+                            poseStack.translate(- 0.4, 0.0, - 0.1);
                         } else {
-                            poseStack.translate(0.32, 0.0, -0.1);
+                            poseStack.translate(0.32, 0.0, - 0.1);
                         }
                     } else if (player.getUseItem().getItem() == ModItems.ERHU) {
                         poseStack.mulPose(Axis.YP.rotationDegrees(f1 * 2));
                         if (arm == HumanoidArm.RIGHT) {
                             poseStack.mulPose(Axis.YP.rotationDegrees(15.0F));
-                            poseStack.translate(-0.4, 0.0, -0.07);
+                            poseStack.translate(- 0.4, 0.0, - 0.07);
                         } else {
-                            poseStack.translate(0.32, 0.0, -0.07);
+                            poseStack.translate(0.32, 0.0, - 0.07);
                         }
                     }
                 }
-                return false;
             });
 
             // Cello
@@ -161,7 +180,7 @@ public class ModItemClientSetup {
                 return HumanoidModel.ArmPose.ITEM;
             });
         } catch (Exception e) {
-            MoreColorful.LOGGER.error("Failed to setup use animations", e);
+            MoreColorful.LOGGER.error("Error in setupUseAnim", e);
         }
     }
 
@@ -192,15 +211,14 @@ public class ModItemClientSetup {
                 (pStack, pLevel, pEntity, pSeed) -> pEntity != null && pEntity.isUsingItem() && pEntity.getUseItem() == pStack ? 1.0F : 0.0F);
     }
 
-    // 辅助方法，用于注册手臂姿势
-    private static void registerArmPose(Object item, ArmPoseProvider provider) {
-        // 在Fabric中实现手臂姿势注册的逻辑
-        // 这需要通过Mixin或其他方式实现
+    // 注册手臂姿势
+    public static void registerArmPose(Item item, ArmPoseProvider provider) {
+        EnumExtensions.ArmPose.registerArmPoseForItem(item.getDefaultInstance(), provider);
     }
 
-    private static void registerArmPose(ItemStack[] items, ArmPoseProvider provider) {
-        for (ItemStack item : items) {
-            registerArmPose(item, provider);
+    public static void registerArmPose(ItemStack[] stacks, ArmPoseProvider provider) {
+        for (ItemStack stack : stacks) {
+            EnumExtensions.ArmPose.registerArmPoseForItem(stack, provider);
         }
     }
 
@@ -210,14 +228,4 @@ public class ModItemClientSetup {
         // 这需要通过Mixin或其他方式实现
     }
 
-    // 函数式接口定义
-    @FunctionalInterface
-    public interface ArmPoseProvider {
-        HumanoidModel.ArmPose getArmPose(LivingEntity livingEntity, InteractionHand hand, ItemStack itemStack);
-    }
-
-    @FunctionalInterface
-    public interface HandTransformProvider {
-        boolean applyHandTransform(PoseStack poseStack, LocalPlayer player, HumanoidArm arm, ItemStack itemInHand, float partialTick, float equipProcess, float swingProcess);
-    }
 }

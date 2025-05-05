@@ -5,6 +5,8 @@ import com.ChalkerCharles.morecolorful.common.block.ModBlocks;
 import com.ChalkerCharles.morecolorful.common.block.properties.ModBlockStateProperties;
 import com.ChalkerCharles.morecolorful.common.item.musical_instruments.InstrumentsType;
 import com.ChalkerCharles.morecolorful.network.packets.PlayingScreenPacket;
+import com.ChalkerCharles.morecolorful.util.ArmPoseTransformers;
+import com.ChalkerCharles.morecolorful.util.EnumExtensions;
 import net.minecraft.client.model.AgeableListModel;
 import net.minecraft.client.model.ArmedModel;
 import net.minecraft.client.model.HeadedModel;
@@ -13,6 +15,7 @@ import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import org.jetbrains.annotations.NotNull;
@@ -32,6 +35,11 @@ public abstract class HumanoidModelMixin<T extends LivingEntity> extends Ageable
     @Shadow
     @Final
     public ModelPart leftArm;
+
+    @Shadow
+    public HumanoidModel.ArmPose rightArmPose;
+    @Shadow
+    public HumanoidModel.ArmPose leftArmPose;
 
     @Unique
     private void moreColorful$setupKeyboardAnimation(T pLivingEntity) {
@@ -98,5 +106,144 @@ public abstract class HumanoidModelMixin<T extends LivingEntity> extends Ageable
     private void setupAnim(@NotNull T pEntity, float pLimbSwing, float pLimbSwingAmount, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch, CallbackInfo ci) {
         this.moreColorful$setupKeyboardAnimation(pEntity);
         this.moreColorful$setupGuzhengAnimation(pEntity);
+        this.moreColorful$setupArmPoseTransformations(pEntity);
+    }
+
+
+    @Unique
+    private void moreColorful$setupArmPoseTransformations(T entity) {
+        // 处理右手臂姿势
+        if (this.rightArmPose != HumanoidModel.ArmPose.EMPTY && 
+            this.rightArmPose != HumanoidModel.ArmPose.ITEM && 
+            this.rightArmPose != HumanoidModel.ArmPose.BLOCK) {
+            
+            // 长笛姿势
+            if (this.rightArmPose.name().equals(EnumExtensions.ArmPose.FLUTE)) {
+                ArmPoseTransformers.transformFlute(this, entity, HumanoidArm.RIGHT);
+            }
+            // 吉他持握姿势
+            else if (this.rightArmPose.name().equals(EnumExtensions.ArmPose.GUITAR_HOLD)) {
+                ArmPoseTransformers.transformGuitarHold(this, entity, HumanoidArm.RIGHT);
+            }
+            // 吉他演奏姿势
+            else if (this.rightArmPose.name().equals(EnumExtensions.ArmPose.GUITAR_PLAYING)) {
+                ArmPoseTransformers.transformGuitarPlaying(this, entity, HumanoidArm.RIGHT);
+            }
+            // 牛铃姿势
+            else if (this.rightArmPose.name().equals(EnumExtensions.ArmPose.COW_BELL)) {
+                ArmPoseTransformers.transformCowBell(this, entity, HumanoidArm.RIGHT);
+            }
+            // 迪吉里杜管姿势
+            else if (this.rightArmPose.name().equals(EnumExtensions.ArmPose.DIDGERIDOO)) {
+                ArmPoseTransformers.transformDidgeridoo(this, entity, HumanoidArm.RIGHT);
+            }
+            // 小提琴持握姿势
+            else if (this.rightArmPose.name().equals(EnumExtensions.ArmPose.VIOLIN_HOLD)) {
+                ArmPoseTransformers.transformViolinHold(this, entity, HumanoidArm.RIGHT);
+            }
+            // 小提琴演奏姿势
+            else if (this.rightArmPose.name().equals(EnumExtensions.ArmPose.VIOLIN_PLAYING)) {
+                ArmPoseTransformers.transformViolinPlaying(this, entity, HumanoidArm.RIGHT);
+            }
+            // 大提琴基础姿势
+            else if (this.rightArmPose.name().equals(EnumExtensions.ArmPose.CELLO)) {
+                ArmPoseTransformers.transformCello(this, entity, HumanoidArm.RIGHT);
+            }
+            // 大提琴持握姿势
+            else if (this.rightArmPose.name().equals(EnumExtensions.ArmPose.CELLO_HOLD)) {
+                ArmPoseTransformers.transformCelloHold(this, entity, HumanoidArm.RIGHT);
+            }
+            // 大提琴演奏姿势
+            else if (this.rightArmPose.name().equals(EnumExtensions.ArmPose.CELLO_PLAYING)) {
+                ArmPoseTransformers.transformCelloPlaying(this, entity, HumanoidArm.RIGHT);
+            }
+            // 萨克斯风姿势
+            else if (this.rightArmPose.name().equals(EnumExtensions.ArmPose.SAXOPHONE)) {
+                ArmPoseTransformers.transformSaxophone(this, entity, HumanoidArm.RIGHT);
+            }
+            // 琵琶持握姿势
+            else if (this.rightArmPose.name().equals(EnumExtensions.ArmPose.PIPA_HOLD)) {
+                ArmPoseTransformers.transformPipaHold(this, entity, HumanoidArm.RIGHT);
+            }
+            // 琵琶演奏姿势
+            else if (this.rightArmPose.name().equals(EnumExtensions.ArmPose.PIPA_PLAYING)) {
+                ArmPoseTransformers.transformPipaPlaying(this, entity, HumanoidArm.RIGHT);
+            }
+            // 二胡持握姿势
+            else if (this.rightArmPose.name().equals(EnumExtensions.ArmPose.ERHU_HOLD)) {
+                ArmPoseTransformers.transformErhuHold(this, entity, HumanoidArm.RIGHT);
+            }
+            // 二胡演奏姿势
+            else if (this.rightArmPose.name().equals(EnumExtensions.ArmPose.ERHU_PLAYING)) {
+                ArmPoseTransformers.transformErhuPlaying(this, entity, HumanoidArm.RIGHT);
+            }
+        }
+        
+        // 处理左手臂姿势
+        if (this.leftArmPose != HumanoidModel.ArmPose.EMPTY && 
+            this.leftArmPose != HumanoidModel.ArmPose.ITEM && 
+            this.leftArmPose != HumanoidModel.ArmPose.BLOCK) {
+            
+            // 长笛姿势
+            if (this.leftArmPose.name().equals(EnumExtensions.ArmPose.FLUTE)) {
+                ArmPoseTransformers.transformFlute(this, entity, HumanoidArm.LEFT);
+            }
+            // 吉他持握姿势
+            else if (this.leftArmPose.name().equals(EnumExtensions.ArmPose.GUITAR_HOLD)) {
+                ArmPoseTransformers.transformGuitarHold(this, entity, HumanoidArm.LEFT);
+            }
+            // 吉他演奏姿势
+            else if (this.leftArmPose.name().equals(EnumExtensions.ArmPose.GUITAR_PLAYING)) {
+                ArmPoseTransformers.transformGuitarPlaying(this, entity, HumanoidArm.LEFT);
+            }
+            // 牛铃姿势
+            else if (this.leftArmPose.name().equals(EnumExtensions.ArmPose.COW_BELL)) {
+                ArmPoseTransformers.transformCowBell(this, entity, HumanoidArm.LEFT);
+            }
+            // 迪吉里杜管姿势
+            else if (this.leftArmPose.name().equals(EnumExtensions.ArmPose.DIDGERIDOO)) {
+                ArmPoseTransformers.transformDidgeridoo(this, entity, HumanoidArm.LEFT);
+            }
+            // 小提琴持握姿势
+            else if (this.leftArmPose.name().equals(EnumExtensions.ArmPose.VIOLIN_HOLD)) {
+                ArmPoseTransformers.transformViolinHold(this, entity, HumanoidArm.LEFT);
+            }
+            // 小提琴演奏姿势
+            else if (this.leftArmPose.name().equals(EnumExtensions.ArmPose.VIOLIN_PLAYING)) {
+                ArmPoseTransformers.transformViolinPlaying(this, entity, HumanoidArm.LEFT);
+            }
+            // 大提琴基础姿势
+            else if (this.leftArmPose.name().equals(EnumExtensions.ArmPose.CELLO)) {
+                ArmPoseTransformers.transformCello(this, entity, HumanoidArm.LEFT);
+            }
+            // 大提琴持握姿势
+            else if (this.leftArmPose.name().equals(EnumExtensions.ArmPose.CELLO_HOLD)) {
+                ArmPoseTransformers.transformCelloHold(this, entity, HumanoidArm.LEFT);
+            }
+            // 大提琴演奏姿势
+            else if (this.leftArmPose.name().equals(EnumExtensions.ArmPose.CELLO_PLAYING)) {
+                ArmPoseTransformers.transformCelloPlaying(this, entity, HumanoidArm.LEFT);
+            }
+            // 萨克斯风姿势
+            else if (this.leftArmPose.name().equals(EnumExtensions.ArmPose.SAXOPHONE)) {
+                ArmPoseTransformers.transformSaxophone(this, entity, HumanoidArm.LEFT);
+            }
+            // 琵琶持握姿势
+            else if (this.leftArmPose.name().equals(EnumExtensions.ArmPose.PIPA_HOLD)) {
+                ArmPoseTransformers.transformPipaHold(this, entity, HumanoidArm.LEFT);
+            }
+            // 琵琶演奏姿势
+            else if (this.leftArmPose.name().equals(EnumExtensions.ArmPose.PIPA_PLAYING)) {
+                ArmPoseTransformers.transformPipaPlaying(this, entity, HumanoidArm.LEFT);
+            }
+            // 二胡持握姿势
+            else if (this.leftArmPose.name().equals(EnumExtensions.ArmPose.ERHU_HOLD)) {
+                ArmPoseTransformers.transformErhuHold(this, entity, HumanoidArm.LEFT);
+            }
+            // 二胡演奏姿势
+            else if (this.leftArmPose.name().equals(EnumExtensions.ArmPose.ERHU_PLAYING)) {
+                ArmPoseTransformers.transformErhuPlaying(this, entity, HumanoidArm.LEFT);
+            }
+        }
     }
 }
