@@ -13,7 +13,7 @@
     "fork": "https://github.com/Flechazo098/MoreColorful-Fabric"
   },
   "license": "MIT",
-  "icon": "assets/morecolorful/icon.png",
+  "icon": "assets/morecolorful/Image_Editor.png",
   "environment": "*",
   "entrypoints": {
     "main": [
@@ -27,6 +27,9 @@
     ],
     "mm:early_risers": [
       "com.ChalkerCharles.morecolorful.util.EarlyRiser"
+    ],
+    "modmenu": [
+      "com.ChalkerCharles.morecolorful.client.compat.modmenu.ModMenuIntegration"
     ]
   },
   "mixins": [

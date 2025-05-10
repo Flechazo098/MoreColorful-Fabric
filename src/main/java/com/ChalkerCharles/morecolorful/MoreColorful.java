@@ -17,6 +17,7 @@ import com.ChalkerCharles.morecolorful.common.worldgen.features.trees.ModFoliage
 import com.ChalkerCharles.morecolorful.common.worldgen.features.trees.ModRootPlacers;
 import com.ChalkerCharles.morecolorful.common.worldgen.features.trees.ModTreeDecorators;
 import com.ChalkerCharles.morecolorful.common.worldgen.features.trees.ModTrunkPlacers;
+import com.ChalkerCharles.morecolorful.network.NetworkingRegistry;
 import com.mojang.logging.LogUtils;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.CommonLifecycleEvents;
@@ -40,7 +41,10 @@ public class MoreColorful implements ModInitializer {
             case 2 -> LOGGER.info("I'm Doing Well! :)");
             case 3 -> LOGGER.info("Long Time No See!");
         }
+        
+        // 初始化配置
         Config.init();
+        
         ModItems.init();
         ModBlocks.init();
         ModBlockEntities.init();
@@ -54,6 +58,7 @@ public class MoreColorful implements ModInitializer {
         ModTreeDecorators.init();
         ModFeatures.init();
         ModChunkStatus.init();
+        new NetworkingRegistry().register();
 
         VanillaBlockPropertyModifier.modifyProperties();
 
@@ -75,7 +80,12 @@ public class MoreColorful implements ModInitializer {
             });
         }
 
-        Config.disabledBiomes.forEach(biome -> LOGGER.info("Biome Disabled: {}", biome.location()));
+        // 添加检查，确保配置已初始化
+        if (Config.disabledBiomes != null) {
+            Config.disabledBiomes.forEach(biome -> LOGGER.info("Biome Disabled: {}", biome.location()));
+        } else {
+            LOGGER.warn("Config.disabledBiomes is null, skipping biome disable logging");
+        }
 
         ModCompostables.register();
         ModFuels.register();

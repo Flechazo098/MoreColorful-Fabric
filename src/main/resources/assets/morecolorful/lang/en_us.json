@@ -415,5 +415,36 @@
   "stat.morecolorful.interact_with_xylophone": "Interactions with Xylophone",
   "stat.morecolorful.interact_with_vibraphone": "Interactions with Vibraphone",
   "stat.morecolorful.interact_with_synthesizer_keyboard": "Interactions with Synthesizer Keyboard",
-  "stat.morecolorful.interact_with_guzheng": "Interactions with Guzheng"
+  "stat.morecolorful.interact_with_guzheng": "Interactions with Guzheng",
+
+  "text.autoconfig.morecolorful.title": "MoreColorful Configuration",
+
+  "text.autoconfig.morecolorful.option.block": "Block Settings",
+  "text.autoconfig.morecolorful.option.block.@Tooltip": "Block Settings",
+  "text.autoconfig.morecolorful.option.block.thermalSystem": "Thermal System",
+  "text.autoconfig.morecolorful.option.block.thermalSystem.@Tooltip[0]": "Introduces a thermal system for blocks. Each block now has a temperature value that decays during propagation.",
+  "text.autoconfig.morecolorful.option.block.thermalSystem.@Tooltip[1]": "Ice and snow will only melt when the temperature is high enough, rather than depending on light level.",
+  "text.autoconfig.morecolorful.option.block.thermalSystem.@Tooltip[2]": "Heat conduction is affected by block thermal resistance.",
+
+  "text.autoconfig.morecolorful.option.block.blockTemperature": "Block Temperature",
+  "text.autoconfig.morecolorful.option.block.blockTemperature.@Tooltip[0]": "Define a suitable temperature value (range: 0-15) for blocks with specific block states, or you can override this mod's configuration. Block states are optional.",
+  "text.autoconfig.morecolorful.option.block.blockTemperature.@Tooltip[1]": "Format: \"<block_name>[block_state]=<value>\". Examples: \"minecraft:sea_lantern=0\", \"minecraft:redstone_lamp[lit=true]=12\"",
+
+  "text.autoconfig.morecolorful.option.block.thermalResistance": "Thermal Resistance",
+  "text.autoconfig.morecolorful.option.block.thermalResistance.@Tooltip[0]": "Define a suitable thermal resistance value (range: 1-15) for blocks with specific block states, default is 3. Or you can override this mod's configuration. Block states are optional.",
+  "text.autoconfig.morecolorful.option.block.thermalResistance.@Tooltip[1]": "Format: \"<block_name>[block_state]=<value>\". Examples: \"minecraft:stone=3\", \"minecraft:oak_fence[waterlogged=true]=4\"",
+
+  "text.autoconfig.morecolorful.option.loot": "Loot Settings",
+  "text.autoconfig.morecolorful.option.loot.@Tooltip": "Loot Settings",
+  "text.autoconfig.morecolorful.option.loot.archaeologyLoots": "Archaeology Loots",
+  "text.autoconfig.morecolorful.option.loot.archaeologyLoots.@Tootip": "Enable archaeology loot tables added by this mod",
+
+  "text.autoconfig.morecolorful.option.worldGen": "World Generation Settings",
+  "text.autoconfig.morecolorful.option.worldGen.@Tooltip": "World Generation Settings",
+  "text.autoconfig.morecolorful.option.worldGen.overworldRegionWeight": "Overworld Region Weight",
+  "text.autoconfig.morecolorful.option.worldGen.overworldRegionWeight.@Tooltip": "The weight of regions added by this mod in the overworld generation (higher values increase the chance of finding them)",
+  "text.autoconfig.morecolorful.option.worldGen.disabledBiomes": "Disabled Biomes",
+  "text.autoconfig.morecolorful.option.worldGen.disabledBiomes.@Tooltip": "A table of biome series disabled from world generation.",
+  "text.autoconfig.morecolorful.option.worldGen.allowAddingFeatures": "Allow Adding Features",
+  "text.autoconfig.morecolorful.option.worldGen.allowAddingFeatures.@Tooltip": "Allow this mod to add features to vanilla biomes"
 }
