@@ -44,7 +44,7 @@ public abstract class HumanoidModelMixin<T extends LivingEntity> extends Ageable
     @Unique
     private void moreColorful$setupKeyboardAnimation(T pLivingEntity) {
         if (pLivingEntity instanceof Player) {
-            PlayingScreenPacket data = pLivingEntity.getAttached(ModDataAttachments.PLAYING_SCREEN_DATA);
+            PlayingScreenPacket data = PlayingScreenPacket.getFrom(pLivingEntity);
             InstrumentsType pType = data.pType();
             BlockPos pos = data.pos();
             Entity pPlayer = pLivingEntity.level().getEntity(data.id());
@@ -77,7 +77,7 @@ public abstract class HumanoidModelMixin<T extends LivingEntity> extends Ageable
     @Unique
     private void moreColorful$setupGuzhengAnimation(T pLivingEntity) {
         if (pLivingEntity instanceof Player) {
-            PlayingScreenPacket data = pLivingEntity.getAttached(ModDataAttachments.PLAYING_SCREEN_DATA);
+            PlayingScreenPacket data = PlayingScreenPacket.getFrom(pLivingEntity);
             InstrumentsType pType = data.pType();
             BlockPos pos = data.pos();
             Entity pPlayer = pLivingEntity.level().getEntity(data.id());
