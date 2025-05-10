@@ -19,7 +19,7 @@ import org.jetbrains.annotations.NotNull;
 
 public record InstrumentPressingPacket(int id, boolean isPressing) implements CustomPacketPayload {
     public static final ResourceLocation TYPE_ID = ResourceLocation.fromNamespaceAndPath(MoreColorful.MODID, "playing_screen_closed");
-    public static final Type<InstrumentPressingPacket> TYPE = CustomPacketPayload.createType(TYPE_ID.toString());
+    public static final Type<InstrumentPressingPacket> TYPE = CustomPacketPayload.createType(MoreColorful.MODID + "playing_screen_closed");
 
     public static final StreamCodec<FriendlyByteBuf, InstrumentPressingPacket> STREAM_CODEC = StreamCodec.ofMember(
             (InstrumentPressingPacket packet, FriendlyByteBuf buf) -> {

@@ -20,7 +20,7 @@ import org.jetbrains.annotations.NotNull;
 public record InstrumentTickingPacket(float tick, int id) implements CustomPacketPayload {
 
     public static final ResourceLocation TYPE_ID = ResourceLocation.fromNamespaceAndPath(MoreColorful.MODID, "tick");
-    public static final Type<InstrumentTickingPacket> TYPE = CustomPacketPayload.createType(TYPE_ID.toString());
+    public static final Type<InstrumentTickingPacket> TYPE = CustomPacketPayload.createType(MoreColorful.MODID + "tick");
 
     public static final StreamCodec<FriendlyByteBuf, InstrumentTickingPacket> STREAM_CODEC = StreamCodec.ofMember(
             (InstrumentTickingPacket packet, FriendlyByteBuf buf) -> {
