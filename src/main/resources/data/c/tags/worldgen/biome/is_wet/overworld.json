@@ -1,0 +1,20 @@
+{
+  "values": [
+    {
+      "id": "morecolorful:dawn_redwood_swamp",
+      "required": false
+    },
+    {
+      "id": "morecolorful:marsh",
+      "required": false
+    },
+    {
+      "id": "morecolorful:willow_bayou",
+      "required": false
+    },
+    {
+      "id": "morecolorful:ice_marsh",
+      "required": false
+    }
+  ]
+}

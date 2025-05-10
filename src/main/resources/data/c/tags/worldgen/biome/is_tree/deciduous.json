@@ -1,0 +1,24 @@
+{
+  "values": [
+    {
+      "id": "morecolorful:autumn_birch_forest",
+      "required": false
+    },
+    {
+      "id": "morecolorful:golden_grove",
+      "required": false
+    },
+    {
+      "id": "morecolorful:maple_forest",
+      "required": false
+    },
+    {
+      "id": "morecolorful:sunset_valley",
+      "required": false
+    },
+    {
+      "id": "morecolorful:dawn_redwood_swamp",
+      "required": false
+    }
+  ]
+}
