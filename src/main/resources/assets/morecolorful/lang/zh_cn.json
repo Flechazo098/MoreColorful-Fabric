@@ -415,5 +415,37 @@
   "stat.morecolorful.interact_with_xylophone": "与木琴交互次数",
   "stat.morecolorful.interact_with_vibraphone": "与颤音琴交互次数",
   "stat.morecolorful.interact_with_synthesizer_keyboard": "与合成器键盘交互次数",
-  "stat.morecolorful.interact_with_guzheng": "与古筝交互次数"
+  "stat.morecolorful.interact_with_guzheng": "与古筝交互次数",
+
+
+  "text.autoconfig.morecolorful.title": "多彩世界配置",
+
+  "text.autoconfig.morecolorful.option.block": "方块相关配置",
+  "text.autoconfig.morecolorful.option.block.@Tooltip": "方块相关配置",
+  "text.autoconfig.morecolorful.option.block.thermalSystem": "热力系统",
+  "text.autoconfig.morecolorful.option.block.thermalSystem.@Tooltip[0]": "为方块引入了热力系统。现在每个方块都有一个温度值，温度会在传播过程中衰减。",
+  "text.autoconfig.morecolorful.option.block.thermalSystem.@Tooltip[1]": "冰雪只会在温度足够高时融化，而不是取决于光照等级。",
+  "text.autoconfig.morecolorful.option.block.thermalSystem.@Tooltip[2]": "热的传导会受到方块热阻的影响。",
+
+  "text.autoconfig.morecolorful.option.block.blockTemperature": "方块温度",
+  "text.autoconfig.morecolorful.option.block.blockTemperature.@Tooltip[0]": "为具有特定方块状态的方块定义一个合适的温度值（范围：0-15），或者你也可以覆盖本模组的配置。方块状态是可选的。",
+  "text.autoconfig.morecolorful.option.block.blockTemperature.@Tooltip[1]": "格式：\"<方块名称>[方块状态]=<值>\"。例子：\"minecraft:sea_lantern=0\"，\"minecraft:redstone_lamp[lit=true]=12\"",
+
+  "text.autoconfig.morecolorful.option.block.thermalResistance": "热阻值",
+  "text.autoconfig.morecolorful.option.block.thermalResistance.@Tooltip[0]": "为具有特定方块状态的方块定义一个合适的热阻值（范围：1-15），默认值是3。或者你也可以覆盖本模组的配置。方块状态是可选的。",
+  "text.autoconfig.morecolorful.option.block.thermalResistance.@Tooltip[1]": "格式：\"<方块名称>[方块状态]=<值>\"。例子：\"minecraft:stone=3\"，\"minecraft:oak_fence[waterlogged=true]=4\"",
+
+  "text.autoconfig.morecolorful.option.loot": "战利品相关配置",
+  "text.autoconfig.morecolorful.option.loot.@Tooltip": "战利品相关配置",
+  "text.autoconfig.morecolorful.option.loot.archaeologyLoots": "考古战利品",
+  "text.autoconfig.morecolorful.option.loot.archaeologyLoots.@Tootip": "在可疑方块中添加新的战利品，你可以通过考古获得它们。",
+
+  "text.autoconfig.morecolorful.option.worldGen": "世界生成相关配置",
+  "text.autoconfig.morecolorful.option.worldGen.@Tooltip": "世界生成相关配置",
+  "text.autoconfig.morecolorful.option.worldGen.overworldRegionWeight": "主世界区域权重",
+  "text.autoconfig.morecolorful.option.worldGen.overworldRegionWeight.@Tooltip": "更加多彩的世界生物群系区域在主世界中的权重。设置为0以禁用它。",
+  "text.autoconfig.morecolorful.option.worldGen.disabledBiomes": "禁用生物群系",
+  "text.autoconfig.morecolorful.option.worldGen.disabledBiomes.@Tooltip": "从世界生成中禁用的生物群系列表。",
+  "text.autoconfig.morecolorful.option.worldGen.allowAddingFeatures": "允许添加特性",
+  "text.autoconfig.morecolorful.option.worldGen.allowAddingFeatures.@Tooltip": "允许更加多彩的世界向原版生物群系添加新的特性。"
 }
