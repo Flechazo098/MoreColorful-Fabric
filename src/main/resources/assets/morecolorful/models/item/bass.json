@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
-  "loader": "neoforge:separate_transforms",
+  "loader": "morecolorful:separate_transforms",
   "base": {
     "parent": "morecolorful:item/bass_in_hand"
   },

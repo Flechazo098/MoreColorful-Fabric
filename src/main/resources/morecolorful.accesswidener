@@ -33,3 +33,7 @@ accessible method net/minecraft/server/level/ChunkMap getChunkQueueLevel (J)Ljav
 # For register
 accessible method net/minecraft/world/level/block/state/properties/BlockSetType register (Lnet/minecraft/world/level/block/state/properties/BlockSetType;)Lnet/minecraft/world/level/block/state/properties/BlockSetType;
 accessible method net/minecraft/world/level/block/state/properties/WoodType register (Lnet/minecraft/world/level/block/state/properties/WoodType;)Lnet/minecraft/world/level/block/state/properties/WoodType;
+
+# For modifying BlockModel.GSON
+accessible field net/minecraft/client/renderer/block/model/BlockModel GSON Lcom/google/gson/Gson;
+mutable field net/minecraft/client/renderer/block/model/BlockModel GSON Lcom/google/gson/Gson;

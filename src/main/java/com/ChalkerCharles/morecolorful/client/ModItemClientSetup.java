@@ -224,7 +224,6 @@ public class ModItemClientSetup {
 
     // 辅助方法，用于注册手部变换
     private static void registerHandTransform(Object item, HandTransformProvider provider) {
-        // 在Fabric中实现手部变换注册的逻辑
         // 这需要通过Mixin或其他方式实现
     }
 

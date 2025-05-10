@@ -33,7 +33,8 @@
     "map.MapColorMixin",
     "map.MapItemMixin",
     "map.MapItemSavedDataMixin",
-    "map.MapPatchMixin"
+    "map.MapPatchMixin",
+    "mojang.TransformationMixin"
   ],
   "client": [
     "DebugScreenOverlayMixin",
