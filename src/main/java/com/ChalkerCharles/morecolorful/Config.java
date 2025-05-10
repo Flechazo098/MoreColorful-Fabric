@@ -19,166 +19,145 @@ import net.minecraft.world.level.block.state.BlockState;
 import java.util.*;
 import java.util.stream.Collectors;
 
-@me.shedaniel.autoconfig.annotation.Config(name = "morecolorful")
-public class Config implements ConfigData {
-    private static final String prefix = MoreColorful.MODID + ".config.";
-    private static Config INSTANCE;
-    private static boolean initialized = false;
-
-    @ConfigEntry.Gui.CollapsibleObject
-    @ConfigEntry.Category("block")
-    public BlockConfig block = new BlockConfig();
-
-    @ConfigEntry.Gui.CollapsibleObject
-    @ConfigEntry.Category("loot")
-    public LootConfig loot = new LootConfig();
-
-    @ConfigEntry.Gui.CollapsibleObject
-    @ConfigEntry.Category("world")
-    public WorldConfig world = new WorldConfig();
+public class Config {
+    private static ModConfig INSTANCE;
 
     public static Object2IntMap<List<BlockState>> blockTemperature;
     public static Object2IntMap<List<BlockState>> thermalResistance;
     public static Set<ResourceKey<Biome>> disabledBiomes;
 
+    public static void init() {
+        AutoConfig.register(ModConfig.class, JanksonConfigSerializer::new);
+        INSTANCE = AutoConfig.getConfigHolder(ModConfig.class).getConfig();
+        loadConfig();
+    }
+
+    public static void loadConfig() {
+        blockTemperature = INSTANCE.blockTemperature.stream()
+                .map(StringParser::parseBlockEntry)
+                .filter(StringParser.BlockEntry::validate)
+                .collect(Collectors.toMap(StringParser.BlockEntry::getStates, entry -> Integer.parseInt(entry.value()), (i, j) -> j, Object2IntOpenHashMap::new));
+        
+        thermalResistance = INSTANCE.thermalResistance.stream()
+                .map(StringParser::parseBlockEntry)
+                .filter(StringParser.BlockEntry::validate)
+                .collect(Collectors.toMap(StringParser.BlockEntry::getStates, entry -> Integer.parseInt(entry.value()), (i, j) -> j, Object2IntOpenHashMap::new));
+        
+        disabledBiomes = INSTANCE.disabledBiomes.stream()
+                .map(biome -> ResourceKey.create(Registries.BIOME, ResourceLocation.parse(biome)))
+                .collect(Collectors.toSet());
+
+        checkBiomeModifier(INSTANCE.allowAddingFeatures, ModBiomeModifiers.ADD_FEATURE_MODIFIERS, "Add Feature");
+    }
+
+    public static boolean isThermalSystemEnabled() {
+        return INSTANCE.thermalSystem;
+    }
+
+    public static boolean isArchaeologyLootsEnabled() {
+        return INSTANCE.archaeologyLoots;
+    }
+
+    public static int getOverworldRegionWeight() {
+        return INSTANCE.overworldRegionWeight;
+    }
+
+    public static boolean isAllowAddingFeatures() {
+        return INSTANCE.allowAddingFeatures;
+    }
+
+    private static void checkBiomeModifier(boolean enabled, List<String> modifiers, String name) {
+        if (enabled) {
+            FileUtils.enableBiomeModifiers(modifiers);
+            MoreColorful.LOGGER.info("启用生物群系修改器: {}", name);
+        } else {
+            FileUtils.disableBiomeModifiers(modifiers);
+            MoreColorful.LOGGER.info("禁用生物群系修改器: {}", name);
+        }
+    }
+
+    @me.shedaniel.autoconfig.annotation.Config(name = MoreColorful.MODID)
+    public static class ModConfig implements ConfigData {
+        @ConfigEntry.Gui.CollapsibleObject
+        @ConfigEntry.Gui.Tooltip
+        @Comment("方块相关配置")
+        public BlockConfig block = new BlockConfig();
+
+        @ConfigEntry.Gui.CollapsibleObject
+        @ConfigEntry.Gui.Tooltip
+        @Comment("战利品相关配置")
+        public LootConfig loot = new LootConfig();
+
+        @ConfigEntry.Gui.CollapsibleObject
+        @ConfigEntry.Gui.Tooltip
+        @Comment("世界生成相关配置")
+        public WorldGenConfig worldGen = new WorldGenConfig();
+
+        @ConfigEntry.Gui.Excluded
+        public boolean thermalSystem = true;
+        
+        @ConfigEntry.Gui.Excluded
+        public List<String> blockTemperature = new ArrayList<>();
+        
+        @ConfigEntry.Gui.Excluded
+        public List<String> thermalResistance = new ArrayList<>();
+        
+        @ConfigEntry.Gui.Excluded
+        public boolean archaeologyLoots = true;
+        
+        @ConfigEntry.Gui.Excluded
+        public int overworldRegionWeight = 10;
+        
+        @ConfigEntry.Gui.Excluded
+        public List<String> disabledBiomes = new ArrayList<>();
+        
+        @ConfigEntry.Gui.Excluded
+        public boolean allowAddingFeatures = true;
+
+        @Override
+        public void validatePostLoad() {
+            this.thermalSystem = block.thermalSystem;
+            this.blockTemperature = block.blockTemperature;
+            this.thermalResistance = block.thermalResistance;
+            this.archaeologyLoots = loot.archaeologyLoots;
+            this.overworldRegionWeight = worldGen.overworldRegionWeight;
+            this.disabledBiomes = worldGen.disabledBiomes;
+            this.allowAddingFeatures = worldGen.allowAddingFeatures;
+        }
+    }
+
     public static class BlockConfig {
-        @Comment("Introduce thermal system for blocks. Now each block has a temperature level, and the temperature level will decrease while spreading.\nIce and snow only melt when the temperature is high enough, instead of depending on light level.\nThe conduction of heat will be affected by block's thermal resistance.")
+        @ConfigEntry.Gui.Tooltip(count = 3)
+        @Comment("为方块引入了热力系统。现在每个方块都有一个温度值，温度会在传播过程中衰减。\n冰雪只会在温度足够高时融化，而不是取决于光照等级。\n热的传导会受到方块热阻的影响。")
         public boolean thermalSystem = true;
 
-        @Comment("Define a proper temperature value (Range: 0-15) for blocks with certain block state. Or you can also override the More Colorful configs. Block states are optional.\nFormat: \"<block name>[block states]=<value>\". Example: \"minecraft:sea_lantern=0\", \"minecraft:redstone_lamp[lit=true]=12\"")
+        @ConfigEntry.Gui.Tooltip(count = 2)
+        @Comment("为具有特定方块状态的方块定义一个合适的温度值（范围：0-15），或者你也可以覆盖本模组的配置。方块状态是可选的。\n格式：\"<方块名称>[方块状态]=<值>\"。例子：\"minecraft:sea_lantern=0\"，\"minecraft:redstone_lamp[lit=true]=12\"")
         public List<String> blockTemperature = new ArrayList<>();
 
-        @Comment("Define a proper thermal resistance value (Range: 1-15) for blocks with certain block state, by default the value is 3. Or you can also override the More Colorful configs. Block states are optional.\nFormat: \"<block name>[block states]=<value>\". Example: \"minecraft:stone=3\", \"minecraft:oak_fence[waterlogged=true]=4\"")
+        @ConfigEntry.Gui.Tooltip(count = 2)
+        @Comment("为具有特定方块状态的方块定义一个合适的热阻值（范围：1-15），默认值是3。或者你也可以覆盖本模组的配置。方块状态是可选的。\n格式：\"<方块名称>[方块状态]=<值>\"。例子：\"minecraft:stone=3\"，\"minecraft:oak_fence[waterlogged=true]=4\"")
         public List<String> thermalResistance = new ArrayList<>();
     }
 
     public static class LootConfig {
-        @Comment("Add new loots in suspicious blocks, and you can get them by archaeology.")
+        @ConfigEntry.Gui.Tooltip
+        @Comment("在可疑方块中添加新的战利品，你可以通过考古获得它们。")
         public boolean archaeologyLoots = true;
     }
 
-    public static class WorldConfig {
-        @Comment("The weight of More Colorful Biome regions in the overworld. Set to 0 to disable it.")
+    public static class WorldGenConfig {
+        @ConfigEntry.Gui.Tooltip
+        @Comment("更加多彩的世界生物群系区域在主世界中的权重。设置为0以禁用它。")
         @ConfigEntry.BoundedDiscrete(min = 0, max = Integer.MAX_VALUE)
         public int overworldRegionWeight = 10;
 
-        @Comment("A list of biomes that are disabled from world generation.")
+        @ConfigEntry.Gui.Tooltip
+        @Comment("从世界生成中禁用的生物群系列表。")
         public List<String> disabledBiomes = new ArrayList<>();
 
-        @Comment("Allow More Colorful to add new features to vanilla biomes.")
+        @ConfigEntry.Gui.Tooltip
+        @Comment("允许更加多彩的世界向原版生物群系添加新的特性。")
         public boolean allowAddingFeatures = true;
-    }
-
-    public static void init() {
-        if (initialized) {
-            return;
-        }
-
-        try {
-            AutoConfig.register(Config.class, JanksonConfigSerializer::new);
-            INSTANCE = AutoConfig.getConfigHolder(Config.class).getConfig();
-
-            // 初始化静态字段
-            blockTemperature = new Object2IntOpenHashMap<>();
-            thermalResistance = new Object2IntOpenHashMap<>();
-            disabledBiomes = new HashSet<>();
-
-            // 解析配置
-            loadConfigValues();
-
-            initialized = true;
-            MoreColorful.LOGGER.info("Config initialized successfully");
-        } catch (Exception e) {
-            MoreColorful.LOGGER.error("Failed to initialize config", e);
-            // 提供默认值以防止空指针异常
-            if (blockTemperature == null) blockTemperature = new Object2IntOpenHashMap<>();
-            if (thermalResistance == null) thermalResistance = new Object2IntOpenHashMap<>();
-            if (disabledBiomes == null) disabledBiomes = new HashSet<>();
-        }
-    }
-
-//    private static void parseBlockTemperature() {
-//        blockTemperature = INSTANCE.block.blockTemperature.stream()
-//                .map(StringParser::parseBlockEntry)
-//                .filter(StringParser.BlockEntry::validate)
-//                .collect(Collectors.toMap(
-//                        StringParser.BlockEntry::getStates,
-//                        entry -> Integer.parseInt(entry.value()),
-//                        (i, j) -> j,
-//                        Object2IntOpenHashMap::new));
-//    }
-//
-//
-//    private static void parseThermalResistance() {
-//        thermalResistance = INSTANCE.block.thermalResistance.stream()
-//                .map(StringParser::parseBlockEntry)
-//                .filter(StringParser.BlockEntry::validate)
-//                .collect(Collectors.toMap(
-//                        StringParser.BlockEntry::getStates,
-//                        entry -> Integer.parseInt(entry.value()),
-//                        (i, j) -> j,
-//                        Object2IntOpenHashMap::new));
-//    }
-//
-//
-//    private static void parseDisabledBiomes() {
-//        disabledBiomes = INSTANCE.world.disabledBiomes.stream()
-//                .map(biome -> ResourceKey.create(Registries.BIOME, ResourceLocation.parse(biome)))
-//                .collect(Collectors.toSet());
-//    }
-
-
-    public static void loadConfigValues() {
-        if (INSTANCE == null) {
-            MoreColorful.LOGGER.error("Config instance is not initialized!");
-            return;
-        }
-        blockTemperature = INSTANCE.block.blockTemperature.stream()
-                .map(StringParser::parseBlockEntry)
-                .filter(StringParser.BlockEntry::validate)
-                .collect(Collectors.toMap(StringParser.BlockEntry::getStates, entry -> Integer.parseInt(entry.value()), (i, j) -> j, Object2IntOpenHashMap::new));
-
-        thermalResistance = INSTANCE.block.thermalResistance.stream()
-                .map(StringParser::parseBlockEntry)
-                .filter(StringParser.BlockEntry::validate)
-                .collect(Collectors.toMap(StringParser.BlockEntry::getStates, entry -> Integer.parseInt(entry.value()), (i, j) -> j, Object2IntOpenHashMap::new));
-
-        disabledBiomes = INSTANCE.world.disabledBiomes.stream()
-                .map(biome -> ResourceKey.create(Registries.BIOME, ResourceLocation.parse(biome)))
-                .collect(Collectors.toSet());
-
-        checkBiomeModifier(INSTANCE.world.allowAddingFeatures, ModBiomeModifiers.ADD_FEATURE_MODIFIERS, "Add Feature");
-    }
-
-    @SuppressWarnings("SameParameterValue")
-    private static void checkBiomeModifier(boolean enabled, List<String> modifiers, String name) {
-        if (enabled) {
-            FileUtils.enableBiomeModifiers(modifiers);
-            MoreColorful.LOGGER.info("Enabled Biome Modifiers: {}", name);
-        } else {
-            FileUtils.disableBiomeModifiers(modifiers);
-            MoreColorful.LOGGER.info("Disabled Biome Modifiers: {}", name);
-        }
-    }
-
-    public static boolean isThermalSystemEnabled() {
-        return INSTANCE.block.thermalSystem;
-    }
-
-    public static boolean isArchaeologyLootsEnabled() {
-        return INSTANCE.loot.archaeologyLoots;
-    }
-
-    public static int getOverworldRegionWeight() {
-        return INSTANCE.world.overworldRegionWeight;
-    }
-
-    public static boolean isAllowAddingFeatures() {
-        return INSTANCE.world.allowAddingFeatures;
-    }
-
-    @Override
-    public void validatePostLoad() {
-        loadConfigValues();
     }
 }
