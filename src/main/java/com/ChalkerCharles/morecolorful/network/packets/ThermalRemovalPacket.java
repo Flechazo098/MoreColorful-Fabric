@@ -18,7 +18,7 @@ import org.jetbrains.annotations.NotNull;
 public record ThermalRemovalPacket(ChunkPos pos) implements CustomPacketPayload {
 
     public static final ResourceLocation TYPE_ID = ResourceLocation.fromNamespaceAndPath(MoreColorful.MODID, "thermal_removal");
-    public static final Type<ThermalRemovalPacket> TYPE = CustomPacketPayload.createType(TYPE_ID.toString());
+    public static final Type<ThermalRemovalPacket> TYPE = CustomPacketPayload.createType(MoreColorful.MODID + "thermal_removal");
 
     public static final StreamCodec<FriendlyByteBuf, ThermalRemovalPacket> STREAM_CODEC = StreamCodec.of(
             (FriendlyByteBuf buf, ThermalRemovalPacket packet) -> {

@@ -21,7 +21,7 @@ import org.jetbrains.annotations.NotNull;
 public record NotePlayingPacket(InstrumentsType pType, BlockPos pos, int keyId, boolean isBlock) implements CustomPacketPayload {
 
     public static final ResourceLocation TYPE_ID = ResourceLocation.fromNamespaceAndPath(MoreColorful.MODID, "note_playing");
-    public static final Type<NotePlayingPacket> TYPE = CustomPacketPayload.createType(TYPE_ID.toString());
+    public static final Type<NotePlayingPacket> TYPE = CustomPacketPayload.createType(MoreColorful.MODID + "note_playing");
 
     public static final StreamCodec<FriendlyByteBuf, NotePlayingPacket> STREAM_CODEC = StreamCodec.ofMember(
             (NotePlayingPacket packet, FriendlyByteBuf buf) -> {

@@ -21,14 +21,24 @@ import org.jetbrains.annotations.NotNull;
 
 public record PlayingScreenPacket(InstrumentsType pType, BlockPos pos, int id, boolean isOpen) implements CustomPacketPayload {
 
+    private static final BlockPos DEFAULT_POS = new BlockPos(0, -2048, 0);
+    
+    // 添加默认实例，用于在数据为null时返回
+    public static final PlayingScreenPacket DEFAULT = new PlayingScreenPacket(InstrumentsType.HARP, DEFAULT_POS, 0, false);
+
     public PlayingScreenPacket() {
         this(InstrumentsType.HARP, DEFAULT_POS, 0, false);
     }
 
-    private static final BlockPos DEFAULT_POS = new BlockPos(0, -2048, 0);
+    // 添加安全获取方法
+    public static PlayingScreenPacket getFrom(Entity entity) {
+        if (entity == null) return DEFAULT;
+        PlayingScreenPacket data = entity.getAttached(ModDataAttachments.PLAYING_SCREEN_DATA);
+        return data != null ? data : DEFAULT;
+    }
 
     public static final ResourceLocation TYPE_ID = ResourceLocation.fromNamespaceAndPath(MoreColorful.MODID, "playing_screen_event");
-    public static final Type<PlayingScreenPacket> TYPE = CustomPacketPayload.createType(TYPE_ID.toString());
+    public static final Type<PlayingScreenPacket> TYPE = CustomPacketPayload.createType(MoreColorful.MODID + "playing_screen_event");
 
     public static final StreamCodec<FriendlyByteBuf, PlayingScreenPacket> STREAM_CODEC = StreamCodec.ofMember(
             (PlayingScreenPacket packet, FriendlyByteBuf buf) -> {

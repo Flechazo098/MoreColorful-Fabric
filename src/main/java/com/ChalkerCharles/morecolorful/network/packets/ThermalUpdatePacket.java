@@ -25,7 +25,7 @@ import java.util.Iterator;
 
 public record ThermalUpdatePacket(int x, int z, ThermalUpdateData data, boolean sent) implements CustomPacketPayload {
     public static final ResourceLocation TYPE_ID = ResourceLocation.fromNamespaceAndPath(MoreColorful.MODID, "thermal_update");
-    public static final Type<ThermalUpdatePacket> TYPE = CustomPacketPayload.createType(TYPE_ID.toString());
+    public static final Type<ThermalUpdatePacket> TYPE = CustomPacketPayload.createType(MoreColorful.MODID + "thermal_update");
 
     public static final StreamCodec<FriendlyByteBuf, ThermalUpdatePacket> STREAM_CODEC = StreamCodec.ofMember(
             ThermalUpdatePacket::write, ThermalUpdatePacket::new

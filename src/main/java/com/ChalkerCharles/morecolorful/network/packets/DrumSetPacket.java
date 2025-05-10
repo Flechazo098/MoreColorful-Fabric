@@ -20,7 +20,7 @@ import net.minecraft.world.entity.player.Player;
 public class DrumSetPacket implements CustomPacketPayload {
     private static final BlockPos DEFAULT_POS = new BlockPos(0, -2048, 0);
     public static final ResourceLocation TYPE_ID = ResourceLocation.fromNamespaceAndPath(MoreColorful.MODID, "drum_set_event");
-    public static final Type<DrumSetPacket> TYPE = CustomPacketPayload.createType(TYPE_ID.toString());
+    public static final Type<DrumSetPacket> TYPE = CustomPacketPayload.createType(MoreColorful.MODID + "drum_set_event");
     public static final StreamCodec<FriendlyByteBuf, DrumSetPacket> STREAM_CODEC = StreamCodec.ofMember(DrumSetPacket::write, DrumSetPacket::read);
 
     private final boolean isPressingBassDrum;

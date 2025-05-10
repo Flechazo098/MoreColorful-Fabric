@@ -8,6 +8,7 @@ import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.network.FriendlyByteBuf;
 
 public class NetworkingRegistry {
+
     private void registerPacketTypes () {
         PayloadTypeRegistry.playC2S().register(NotePlayingPacket.TYPE, NotePlayingPacket.STREAM_CODEC);
         PayloadTypeRegistry.playC2S().register(PlayingScreenPacket.TYPE, PlayingScreenPacket.STREAM_CODEC);
@@ -126,8 +127,9 @@ public class NetworkingRegistry {
                 });
     }
 
-    public void register () {
+    public void register() {
         registerPacketTypes();
         registerClientReceivers();
+        registerServerReceivers();
     }
 }
