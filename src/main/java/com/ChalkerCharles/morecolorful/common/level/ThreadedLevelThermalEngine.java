@@ -161,6 +161,7 @@ public class ThreadedLevelThermalEngine extends LevelThermalEngine implements Au
 
     public CompletableFuture<ChunkAccess> thermalChunk(ChunkAccess pChunk, boolean pIsThermalized) {
         ChunkPos chunkpos = pChunk.getPos();
+        // 安全地设置thermal状态
         ChunkData.setThermalCorrect(pChunk, false);
         this.addTask(chunkpos.x, chunkpos.z, ThreadedLevelThermalEngine.TaskType.PRE_UPDATE, Util.name(() -> {
             if (!pIsThermalized) {
